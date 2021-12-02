@@ -1,4 +1,5 @@
 inputFile="../../Data/Day 1/input.txt"
+exampleFile="../../Data/Day 1/ExampleFile.txt"
 
 function GetIncrease() {
     local prev=10000
