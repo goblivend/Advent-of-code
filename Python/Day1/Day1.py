@@ -1,4 +1,4 @@
-
+inputFile = "../../Data/Day 1/input.txt"
 
 def GetIncrease(fileName) :
     file = open(fileName, 'r')
@@ -12,7 +12,7 @@ def GetIncrease(fileName) :
         prev = curr
     return nbincrease
 
-print(GetIncrease("../../Data/Day 1/input.txt"))
+print(GetIncrease(inputFile))
 
 
 
@@ -36,4 +36,4 @@ def GetGeneralIncreast(fileName) :
     return nbincrease
 
 
-print(GetGeneralIncreast("../../Data/Day 1/input.txt"))
+print(GetGeneralIncreast(inputFile))
