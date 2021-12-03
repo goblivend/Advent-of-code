@@ -1,5 +1,5 @@
-inputFile = "../../Data/Day2/input.txt"
-exampleFile  = "../../Data/Day2/ExampleFile.txt"
+inputFile = "../../Data/Day02/input.txt"
+exampleFile  = "../../Data/Day02/ExampleFile.txt"
 
 def GetIncrease(fileName) :
     file = open(fileName, 'r')
