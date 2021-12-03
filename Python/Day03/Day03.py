@@ -1,6 +1,6 @@
 inputFile = "../../Data/Day03/input.txt"
 exampleFile  = "../../Data/Day03/ExampleFile.txt"
-
+#ls ../../Data/Day03/
 def toDecimal(l):
     length = len(l)
     gamma = 0
@@ -12,155 +12,78 @@ def toDecimal(l):
 
     return (gamma, notGamma)
 
-def GetGamma(fileName) :
+def GetSumlist(data) :
+    nblines =len(data)
+    bitperline =len(data[0])
+    sumlist = [0]*bitperline
+
+    for i in range(bitperline) :
+        for j in range(nblines) :
+            sumlist[i] += data[j][i]
+
+    return sumlist
+
+def GetData(fileName) :
     file = open(fileName, 'r')
     lines = file.readlines()
-    nblines = len(lines)
+    file.close()
+
     lenperline = len(lines[0].strip())
-    sumlist = [0]*lenperline
-
-    for line in lines:
-        line = line.strip()
-        for i in range(lenperline) :
-
-            sumlist[i] += int(line[i])
-
-    for i in range(lenperline) :
-        sumlist[i] = 1 if sumlist[i] > nblines//2 else 0
-
-    gamma, epsilon = toDecimal(sumlist)
-
-    print("Gamma :" + str(gamma))
-    print("Epsilon :" + str(epsilon))
-    print(epsilon * gamma)
-    return (gamma, epsilon)
-
-
-print(GetGamma(inputFile))
-
-
-
-def GetOxylists(data, sumlist) :
-    nblines = len(data)
-    length = len(data[0])
-    okfound = False
-    prveok = []
-    idxok = []
-    notOkfound = False
-    notidxok = []
-    prenotok = []
-
-    for i in range(length) :
-        prveok = idxok
-        prenotok = notidxok
-
-        idxok = []
-        notidxok = []
-
-        sumlist[i] = 1 if sumlist[i]+1 > nblines//2 else 0
-        for currline in range(nblines) :
-            if data[currline][i] != sumlist[i] :
-                if not notOkfound and (currline, data[currline]) in prenotok:
-                    notidxok.append((currline, data[currline]))
-            else :
-                if not okfound and (currline, data[currline]) in prveok:
-                    idxok.append((currline, data[currline]))
-
-        if len(idxok) == 1 :
-            okfound = True
-            idxok = prveok
-        if len(notidxok) == 1 :
-            notOkfound = True
-            notidxok = prenotok
-
-    return (idxok, notidxok)
-
-def GetOxylist(data, sumlist) :
-    nblines = len(data)
-    length = len(data[0])
-    okfound = False
-    prevok = data
-
-    idxok = []
-
-
-    for i in range(length) :
-        idxok = []
-
-
-        sumlist[i] = 1 if sumlist[i]+1 > nblines//2 else 0
-        print(sumlist[i])
-        for currline in range(nblines) :
-            if data[currline][i] == sumlist[i] :
-#                print("First criteria ok")
-                if not okfound :
-#                    print("Second criteria")
-                    if data[currline] in prevok:
-#                        print("Trird criteria")
-                        idxok.append(data[currline])
-
-        if len(idxok) == 1 :
-            return idxok[0]
-        print(idxok)
-        prevok = idxok
-    return idxok[0]
-
-def GetDioxylist(data, sumlist) :
-    nblines = len(data)
-    length = len(data[0])
-    okfound = False
-    prevok = data
-    idxok = []
-
-    for i in range(length) :
-        idxok = []
-
-
-        print(sumlist[i])
-        for currline in range(nblines) :
-            if data[currline][i] != sumlist[i] :
-#                print("First criteria ok")
-                if not okfound :
-#                    print("Second criteria")
-                    if data[currline] in prevok:
-#                        print("Trird criteria")
-                        idxok.append(data[currline])
-
-        if len(idxok) == 1 :
-            return idxok[0]
-        print(idxok)
-        prevok = idxok
-    return idxok[0]
-
-
-def GetOxygen(fileName) :
-    file = open(fileName, 'r')
-    lines = file.readlines()
-    nblines = len(lines)
-    lenperline = len(lines[0].strip())
-    sumlist = [0]*lenperline
-
     datalist = []
-
     for line in lines:
         line = line.strip()
         datalist.append([])
         for i in range(lenperline) :
             datalist[-1].append(int(line[i]))
-            sumlist[i] += int(line[i])
+
+    return datalist
+
+def SetSumlistMax(sumlist, nblines) :
+    for i in range(len(sumlist)) :
+        sumlist[i] = 1 if sumlist[i] >= nblines/2 else 0
+    return sumlist
+
+def SetSumlistMin(sumlist, nblines) :
+    for i in range(len(sumlist)) :
+        sumlist[i] = 1 if sumlist[i] < nblines/2 else 0
+    return sumlist
+
+def GetGamma(fileName) :
+    datalist = GetData(fileName)
+    sumlist = SetSumlistMax(GetSumlist(datalist), len(datalist))
+    gamma, epsilon = toDecimal(sumlist)
+    print("Gamma :" + str(gamma) + "\n" + "Epsilon :" + str(epsilon) + "\n" + str(epsilon * gamma) + "\n")
+
+GetGamma(inputFile)
+
+def Getlist(data, nblines, SetSum) :
+    prevok = data
+    idxok = []
+
+    for i in range(len(data[0])) :
+        sumlist = SetSum(GetSumlist(prevok), len(prevok))
+        idxok = []
+        for currline in range(nblines) :
+            if data[currline][i] == sumlist[i] and data[currline] in prevok:
+                idxok.append(data[currline])
+
+        if len(idxok) == 1 :
+            return idxok[0]
+        prevok = idxok
+    return idxok[0]
 
 
-    oxygen = GetOxylist(datalist, sumlist)
-    dioxygen = GetDioxylist(datalist, sumlist)
-    #oxygen, dioxygen = GetOxylists(datalist, sumlist)
+def GetOxygen(fileName) :
+    datalist = GetData(fileName)  
 
-
-    print(oxygen, dioxygen)
+    oxygen = Getlist(datalist, len(datalist), SetSumlistMax)
+    scrubber = Getlist(datalist, len(datalist), SetSumlistMin)
 
     oxy = toDecimal(oxygen)[0]
-    dioxy = toDecimal(dioxygen)[0]
+    scru = toDecimal(scrubber)[0]
 
-    return (oxy, dioxy)
+    print("Oxygen :" + str(oxy) + "\n" + "Scrubber :" + str(scru) + "\n" + str(oxy * scru))
 
 
-print(GetOxygen(exampleFile))
+
+GetOxygen(inputFile)
