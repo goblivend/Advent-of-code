@@ -5,11 +5,9 @@ def toDecimal(l):
     length = len(l)
     gamma = 0
     notGamma = 0
-
     for i in range(length) :
         gamma += l[i] * 2**(length - i -1)
         notGamma +=(not l[i]) * 2**(length - i - 1)
-
     return (gamma, notGamma)
 
 def GetSumlist(data) :
@@ -38,52 +36,37 @@ def GetData(fileName) :
 
     return datalist
 
-def SetSumlistMax(sumlist, nblines) :
+def SetSumlist(sumlist, nblines, isup) :
     for i in range(len(sumlist)) :
-        sumlist[i] = 1 if sumlist[i] >= nblines/2 else 0
-    return sumlist
-
-def SetSumlistMin(sumlist, nblines) :
-    for i in range(len(sumlist)) :
-        sumlist[i] = 1 if sumlist[i] < nblines/2 else 0
+        sumlist[i] = (isup and sumlist[i] >= nblines/2) or (not isup and sumlist[i] < nblines/2)
     return sumlist
 
 def GetGamma(fileName) :
     datalist = GetData(fileName)
-    sumlist = SetSumlistMax(GetSumlist(datalist), len(datalist))
+    sumlist = SetSumlist(GetSumlist(datalist), len(datalist), True)
     gamma, epsilon = toDecimal(sumlist)
     print("Gamma :" + str(gamma) + "\n" + "Epsilon :" + str(epsilon) + "\n" + str(epsilon * gamma) + "\n")
 
 GetGamma(inputFile)
 
-def Getlist(data, nblines, SetSum) :
+def Getlist(data, nblines, Bound) :
     prevok = data
-    idxok = []
-
+    listok = []
     for i in range(len(data[0])) :
-        sumlist = SetSum(GetSumlist(prevok), len(prevok))
-        idxok = []
+        sumlist = SetSumlist(GetSumlist(prevok), len(prevok), Bound)
+        listok = []
         for currline in range(nblines) :
             if data[currline][i] == sumlist[i] and data[currline] in prevok:
-                idxok.append(data[currline])
-
-        if len(idxok) == 1 :
-            return idxok[0]
-        prevok = idxok
-    return idxok[0]
-
+                listok.append(data[currline])
+        if len(listok) == 1 :
+            return listok[0]
+        prevok = listok
+    return listok[0]
 
 def GetOxygen(fileName) :
     datalist = GetData(fileName)  
-
-    oxygen = Getlist(datalist, len(datalist), SetSumlistMax)
-    scrubber = Getlist(datalist, len(datalist), SetSumlistMin)
-
-    oxy = toDecimal(oxygen)[0]
-    scru = toDecimal(scrubber)[0]
-
-    print("Oxygen :" + str(oxy) + "\n" + "Scrubber :" + str(scru) + "\n" + str(oxy * scru))
-
-
+    oxygen = toDecimal(Getlist(datalist, len(datalist), True))[0]
+    scrubber = toDecimal(Getlist(datalist, len(datalist), False))[0]
+    print("Oxygen :" + str(oxygen) + "\n" + "Scrubber :" + str(scrubber) + "\n" + str(oxygen * scrubber))
 
 GetOxygen(inputFile)
