@@ -34,26 +34,28 @@ Trying them first in python to improve a bit an understand the problem, the if I
 ## Feedback
 
 ### Day 1:
-    Was pretty easy to find a solution, not quite happy about the variables set with high values to avoid counting them but it works anyway...
-    The solution with bash allowed me to learn how to read a file in bash aand to understand comparisons between integers
+Was pretty easy to find a solution, not quite happy about the variables set with high values to avoid counting them but it works anyway...
+
+The solution with bash allowed me to learn how to read a file in bash aand to understand comparisons between integers
 
 
 ### Day 2:
-    Python solution is quite long and I could simplify it as I did in Bash but... otherwise nothing special, wasn't too difficult to find the answer and I'm quite happy of the challenges for now
+Python solution is quite long and I could simplify it as I did in Bash but... otherwise nothing special, wasn't too difficult to find the answer and I'm quite happy of the challenges for now
 
-    Here I (re) discovered switch in bash and found that using integer mixed with strings is quite messy (there is certainly a way to write a nicer code, but I don't know how for now). I also found a quite nice way to online error using boleans and understood a bit better lists in bash
+Here I (re) discovered switch in bash and found that using integer mixed with strings is quite messy (there is certainly a way to write a nicer code, but I don't know how for now). I also found a quite nice way to online error using boleans and understood a bit better lists in bash
 
 
 ### Day 3:
-    The challenge was straight forward to go, but the step were quite messy at first, managed to do something clean anyway, even though it is quite long
+The challenge was straight forward to go, but the step were quite messy at first, managed to do something clean anyway, even though it is quite long
 
-    The Bash solution might be coming next week (week of the 06/12)
+The Bash solution might be coming next week (week of the 06/12)
 
 
 ### Day 4:
-    The solution was straight forward, had some issues getting the board as int tho but it works now
+The solution was straight forward, had some issues getting the board as int tho but it works now
     Perhaps I've been using list comprehension where I shouldn't (just to make short code) but now I understand how it works
-    The Bash solution might be coming next week (week of the 06/12)
+
+The Bash solution might be coming next week (week of the 06/12)
 
 
 (thx to Sheinxy for the README template)
