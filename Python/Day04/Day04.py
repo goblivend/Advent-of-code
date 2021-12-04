@@ -44,8 +44,6 @@ def isDone(board) :
 
 def addnumber(boards, number) :
     boardnb = []
-
-
     for i in range(len(boards)) :
         if len(boards[i]) == 0 :
             continue
@@ -53,8 +51,10 @@ def addnumber(boards, number) :
             for j in range(len(line)) :
                 if line[j] == number :
                     line[j] = -1
-        if  isDone(boards[i]) :
-            boardnb.append(i)
+                    if  isDone(boards[i]) :
+                        boardnb.append(i)
+                    break
+
     return boardnb
 
 def BingoWin(fileName) :
