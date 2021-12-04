@@ -6,7 +6,7 @@ Trying them first in python to improve a bit an understand the problem, the if I
 - [x] Day 1
 - [x] Day 2
 - [x] Day 3
-- [ ] Day 4
+- [x] Day 4
 - [ ] Day 5
 - [ ] Day 6
 - [ ] Day 7
@@ -34,11 +34,26 @@ Trying them first in python to improve a bit an understand the problem, the if I
 ## Feedback
 
 #### Day 1:
-I am quite proud of my solution, I'm obviously just trying to show off here but it's fun. When I look back at my first solution last year, I feel like I've progressed quite a lot!
+    Was pretty easy to find a solution, not quite happy about the variables set with high values to avoid counting them but it works anyway...
+    The solution with bash allowed me to learn how to read a file in bash aand to understand comparisons between integers
+
 
 #### Day 2:
-This one was easy, I am kind of disappointed that I couldn't do showy one-liners for the move function (I mean, I could with inline if-else I guess)
+    Python solution is quite long and I could simplify it as I did in Bash but... otherwise nothing special, wasn't too difficult to find the answer and I'm quite happy of the challenges for now
+
+    Here I (re) discovered switch in bash and found that using integer mixed with strings is quite messy (there is certainly a way to write a nicer code, but I don't know how for now). I also found a quite nice way to online error using boleans and understood a bit better lists in bash
+
 
 #### Day 3:
-Okay this one was kind of a mess, the first part is pretty okay (I probably could have done something more optimised, but it works just fine), however I am totally unsatisfied by my second part. I think there has to be a way in Haskell to do what I want
+    The challenge was straight forward to go, but the step were quite messy at first, managed to do something clean anyway, even though it is quite long
 
+    The Bash solution might be coming next week (week of the 06/12)
+
+
+#### Day 4:
+    The solution was straight forward, had some issues getting the board as int tho but it works now
+    Perhaps I've been using list comprehension where I shouldn't (just to make short code) but now I understand how it works
+    The Bash solution might be coming next week (week of the 06/12)
+
+
+(thx to Sheinxy for the README template)
