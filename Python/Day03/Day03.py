@@ -64,7 +64,7 @@ def Getlist(data, nblines, Bound) :
     return listok[0]
 
 def GetOxygen(fileName) :
-    datalist = GetData(fileName)  
+    datalist = GetData(fileName)
     oxygen = toDecimal(Getlist(datalist, len(datalist), True))[0]
     scrubber = toDecimal(Getlist(datalist, len(datalist), False))[0]
     print("Oxygen :" + str(oxygen) + "\n" + "Scrubber :" + str(scrubber) + "\n" + str(oxygen * scrubber))
