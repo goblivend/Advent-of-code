@@ -7,7 +7,7 @@ Trying them first in python to improve a bit an understand the problem, the if I
 - [x] Day 2
 - [x] Day 3
 - [x] Day 4
-- [ ] Day 5
+- [x] Day 5
 - [ ] Day 6
 - [ ] Day 7
 - [ ] Day 8
@@ -54,6 +54,11 @@ The Bash solution might be coming next week (week of the 06/12)
 ### Day 4:
 The solution was straight forward, had some issues getting the board as int tho but it works now
     Perhaps I've been using list comprehension where I shouldn't (just to make short code) but now I understand how it works
+
+The Bash solution might be coming next week (week of the 06/12)
+
+### Day 4:
+I found this one easier than day 4, except some difficulties to write all the diagonals, it was pretty simple, I quite happy I understood list comprehension yesterday, allowed me to use much less lines
 
 The Bash solution might be coming next week (week of the 06/12)
 
