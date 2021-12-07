@@ -65,7 +65,12 @@ The Bash solution might be coming next week (week of the 06/12)
 ### Day06:
 This one was very easy once we understand how to do it, I really liked the fact that they lead us to one way of doing it and then for the second, it's our turn to find how to improve it in order not to spend hours waiting for the result. I think it's a very good skill to have and I'm pretty happy that we had to do it
 
-The Bash solution might be coming next week (week of the 06/12)
+The Bash solution might be coming this week (week of the 06/12)
+
+### Day07:
+As for the last ones, this was pretty straight forward, not too complicated. This puzzle allowed me to remember the formula of sum, which was pretty nice and way faster than calculating it by hand every time.
+
+This puzzle will allow me to try functions as parameters in bash, might be coming this week (week of the 06/12)
 
 
 
