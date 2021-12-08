@@ -1,6 +1,6 @@
 inputFile = "../../Data/Day03/input.txt"
 exampleFile  = "../../Data/Day03/ExampleFile.txt"
-#ls ../../Data/Day03/
+
 def toDecimal(l):
     length = len(l)
     gamma = 0
@@ -14,18 +14,14 @@ def GetSumlist(data) :
     nblines =len(data)
     bitperline =len(data[0])
     sumlist = [0]*bitperline
-
     for i in range(bitperline) :
         for j in range(nblines) :
             sumlist[i] += data[j][i]
-
     return sumlist
 
 def GetData(fileName) :
-    file = open(fileName, 'r')
-    lines = file.readlines()
-    file.close()
-
+    with open(fileName, 'r') as file :
+        lines = file.readlines()
     lenperline = len(lines[0].strip())
     datalist = []
     for line in lines:
@@ -33,7 +29,6 @@ def GetData(fileName) :
         datalist.append([])
         for i in range(lenperline) :
             datalist[-1].append(int(line[i]))
-
     return datalist
 
 def SetSumlist(sumlist, nblines, isup) :

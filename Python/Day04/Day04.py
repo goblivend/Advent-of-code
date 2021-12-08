@@ -2,20 +2,19 @@ inputFile = "../../Data/Day04/input.txt"
 exampleFile  = "../../Data/Day04/ExampleFile.txt"
 
 def GetData(fileName) :
-    file = open(fileName, 'r')
-    line = file.readline()
-    line.strip()
-    numbers = [int(x) for x in line.split(',') if x.isdigit()]
-    boards = []
-    line = file.readline()
-    while (line) :
-        boards.append([])
-        for i in range(5) :
-            line = file.readline()
-            line.strip()
-            boards[-1].append([int(x) for x in line.split() if x.isdigit()])
+    with open(fileName, 'r') as file :
         line = file.readline()
-    file.close()
+        line.strip()
+        numbers = [int(x) for x in line.split(',') if x.isdigit()]
+        boards = []
+        line = file.readline()
+        while (line) :
+            boards.append([])
+            for i in range(5) :
+                line = file.readline()
+                line.strip()
+                boards[-1].append([int(x) for x in line.split() if x.isdigit()])
+            line = file.readline()
     return numbers, boards
 
 def GetSum(boards, boardnb) :

@@ -1,11 +1,9 @@
-inputFile = "../../Data/Day 1/input.txt"
-exampleFile  = "../../Data/Day2/ExampleFile.txt"
-
-
+inputFile = "../../Data/Day01/input.txt"
+exampleFile  = "../../Data/Day01/ExampleFile.txt"
 
 def GetIncrease(fileName) :
-    file = open(fileName, 'r')
-    lines = file.readlines()
+    with open(fileName, 'r') as file :
+        lines = file.readlines()
     prev = 100000
     nbincrease = 0
     for line in lines:
@@ -17,26 +15,17 @@ def GetIncrease(fileName) :
 
 print(GetIncrease(inputFile))
 
-
-
-
 def GetGeneralIncreast(fileName) :
-    file = open(fileName, 'r')
-    lines = file.readlines()
-    curr_1 = 10000
-    curr_2 = 10000
-    curr_3 = 10000
-
+    with open(fileName, 'r') as file :
+        lines = file.readlines()
+    curr_1, curr_2, curr_3 = 10000, 10000, 10000
 
     nbincrease = 0
     for line in lines:
         curr = int(line)
         if curr_1 + curr_2 + curr_3 < curr + curr_1 + curr_2:
             nbincrease+=1
-        curr_3 = curr_2
-        curr_2 = curr_1
-        curr_1 = curr
+        curr_1, curr_2, curr_3 = curr, curr_1, curr_2
     return nbincrease
-
 
 print(GetGeneralIncreast(inputFile))

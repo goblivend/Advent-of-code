@@ -72,6 +72,11 @@ As for the last ones, this was pretty straight forward, not too complicated. Thi
 
 This puzzle will allow me to try functions as parameters in bash, might be coming this week (week of the 06/12)
 
+### Day08:
+The first puzzle of today was pretty easy since we just had to look at the length of each digit and check. For the second one, it was another story tho... I'm really proud to have finished it. 
+
+This puzzle will allow me to try functions as parameters in bash, might be coming this week (week of the 06/12)
+
 
 
 (thx to Sheinxy for the README template)

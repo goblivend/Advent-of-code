@@ -2,9 +2,8 @@ inputFile = "../../Data/Day05/input.txt"
 exampleFile  = "../../Data/Day05/ExampleFile.txt"
 
 def GetData(fileName) :
-    file = open(fileName, 'r')
-    data = [(int(elt[0]), int(elt[1]), int(elt[2]), int(elt[3])) for elt in [line.replace('\n', '').replace(' -> ', ',').split(",") for line in file.readlines()]]
-    file.close()
+    with open(fileName, 'r') as file :
+        data = [(int(elt[0]), int(elt[1]), int(elt[2]), int(elt[3])) for elt in [line.replace('\n', '').replace(' -> ', ',').split(",") for line in file.readlines()]]
     xmax, ymax = 0, 0
     [(xmax:=max(xmax, line[0], line[2]), ymax:=max(ymax, line[1], line[3])) for line in data]
     return data, [[0]*(xmax+1) for _ in range(ymax+1)]

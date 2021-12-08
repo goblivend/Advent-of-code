@@ -1,15 +1,11 @@
+from typing import List
+
 inputFile = "../../Data/Day06/input.txt"
 exampleFile  = "../../Data/Day06/ExampleFile.txt"
 
-inputData = 1,4,1,1,1,1,1,1,1,4,3,1,1,3,5,1,5,3,2,1,1,2,3,1,1,5,3,1,5,1,1,2,1,2,1,1,3,1,5,1,1,1,3,1,1,1,1,1,1,4,5,3,1,1,1,1,1,1,2,1,1,1,1,4,4,4,1,1,1,1,5,1,2,4,1,1,4,1,2,1,1,1,2,1,5,1,1,1,3,4,1,1,1,3,2,1,1,1,4,1,1,1,5,1,1,4,1,1,2,1,4,1,1,1,3,1,1,1,1,1,3,1,3,1,1,2,1,4,1,1,1,1,3,1,1,1,1,1,1,2,1,3,1,1,1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,5,1,1,1,2,2,1,1,3,5,1,1,1,1,3,1,3,3,1,1,1,1,3,5,2,1,1,1,1,5,1,1,1,1,1,1,1,2,1,2,1,1,1,2,1,1,1,1,1,2,1,1,1,1,1,5,1,4,3,3,1,3,4,1,1,1,1,1,1,1,1,1,1,4,3,5,1,1,1,1,1,1,1,1,1,1,1,1,1,5,2,1,4,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,2,1,4,4,1,1,1,1,1,1,1,5,1,1,2,5,1,1,4,1,3,1,1
-exampleData = 3,4,3,1,2
-
 def GetData(fileName) :
-    file = open(fileName, 'r')
-    file.readline()
-    data = file.readline().replace('\n', '').split(",")
-    file.close()
-
+    with open(fileName, 'r') as file :
+        data = [int(elt) for elt in file.readline().replace('\n', '').split(",")]
     return CleanData(data)
 
 def CleanData(data) :
@@ -26,12 +22,10 @@ def datalen(data) :
     [nb:=(nb + data[i]) for i in range(len(data))]
     return nb
 
-def puzzle1(fileName, time) :
-    return puzzle1(GetData(fileName), time)
-
-def puzzle1(data, time) :
+def puzzle(fileName : str, time : int) :
+    data = GetData(fileName)
     for _ in range(time) :
         data = OneDay(data)
     print(datalen(data))
 
-puzzle1(inputData, 256)
+puzzle(inputFile, 256)
