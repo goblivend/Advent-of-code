@@ -73,10 +73,14 @@ As for the last ones, this was pretty straight forward, not too complicated. Thi
 This puzzle will allow me to try functions as parameters in bash, might be coming this week (week of the 06/12)
 
 ### Day08:
-The first puzzle of today was pretty easy since we just had to look at the length of each digit and check. For the second one, it was another story tho... I'm really proud to have finished it. 
+The first puzzle of today was pretty easy since we just had to look at the length of each digit and check. For the second one, it was another story tho... I'm really proud to have finished it.
 
 This puzzle will allow me to try functions as parameters in bash, might be coming this week (week of the 06/12)
 
+### Day09:
+At first this puzzle seemed complicated, I thought it would be some sort of path finder but in fact it wasn't that difficult (except when you're stuck on such a small mistake that it passes the examples but not the input test)
+
+The Bash solutions might not be coming this week but later when I'll have time
 
 
 (thx to Sheinxy for the README template)
