@@ -82,5 +82,10 @@ At first this puzzle seemed complicated, I thought it would be some sort of path
 
 The Bash solutions might not be coming this week but later when I'll have time
 
+### Day10:
+This puzzle was not very difficult and it was pretty interesting to discover the use of dictionary in python, I found list comprehension useful for one function today, even though I didn't see it at first, I'm happy that I found it.
+
+The Bash solutions might not be coming this week but later when I'll have time
+
 
 (thx to Sheinxy for the README template)
