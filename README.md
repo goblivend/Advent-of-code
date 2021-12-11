@@ -87,5 +87,10 @@ This puzzle was not very difficult and it was pretty interesting to discover the
 
 The Bash solutions might not be coming this week but later when I'll have time
 
+### Day11:
+This puzzle was nice, even without a lot of sleep I managed to do it. (though I can't seem to write the readme)
+
+The Bash solutions might not be coming this week but later when I'll have time
+
 
 (thx to Sheinxy for the README template)
