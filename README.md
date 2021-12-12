@@ -92,5 +92,7 @@ This puzzle was nice, even without a lot of sleep I managed to do it. (though I 
 
 The Bash solutions might not be coming this week but later when I'll have time
 
+### Day12:
+Once again, a very nice puzzle, mangaged to do both cases in one function (parameters depending) and quite happy to have used graphs for this one, allowed me to revise for the finals
 
 (thx to Sheinxy for the README template)
