@@ -95,4 +95,13 @@ The Bash solutions might not be coming this week but later when I'll have time
 ### Day12:
 Once again, a very nice puzzle, mangaged to do both cases in one function (parameters depending) and quite happy to have used graphs for this one, allowed me to revise for the finals
 
+The Bash solutions might not be coming this week but later when I'll have time
+
+### Day13 :
+This puzzle was still quite easy even though I had difficulties seeing a mistake I made and I had to do it on paper to be sure of the calculations for the first method, for the second one, it was really straight forward and I'm impress of it's speed, 300x faster. Now I now that I will use the raw data more often...
+
+The Bash solutions might not be coming this week but later when I'll have time
+
+
+
 (thx to Sheinxy for the README template)
