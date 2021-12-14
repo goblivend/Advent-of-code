@@ -102,6 +102,10 @@ This puzzle was still quite easy even though I had difficulties seeing a mistake
 
 The Bash solutions might not be coming this week but later when I'll have time
 
+### Day13 :
+This puzzle was already way more difficult, the puzzle1 seemed to be straight forward, you could juste create the polymer and look at the max and min values, but for the second, this method would have taken one year to complete... I had to look at the reddit to find the method of resolution, and then created my own function which I find better than their.
+Once again dictionaries save the day.
 
+The Bash solutions might not be coming this week but later when I'll have time (or never in the absence of dict)
 
 (thx to Sheinxy for the README template)

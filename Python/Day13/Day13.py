@@ -81,21 +81,6 @@ print('board version ---- %s ----' % board_time)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def fold_dots(dots, fold) :
     if fold[0] == 'x' :  return {(x,y) if x < fold[1] else (fold[1]-(x-fold[1]),y) for x,y in dots if x <= 2*fold[1]}
     else : return {(x,y) if y < fold[1] else (x,fold[1]-(y-fold[1])) for x,y in dots if y <= 2*fold[1]}
