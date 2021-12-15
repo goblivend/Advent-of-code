@@ -1,7 +1,7 @@
 from typing import List
 
 inputFile = "../../Data/Day11/input.txt"
-exampleFile  = "../../Data/Day11/ExampleFile.txt"
+exampleFile = "../../Data/Day11/ExampleFile.txt"
 
 neighbours = [(-1, -1),(-1, 0),(-1, 1),(-1, -1),(-1, -1),(-1, -1),(-1, -1),(-1, -1),(-1, -1),(-1, -1),(-1, -1),]
 

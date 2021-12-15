@@ -2,9 +2,9 @@ from typing import List
 import graph
 
 inputFile = "../../Data/Day12/input.txt"
-exampleFile  = "../../Data/Day12/ExampleFile.txt"
-exampleFile2  = "../../Data/Day12/ExampleFile2.txt"
-exampleFile3  = "../../Data/Day12/ExampleFile3.txt"
+exampleFile = "../../Data/Day12/ExampleFile.txt"
+exampleFile2 = "../../Data/Day12/ExampleFile2.txt"
+exampleFile3 = "../../Data/Day12/ExampleFile3.txt"
 
 def GetData(fileName : str) -> List[List[int]]:
     with open(fileName, 'r') as file :

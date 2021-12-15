@@ -9,15 +9,15 @@ Trying them first in python to improve a bit an understand the problem, the if I
 - [x] Day 4
 - [x] Day 5
 - [x] Day 6
-- [ ] Day 7
-- [ ] Day 8
-- [ ] Day 9
-- [ ] Day 10
-- [ ] Day 11
-- [ ] Day 12
-- [ ] Day 13
-- [ ] Day 14
-- [ ] Day 15
+- [x] Day 7
+- [x] Day 8
+- [x] Day 9
+- [x] Day 10
+- [x] Day 11
+- [x] Day 12
+- [x] Day 13
+- [x] Day 14
+- [x] Day 15
 - [ ] Day 16
 - [ ] Day 17
 - [ ] Day 18
@@ -102,9 +102,14 @@ This puzzle was still quite easy even though I had difficulties seeing a mistake
 
 The Bash solutions might not be coming this week but later when I'll have time
 
-### Day13 :
+### Day14 :
 This puzzle was already way more difficult, the puzzle1 seemed to be straight forward, you could juste create the polymer and look at the max and min values, but for the second, this method would have taken one year to complete... I had to look at the reddit to find the method of resolution, and then created my own function which I find better than their.
 Once again dictionaries save the day.
+
+The Bash solutions might not be coming this week but later when I'll have time (or never in the absence of dict)
+
+### Day15 :
+This puzzle was more difficult, perhaps a bit less than last time since it was again the same type of optimisation. Though, I didn't managed to find it straight away and I had to go look at the reddit to convince myself that I didn't have to "find the path" in order to get the shortest one and that it was enough to look for the lowest values. I'm quite proud of the solution I gave today might not be the best one but, 5s for the second puzzle is I think enough.
 
 The Bash solutions might not be coming this week but later when I'll have time (or never in the absence of dict)
 
