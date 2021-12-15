@@ -6,6 +6,14 @@ exampleFile2 = "../../Data/Day15/ExampleFile2.txt"
 
 neighbours = [(1, 0),(0, 1), (-1, 0),(0, -1)]
 
+def print_map(board) :
+    for y in range(len(board)) :
+        for x in range(len(board[0])) :
+            print('x' if board[y][x] else '-', end="")
+        print()
+    print()
+
+
 def GetData(fileName : str) -> List[List[int]]:
     with open(fileName, 'r') as file :
         lines = file.readlines()
@@ -29,6 +37,7 @@ def lowest_path(board) :
             mylist.append((board[newY][newX] + risk, (newX, newY)))
             if (newX, newY) == (0, 0) :
                 print("At 0, 0 :", mylist[-1][0] - board[0][0])
+                print_map(visited)
 
 def puzzle1(fileName) :
     board = GetData(fileName)
@@ -53,7 +62,7 @@ start_time = time.time()
 puzzle1(inputFile)
 print('puzzle1 in', time.time() - start_time)
 
-
+"""
 start_time = time.time()
 puzzle2(inputFile)
-print('puzzle2 in', time.time() - start_time)
+print('puzzle2 in', time.time() - start_time)"""
