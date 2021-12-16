@@ -15,130 +15,72 @@ def GetHexa(line) :
     res = ""
     for c in line :
         res +=str(bin(int(c, 16))[2:].zfill(4))
-    print(res)
+    #print(res)
     return res
 
+def prod(arr) :
+    if not arr :
+        return 1
+    res = 1
+    for val in arr:
+        res *= val
+    return res
 
-def GetPackageVersions(binline, i, c=0) :
-    if i+10 >= len(binline) :
-        return (0, len(binline)-1)
-    start = i
-    version = int(binline[i:i+3], 2)
-    id = int(binline[i+3:i+6], 2)
-    i+=6
+version = 0
+def GetPackageValues(line) :
+    global version
+
+    version += int(line[0:3], 2)
+    id = int(line[3:6], 2)
+    line = line[6:]
+
+    result = 0
     if id == 4 :
-        keepgoing = True
-
-        while keepgoing :
-            keepgoing = binline[i] != "0"
-            i += 5
-    else :
-        byte_size = 4 if id == 4 else 15 if binline[i] == "0" else 11
-        nbsub = int(binline[i+1:i+byte_size+1], 2)
-        i += byte_size+1
-        for _ in range(nbsub):
-            if i> len(binline):
+        valstr=""
+        while line :
+            valstr+=line[1:5]
+            c = line[0]
+            line = line[5:]
+            if c == '0' :
                 break
-            (newversion, finali) = GetPackageVersions(binline, i, c+1)
-            c+=1
-            i = finali
-            version += newversion
-    return (version, i)
+        result = int(valstr, 2)
+    else :
+        values = []
+        byte_size = 15 if line[0] == "0" else 11
+        nb = int(line[1:byte_size+1], 2)
+        line = line[byte_size+1:]
+
+        if byte_size == 15:
+            subpackets = line[:nb]
+            line = line[nb:]
+            while subpackets :
+                (newvalue, subpackets) = GetPackageValues(subpackets)
+                values.append(newvalue)
+        else :
+            for _ in range(nb):
+                (newvalue, line) = GetPackageValues(line)
+                values.append(newvalue)
+
+        switchid = {
+            0 : lambda val : sum(val),
+            1 : lambda val : prod(val),
+            2 : lambda val : min(val),
+            3 : lambda val : max(val),
+            5 : lambda val : val[0] > val[1],
+            6 : lambda val : val[0] < val[1],
+            7 : lambda val : val[0] == val[1],
+        }
+
+        result = int(switchid[id](values))
+    return (result, line)
 
 
 
-
-def puzzle1(fileName) :
-    line = GetData(fileName)
-    binline = GetHexa(line)
-    res = 0
-    i = 0
-    length = len(binline)
-    (version, i) = GetPackageVersions(binline, i)
-    print()
+def puzzle(fileName) :
+    line = GetHexa(GetData(fileName))
+    (values, line) = GetPackageValues(line)
     print("the package version is", version)
-
-
-puzzle1(exampleFile3)
-
-
-
-
-def GetPackageValues(binline, i, c=0) :
-    if i+10 >= len(binline) :
-        return (0, len(binline)-1)
-    start = i
-    version = int(binline[i:i+3], 2)
-    id = int(binline[i+3:i+6], 2)
-    i+=6
-    if id == 4 :
-        keepgoing = True
-
-        while keepgoing :
-            keepgoing = binline[i] != "0"
-            i += 5
-    else :
-        byte_size = 4 if id == 4 else 15 if binline[i] == "0" else 11
-        nbsub = int(binline[i+1:i+byte_size+1], 2)
-        i += byte_size+1
-        for _ in range(nbsub):
-            if i> len(binline):
-                break
-            (newversion, finali) = GetPackageVersions(binline, i, c+1)
-            c+=1
-            i = finali
-            version += newversion
-    return (version, i)
-
-def puzzle2(fileName) :
-    line = GetData(fileName)
-    binline = GetHexa(line)
-    res = 0
-    i = 0
-    length = len(binline)
-    (values, i) = GetPackageValues(binline, i)
-    print()
     print("the package values is", values)
 
 
-puzzle2(exampleFile3)
-
-"""
-def puzzle1(fileName) :
-    line = GetData(fileName)
-    binline = GetHexa(line)
-    res = 0
-    i = 0
-    length = len(binline)
-    while i + 6< length :
-        pack = int(binline[i:i+3], 2)
-        res += pack
-        if pack == 0 :
-            break
-        id = int(binline[i+3:i+6], 2)
-        print(pack)
-        print(id)
-        i += 6
-        numbers = []
-        if id == 4 :
-            while keepgoing :
-                keepgoing = binline[i] != "0"
-                numbers.append(binline[i:i+5]) # change i by i+1 to remove first bit
-                i += 5
-        else :
-            byte_size = 4 if id == 4 else 15 if binline[i] == "0" else 11
-            first = False
-            i += 1
-            nbpackage = int(binline[i:i+byte_size], 2)
-            print(binline[i:i+byte_size], nbpackage)
-            i += byte_size
-            for _ in range(nbpackage) :
-                numbers.append(binline[i:i+byte_size+1]) # change i by i+1 to remove first bit
-                i += byte_size+1
-        #print(numbers)
-        #print(int("".join(numbers), 2))
-        print()
-    print(res)
-
-
-puzzle1(exampleFile3)"""
+puzzle(inputFile)
