@@ -3,8 +3,7 @@ from collections import namedtuple
 
 inputFile = "../../Data/Day17/input.txt"
 exampleFile = "../../Data/Day17/ExampleFile.txt"
-exampleFile2 = "../../Data/Day17/ExampleFile2.txt"
-exampleFile3 = "../../Data/Day17/ExampleFile3.txt"
+velocities = "../../Data/Day17/velocities.txt"
 
 Point = namedtuple('Point', ['x', 'y'])
 
@@ -14,81 +13,69 @@ def GetData(fileName : str) -> List[List[int]]:
     vals = [val.split('..') for val in line]
     return [(int(val[0]), int(val[1])) for val in vals]
 
-status = {
-    0 : 'Landed',
-    1 : 'Overshot',
-    2 : 'Got under'
-}
 
 def inIt(box, p) :
-    return box[0].x <= p[0] and p[0] <= box[1].x and box[0].y <= p[1] and p[1] <= box[1].y
+    x, y = p
+    return box[0].x <= x and x <= box[1].x and box[0].y >= y and y >= box[1].y
 
 def launch(box, v) :
     curr = [0, 0]
     maxH = -1
-    print(box)
     while curr[0] <= box[1].x and curr[1] >= box[1].y :
         if curr[1] > maxH :
             maxH = curr[1]
-
         if inIt(box, curr) :
-            return (0, maxH)
+            return (0, maxH, curr)
         else :
             curr[0] += v[0]
             curr[1] += v[1]
             v[0] += 1 if v[0] < 0 else 0 if v[0] == 0 else -1
             v[1] -= 1
-            print('current point', curr, 'current speed', v)
     if curr[1] < box[1].y :
-        return (2, -1)
+        return (2, -1, curr)
     if curr[0] > box[1].x:
-        return (1, -1)
+        return (1, -1, curr)
 
-def findMax(box, v) :
-    if v[0] == 0 :
-        return (-1, -1, -1)
-    maxes = (-1, -1, -1)
-    curr = v
-    keep = True
+def findMax(box) :
+    y = box[1].y
+    stat = 0
+    maxes = [-1, -1, 0]
+    vels = []
 
-    res = launch(box, curr.copy())
-    if res[0] == 0 :
-        if maxes[2] < res[1] :
-            maxes[0], maxes[1], maxes[2] = curr[0], curr[1], res[1]
+    while True :
+        for x in range(box[1].x+1) :
+            (stat, height, pos) = launch(box, [x, y])
+            if stat == 0 :
+                vels.append((x, y))
+                if maxes[2] < height :
+                    maxes[0], maxes[1], maxes[2] = x, y, height
+        if  y > 100:
+            break
+        y += 1
 
-    if res[0] == 1 and v[0] == 1 :
-        return maxes
+    return maxes[2], vels
 
-    newtry = curr.copy()
-    newtry[1] += 1
-    newtry = findMax(box, newtry)
-    if maxes[2] < newtry[2] :
-        maxes[0], maxes[1], maxes[2] = newtry[0], newtry[1], newtry[2]
-
-    if res[0] == 2 :
-        newtry = curr.copy()
-        newtry[0] += 1
-        newtry = findMax(box, newtry)
-        if maxes[2] < newtry[2] :
-            maxes[0], maxes[1], maxes[2] = newtry[0], newtry[1], newtry[2]
-    else :
-        newtry = curr.copy()
-        newtry[0] -= 1
-        newtry = findMax(box, newtry)
-        if maxes[2] < newtry[2] :
-            maxes[0], maxes[1], maxes[2] = newtry[0], newtry[1], newtry[2]
-
-    return maxes
+def GetVelocities(fileName : str) -> List[List[int]]:
+    with open(fileName, 'r') as file :
+        lines = file.readlines()
+    data = [(int(line.split(',')[0]), int(line.split(',')[1])) for line in lines]
+    return data
 
 def maxHeight(fileName) :
     field = GetData(fileName)
     box = (Point(min(field[0]), max(field[1])), Point(max(field[0]), min(field[1])))
-    print(box)
+    (res, vels) = findMax(box)
+    print('', res, len(vels))
 
-    res = findMax(box, [1, 1])
+    """myvelocities = GetVelocities(velocities)
+    myvelocities.sort()
 
-
-
-
-    print(res)
+    for vel in myvelocities :
+        if vel not in vels :
+            print(vel)"""
 maxHeight(exampleFile)
+#1739
+
+
+
+
