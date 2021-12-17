@@ -18,8 +18,8 @@ Trying them first in python to improve a bit an understand the problem, the if I
 - [x] Day 13
 - [x] Day 14
 - [x] Day 15
-- [ ] Day 16
-- [ ] Day 17
+- [x] Day 16
+- [x] Day 17
 - [ ] Day 18
 - [ ] Day 19
 - [ ] Day 20
@@ -112,5 +112,16 @@ The Bash solutions might not be coming this week but later when I'll have time (
 This puzzle was more difficult, perhaps a bit less than last time since it was again the same type of optimisation. Though, I didn't managed to find it straight away and I had to go look at the reddit to convince myself that I didn't have to "find the path" in order to get the shortest one and that it was enough to look for the lowest values. I'm quite proud of the solution I gave today might not be the best one but, 5s for the second puzzle is I think enough.
 
 The Bash solutions might not be coming this week but later when I'll have time (or never in the absence of dict)
+
+### Day16 :
+This puzzle really rough, took a while to do it and had to check with a solution to find my mistake
+
+(No idea about Bash version)
+
+### Day17 :
+This one seemed easy, then difficult, then an easy solution was possible so... nice
+
+Some chances that the Bash solution will arrive
+
 
 (thx to Sheinxy for the README template)
