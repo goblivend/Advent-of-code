@@ -20,7 +20,7 @@ Trying them first in python to improve a bit an understand the problem, the if I
 - [x] Day 15
 - [x] Day 16
 - [x] Day 17
-- [ ] Day 18
+- [x] Day 18
 - [ ] Day 19
 - [ ] Day 20
 - [ ] Day 21
@@ -123,5 +123,9 @@ This one seemed easy, then difficult, then an easy solution was possible so... n
 
 Some chances that the Bash solution will arrive
 
+### Day18 :
+This was a nice exercise, gave me the oportunity to use classes in Python easier than the last ones, since it was straight forward (except when you do shitty stuff)
+
+If Bash solution arrive, it will most certainly not be the same one
 
 (thx to Sheinxy for the README template)
