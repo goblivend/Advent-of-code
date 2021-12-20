@@ -128,4 +128,12 @@ This was a nice exercise, gave me the oportunity to use classes in Python easier
 
 If Bash solution arrive, it will most certainly not be the same one
 
+### Day19 :
+Didn't manage to do it in Python, will do it later with straight ideas (without beeing in the middle of finals)
+
+### Day20 :
+Managed to do it before the exams, was really nice and well explained, I feel it was better explained than the last one which made it way easier (it was also really shorter...)
+
+On this one, a bash solution could be really fun
+
 (thx to Sheinxy for the README template)
