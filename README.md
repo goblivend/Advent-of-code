@@ -22,7 +22,7 @@ Trying them first in python to improve a bit an understand the problem, the if I
 - [x] Day 17
 - [x] Day 18
 - [ ] Day 19
-- [ ] Day 20
+- [x] Day 20
 - [ ] Day 21
 - [ ] Day 22
 - [ ] Day 23
@@ -135,5 +135,28 @@ Didn't manage to do it in Python, will do it later with straight ideas (without 
 Managed to do it before the exams, was really nice and well explained, I feel it was better explained than the last one which made it way easier (it was also really shorter...)
 
 On this one, a bash solution could be really fun
+
+### Day21 :
+Didn't manage (nor really found the time) to do it properly for now. Only did the first half of it
+
+### Day22 :
+This is getting really hard, didn't manage to do any of it for today...
+
+### Day23 :
+The puzzle seems nice but I don't really have time to code for now, so I'll look into it later
+
+### Day24
+
+
+
+
+
+
+
+
+
+
+
+
 
 (thx to Sheinxy for the README template)
