@@ -5,20 +5,14 @@ import Data.List
 -- (list of the sums of snacks)
 -- sets of values separated by blank lines
 getList :: [String] -> Int -> [Int]
-getlist [] acc = acc: []
 getList ("":l) acc = acc : (getList l 0)
 getList (e:l) acc = getList l (acc + read e)
 getList _ acc = acc :[]
 
--- Get the sum of the 3 first values
-getSum3 :: [Int] -> Int
-getSum3 (e1:e2:e3:_) = e1+e2+e3
-getSum3 _ = 3
-
 main :: IO ()
 main = do
     content <- readFile "input.txt"
-    let input = lines content--readFile $ "input.txt"
+    let input = lines content
 
     let res = getList input 0
     
@@ -26,4 +20,4 @@ main = do
     print $ maximum res
 
     -- Second one, sum of the 3 tops
-    print $ getSum3 $ reverse $ sort res
+    print $ sum $ take 3 $ reverse $ sort res
