@@ -31,4 +31,10 @@ This year I will probably try to use Haskell or Lua\
 - [ ] Day 25
 
 
+---
+
 ## Feedback
+
+### Day 1:
+Was pretty easy to find a solution, did it first in shell, quite happy to have done it this fast.
+Did it in Haskell afterward, quite shorter and seems nice when you understand how to use it, `$` is a nice feature
