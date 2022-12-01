@@ -4,7 +4,7 @@ This year I will probably try to use Haskell or Lua\
 (as well as Bash, Python, Java, JS, C#, C if needed)
 
 
-- [ ] Day 1
+- [x] Day 1
 - [ ] Day 2
 - [ ] Day 3
 - [ ] Day 4
