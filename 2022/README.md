@@ -5,7 +5,7 @@ This year I will probably try to use Haskell or Lua\
 
 
 - [x] Day 1
-- [ ] Day 2
+- [x] Day 2
 - [ ] Day 3
 - [ ] Day 4
 - [ ] Day 5
@@ -38,3 +38,7 @@ This year I will probably try to use Haskell or Lua\
 ### Day 1:
 Was pretty easy to find a solution, did it first in shell, quite happy to have done it this fast.
 Did it in Haskell afterward, quite shorter and seems nice when you understand how to use it, `$` is a nice feature
+
+### Day 2:
+Was sick so was quite tiring to do it, and clearly took more time than I should have but still managed to do it.
+Perhaps not the nicest solution, will try to refactor it
