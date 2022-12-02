@@ -15,7 +15,7 @@ main = do
     let input = lines content
 
     let res = getList input 0
-    
+
     -- First exercise : Max
     print $ maximum res
 
