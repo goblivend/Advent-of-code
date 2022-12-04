@@ -6,8 +6,8 @@ This year I will probably try to use Haskell or Lua\
 
 - [x] Day 1
 - [x] Day 2
-- [ ] Day 3
-- [ ] Day 4
+- [x] Day 3
+- [x] Day 4
 - [ ] Day 5
 - [ ] Day 6
 - [ ] Day 7
@@ -42,3 +42,10 @@ Did it in Haskell afterward, quite shorter and seems nice when you understand ho
 ### Day 2:
 Was sick so was quite tiring to do it, and clearly took more time than I should have but still managed to do it.
 Perhaps not the nicest solution, will try to refactor it
+
+### Day 3:
+Was still a bit sick but was ok, managed to do the solution, though I didn't want to download any packages for now so had to copy paste the functions form their source
+
+### Day 4 :
+Was quite easy, decided to download the package `split` anyway, just saving time quite happy about the solution, not to long.
+Though I might try to refactor a bit..
