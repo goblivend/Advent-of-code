@@ -7,18 +7,6 @@ import Data.List.Split
 getTuple :: [String] -> (Int, Int, Int)
 getTuple l = (read (l!!1), read (l!!3) - 1, read (l!!5) - 1)
 
-move :: [[Char]] -> (Int, Int) -> [[Char]]
-move s (src, dst)
-    | src < dst = (take (src) s) ++ [(tail (s!!src))] ++ (map (s!!) [src+1..dst-1]) ++ [(head (s!!src)):(s!!dst)] ++ (drop (dst+1) s)
-    | src > dst = (take (dst) s) ++ [(head (s!!src)):(s!!dst)] ++ (map (s!!) [dst+1..src-1]) ++ [(tail (s!!src))] ++ (drop (src+1) s)
-    | otherwise = s
-
-
-crane9000 :: [[Char]] -> (Int, Int, Int) -> [[Char]]
-crane9000 s (nb, src, dst)
-    | nb == 0 = s
-    | otherwise = crane9000 (move s (src, dst)) (nb-1, src, dst)
-
 crane9001 :: [[Char]] -> (Int, Int, Int) -> [[Char]]
 crane9001 s (nb, src, dst)
     | nb == 0 = s
@@ -26,6 +14,10 @@ crane9001 s (nb, src, dst)
     | src > dst = (take (dst) s) ++ [(take nb (s!!src))++(s!!dst)] ++ (map (s!!) [dst+1..src-1]) ++ [(drop nb (s!!src))] ++ (drop (src+1) s)
     | otherwise = s
 
+crane9000 :: [[Char]] -> (Int, Int, Int) -> [[Char]]
+crane9000 s (nb, src, dst)
+    | nb == 0 = s
+    | otherwise = crane9000 (crane9001 s (1, src, dst)) (nb-1, src, dst)
 
 makeTheMoves :: ([[Char]] -> (Int, Int, Int) -> [[Char]]) -> [[Char]] -> [(Int, Int, Int)] -> [[Char]]
 makeTheMoves crane s [] = s
@@ -53,7 +45,7 @@ main = do
  1   2   3   4   5   6   7   8   9
 
 -}
-inputStack = ['N':'W':'B':[],'B':'M':'D':'T':'P':'S':'Z':'L':[],'R':'W':'Z':'H':'Q':[],'R':'Z':'J':'V':'D':'W':[],'B':'M':'H':'M':[],'B':'P':'V':'H':'J':'N':'G':'L':[],'S':'L':'D':'H':'F':'Z':'Q':'J':[],'B':'Q':'G':'J':'F':'S':'W':[],'J':'D':'C':'S':'M':'W':'Z':[]]
+inputStack = ["NWB","BMDTPSZL","RWZHQ","RZJVDW","BMHM","BPVHJNGL","SLDHFZQJ","BQGJFSW","JDCSMWZ"]
 {-
     [D]
 [N] [C]
@@ -61,4 +53,4 @@ inputStack = ['N':'W':'B':[],'B':'M':'D':'T':'P':'S':'Z':'L':[],'R':'W':'Z':'H':
  1   2   3
 -}
 
-shortinputStack = ['N':'Z':[],'D':'C':'M':[],'P':[]]
+shortinputStack = ["NZ","DCM","P"]
