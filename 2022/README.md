@@ -9,7 +9,7 @@ This year I will probably try to use Haskell or Lua\
 - [x] Day 3
 - [x] Day 4
 - [x] Day 5
-- [ ] Day 6
+- [x] Day 6
 - [ ] Day 7
 - [ ] Day 8
 - [ ] Day 9
@@ -52,3 +52,6 @@ Though I might try to refactor a bit..
 
 ### Day 5:
 Was a bit tricky this one. I had a very good idea for an iterative language but didn't quite get one for Haskell at first so had to mess arround in order to find an idea
+
+### Day 6:
+Was really straight forward, the second one was clearly obvious, had already a solution by doing the first one.
