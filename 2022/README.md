@@ -10,7 +10,7 @@ This year I will probably try to use Haskell or Lua\
 - [x] Day 4
 - [x] Day 5
 - [x] Day 6
-- [ ] Day 7
+- [x] Day 7
 - [ ] Day 8
 - [ ] Day 9
 - [ ] Day 10
@@ -55,3 +55,6 @@ Was a bit tricky this one. I had a very good idea for an iterative language but 
 
 ### Day 6:
 Was really straight forward, the second one was clearly obvious, had already a solution by doing the first one.
+
+### Day 7:
+This one was quite complicated, didn't manage to think of how to do it in Haskell. Had to do it in python sadly
