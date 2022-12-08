@@ -13,7 +13,7 @@ checkVisibility input x y = left || right || top || bottom
                 right  = all id (map (\x2 -> input !! y !! x > input !! y !! x2) [x+1..(length $ input !! 0) - 1])
                 left   = all id (map (\x2 -> input !! y !! x > input !! y !! x2) [0..x-1])
                 top    = all id (map (\y2 -> input !! y !! x > input !! y2 !! x) [0..y-1])
-                bottom =  all id (map (\y2 -> input !! y !! x > input !! y2 !! x) [y+1..(length input) - 1])
+                bottom = all id (map (\y2 -> input !! y !! x > input !! y2 !! x) [y+1..(length input) - 1])
 
 -- Calculates the number of tree we can look above until one is blocking the view
 calculatePart :: Int -> [[Int]] -> Int -> Int -> (Int -> Int) -> (Int -> Int) -> Int
@@ -40,3 +40,4 @@ main = do
     print $ sum $ map (\e -> if e then 1 else 0) $ concat visibility
 
     print $ maximum $ concat $ map (\y -> map (\x -> getScenic input x y) [0..(length (input !! 0)) - 1]) [0..(length input) - 2]
+
