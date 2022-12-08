@@ -1,11 +1,12 @@
 module Main where
 
-import Data.Char
-import Data.List
 import Data.List.Split
-import Data.Containers.ListUtils
-import Debug.Trace
 
+-- Check if a pair of coordinates belongs in a field
+inRange :: [[Int]] -> Int -> Int -> Bool
+inRange input x y = x >= 0 && y >= 0 && y < length input && x < length (input !! 0)
+
+-- Check if from a point we can see in any direction
 checkVisibility :: [[Int]] -> Int -> Int -> Bool
 checkVisibility input x y = 
                             all (\e -> e) (map (\x2 -> input !! y !! x > input !! y !! x2) [x+1..(length $ input !! 0) - 1])
@@ -13,19 +14,26 @@ checkVisibility input x y =
                          || all (\e -> e) (map (\y2 -> input !! y !! x > input !! y2 !! x) [0..y-1])
                          || all (\e -> e) (map (\y2 -> input !! y !! x > input !! y2 !! x) [y+1..(length input) - 1])
 
---changeVisibility :: [[(Int, Bool)]] -> Int -> Int -> Bool -> [[(Int, Bool)]]
---changeVisibility input x y v = take x input ++ [take y (input !! x) ++ [(fst (input !! x !! y), v)] ++ drop (y+1) (input !! x)] ++ drop (x+1) input
+-- Calculates the number of tree we can look above until one is blocking the view
+calculatePart :: Int -> [[Int]] -> Int -> Int -> (Int -> Int) -> (Int -> Int) -> Int
+calculatePart max input x y tox2 toy2
+        | not (inRange input x y) = 0
+        | max <= input !! y !! x = 1
+        | otherwise = 1 + calculatePart max input (tox2 x) (toy2 y) tox2 toy2
 
-
-
+-- Calculates the value of Scenic as : left*right*top*bottom
+getScenic :: [[Int]] -> Int -> Int -> Int
+getScenic input x y = calculatePart (input !! y !! x) input (x+1) y (\x -> x+1) (\y -> y)
+                    * calculatePart (input !! y !! x) input (x-1) y (\x -> x-1) (\y -> y)
+                    * calculatePart (input !! y !! x) input x (y+1) (\x -> x) (\y -> y+1)
+                    * calculatePart (input !! y !! x) input x (y-1) (\x -> x) (\y -> y-1)
 
 main :: IO ()
 main = do
     content <- readFile "input.txt"
     let input = map (\line ->  map (\x -> read x :: Int) $ chunksOf 1 line) $ lines content
-    let visibility = map (\y -> map (\x -> checkVisibility input x y) [0..(length (input !! y)) - 1]) [0..(length input) - 1]
-    --print visibility
-    --let range = [2+1..(length (input !! 1)) - 1]
-    --print $ all (\e -> e) $ map (\x -> (x > input !! 1 !! x)) range --  checkBigger 5 input 2 1 (\x -> x+1) (\y -> y) 
 
+    let visibility = map (\y -> map (\x -> checkVisibility input x y) [0..(length (input !! y)) - 1]) [0..(length input) - 1]
     print $ sum $ map (\e -> if e then 1 else 0) $ concat visibility
+
+    print $ maximum $ concat $ map (\y -> map (\x -> getScenic input x y) [0..(length (input !! 0)) - 1]) [0..(length input) - 2]
