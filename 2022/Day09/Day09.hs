@@ -17,14 +17,21 @@ getNewHead (headx, heady) dir = (x, y)
         x = headx + (if dir == 'R' then 1 else if dir == 'L' then -1 else 0)
         y = heady + (if dir == 'U' then 1 else if dir == 'D' then -1 else 0)
 
+updateTails :: (Int, Int) -> [(Int, Int)] -> [[(Int, Int)]]
+updateTails head tail
+    | ntail == tail = [tail]
+    | otherwise = ntail : updateTails head (ntail)
+        where
+            ntail = map (\(h, t) -> getNewTail h t) $ zip (head:tail) tail
+
 getNknots :: [(Char, Int)] -> [(Int, Int)] -> [(Int, Int)]
 getNknots [] rope = last rope :[]
-getNknots ((dir, dist):xs) (head:rest)
-    | dist == 0 = last ntail : getNknots xs (head : ntail)
-    | otherwise = last ntail : getNknots ((dir, dist-1):xs) (nhead : ntail)
+getNknots ((dir, dist):xs) (head:tail)
+    | dist == 0 = (map last ntail) ++ getNknots xs (head : last ntail)
+    | otherwise = (map last ntail) ++ getNknots ((dir, dist-1):xs) (nhead : last ntail)
         where
             nhead = getNewHead head dir
-            ntail = map (\(h, t) -> getNewTail h t) $ zip (head:rest) rest
+            ntail = updateTails head tail
 
 
 main :: IO ()
