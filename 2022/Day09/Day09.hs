@@ -20,21 +20,20 @@ getNewHead (headx, heady) dir = (x, y)
         x = headx + (if dir == 'R' then 1 else if dir == 'L' then -1 else 0)
         y = heady + (if dir == 'U' then 1 else if dir == 'D' then -1 else 0)
 
-
-get2knots :: [(Char, Int)] -> Int -> Int -> Int -> Int -> [(Int, Int)]
-get2knots [] hx hy tx ty = [(tx, ty)]
-get2knots ((dir, dist):xs) headx heady tailx taily
-    | dist == 0 = (tx, ty) : get2knots xs headx heady tx ty
-    | otherwise = (tx, ty) : get2knots ((dir, dist-1):xs) x y tx ty
-    where
-        (x, y) = getNewHead (headx, heady) dir
-        (tx, ty) = getNewTail (headx, heady) (tailx, taily)
-
 getNknots :: [(Char, Int)] -> [(Int, Int)] -> [(Int, Int)]
 getNknots [] rope = last rope :[]
-getNknots ((dir, dist):xs) (head:rest) 
-    | dist ==
+getNknots ((dir, dist):xs) (head:rest)
+    | dist == 0 = last ntail : getNknots xs (head : ntail)
+    | otherwise = last ntail : getNknots ((dir, dist-1):xs) (nhead : ntail)
+        where
+            nhead = getNewHead head dir
+            ntail = map (\(h, t) -> getNewTail h t) $ zip (head:rest) rest
 
+
+
+
+createNlist :: Int -> [(Int, Int)]
+createNlist n = map (\_ -> (0, 0)) [1..n]
 
 
 main :: IO ()
@@ -43,7 +42,8 @@ main = do
     let input = map (\line -> (line !! 0 !! 0, read (line !! 1) :: Int)) $ map words $ lines content
     --print $ get2knots input 0 0 0 0
     --print $ get2knots [('U', 0)] 2 0 0 0
-    print $ length $ nub $ get2knots input 0 0 0 0
+    print $ length $ nub $ getNknots input (createNlist 2)
+    print $ length $ nub $ getNknots input (createNlist 10)
 
 
 -- Part 1: 6354
