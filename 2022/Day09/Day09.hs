@@ -29,9 +29,6 @@ getNknots ((dir, dist):xs) (head:rest)
             nhead = getNewHead head dir
             ntail = map (\(h, t) -> getNewTail h t) $ zip (head:rest) rest
 
-
-
-
 createNlist :: Int -> [(Int, Int)]
 createNlist n = map (\_ -> (0, 0)) [1..n]
 
@@ -40,11 +37,5 @@ main :: IO ()
 main = do
     content <- readFile "input.txt"
     let input = map (\line -> (line !! 0 !! 0, read (line !! 1) :: Int)) $ map words $ lines content
-    --print $ get2knots input 0 0 0 0
-    --print $ get2knots [('U', 0)] 2 0 0 0
     print $ length $ nub $ getNknots input (createNlist 2)
     print $ length $ nub $ getNknots input (createNlist 10)
-
-
--- Part 1: 6354
--- Part 2: 2651
