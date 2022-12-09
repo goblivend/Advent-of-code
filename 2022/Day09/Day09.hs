@@ -23,5 +23,9 @@ main :: IO ()
 main = do
     content <- readFile "shortinput.txt"
     let input = map (\line -> (line !! 0 !! 0, read (line !! 1) :: Int)) $ map words $ lines content
-    --print $ getPositions input 0 0 0 0
+    print $ getPositions input 0 0 0 0
     print $ length $ nub $ getPositions input 0 0 0 0
+
+
+-- Part 1: 6354
+-- Part 2: 2651
