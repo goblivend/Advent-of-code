@@ -11,9 +11,9 @@ This year I will probably try to use Haskell or Lua\
 - [x] Day 5
 - [x] Day 6
 - [x] Day 7
-- [ ] Day 8
-- [ ] Day 9
-- [ ] Day 10
+- [x] Day 8
+- [x] Day 9
+- [x] Day 10
 - [ ] Day 11
 - [ ] Day 12
 - [ ] Day 13
@@ -58,3 +58,15 @@ Was really straight forward, the second one was clearly obvious, had already a s
 
 ### Day 7:
 This one was quite complicated, didn't manage to think of how to do it in Haskell. Had to do it in python sadly
+
+### Day 8:
+At first didn't quite get the good methodology, had to do it first in python in order to do it in haskell, realized half way through the python version what was my mistake.
+Otherwise I'm quite happy how the haskell code turned out, I used `where`, lambda functions and list creation
+
+### Day 9 :
+This one was quite a mess but I'm quite happy with my solution.
+Had luck making it work at first but managed to fix it for any input and now it should work completly fine
+
+### Day 10 :
+Was fun, the first part was very easy and the input I use is quite fun since I avoid most the information to only get a list of int without the name of the instructions so quite happy of the input analysis I did.
+Had a bit of difficulty trying to understand how the part 2 was working but managed to do it so that's ok.
