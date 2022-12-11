@@ -5,7 +5,7 @@ import Data.List
 import Data.List.Split
 import Data.Containers.ListUtils
 
---data Monkey = Monkey { activity :: Int, items :: [Int], worry :: (Int -> Int), decision ::(Int -> Int) }
+data Monkey = Monkey { activity :: Int, items :: [Int], worryLevel :: (Int -> Int), decision ::(Int -> Int) }
 
 parseOperation :: String -> (Int -> Int)
 parseOperation ope
@@ -22,56 +22,44 @@ parseOperation ope
         sign = (splitOn " " ope) !! 1
         second = (splitOn " " ope) !! 2
 
-parseMonkey :: String -> (Int, [Int], (Int -> Int), (Int -> Int))
-parseMonkey content = (0, items, worryLevel, decision)
+parseMonkey :: String -> Monkey
+parseMonkey content = Monkey 0 items worryLevel decision
     where
         lns = lines content
         items = map (\e -> read e :: Int) $ splitOn ", " $ (splitOn ": " (lns !! 1)) !! 1
         worryLevel = parseOperation ((splitOn " = " (lns !! 2)) !! 1)
         decision = makeDecision (read (last $ words $ lns !! 4) :: Int) (read (last $ words $ lns !! 5) :: Int) (read (last $ words $ lns !! 3) :: Int)
 
-getActivity :: (Int, [Int], Int -> Int, Int -> Int) -> Int
-getActivity (acti, items, worryLevel, makeDecision) = acti
-
-getItems :: (Int, [Int], Int -> Int, Int -> Int) -> [Int]
-getItems (acti, items, worryLevel, makeDecision) = items
-
-getWorry :: (Int, [Int], Int -> Int, Int -> Int) -> (Int -> Int)
-getWorry (acti, items, worryLevel, makeDecision) = worryLevel
-
-getDecision :: (Int, [Int], Int -> Int, Int -> Int) -> (Int -> Int)
-getDecision (acti, items, worryLevel, makeDecision) = makeDecision
-
 makeDecision :: Int -> Int -> Int -> Int -> Int
 makeDecision mkT mkF modulo worry
     | mod worry modulo == 0 = mkT
     | otherwise = mkF
 
-putItem :: [(Int, [Int], Int -> Int, Int -> Int)] -> Int -> Int -> [(Int, [Int], Int -> Int, Int -> Int)]
+putItem :: [Monkey] -> Int -> Int -> [Monkey]
 putItem monkeys monkey worry = take monkey monkeys ++ [newMonkey] ++ drop (monkey + 1) monkeys
     where
         currMonkey = monkeys !! monkey
-        newMonkey = (getActivity currMonkey, getItems currMonkey ++ [worry], getWorry currMonkey, getDecision currMonkey)
+        newMonkey = Monkey (activity currMonkey) (items currMonkey ++ [worry]) (worryLevel currMonkey) (decision currMonkey)
 
-throwItems :: Int -> [(Int, [Int], Int -> Int, Int -> Int)] -> Int -> [(Int, [Int], Int -> Int, Int -> Int)]
+throwItems :: Int -> [Monkey] -> Int -> [Monkey]
 throwItems mkBusiness monkeys monkey
-    | getItems currMonkey == [] = monkeys
+    | items currMonkey == [] = monkeys
     | otherwise = throwItems mkBusiness newMonkeys monkey
         where
             currMonkey = monkeys !! monkey
-            worry = div (getWorry currMonkey $ head $ getItems currMonkey) mkBusiness
-            newMonkey = (1 + getActivity currMonkey, tail (getItems currMonkey), getWorry currMonkey, getDecision currMonkey)
-            monkeysWithItem = putItem monkeys ((getDecision currMonkey) worry) worry
+            worry = div (worryLevel currMonkey $ head $ items currMonkey) mkBusiness
+            newMonkey = Monkey (1 + activity currMonkey) (tail (items currMonkey)) (worryLevel currMonkey) (decision currMonkey)
+            monkeysWithItem = putItem monkeys ((decision currMonkey) worry) worry
             newMonkeys = take monkey monkeysWithItem ++ [newMonkey] ++ drop (monkey + 1) monkeysWithItem
 
-aRound :: Int -> [(Int, [Int], Int -> Int, Int -> Int)] -> Int -> [(Int, [Int], Int -> Int, Int -> Int)]
+aRound :: Int -> [Monkey] -> Int -> [Monkey]
 aRound mkBusiness monkeys monkey
     | monkey >= length monkeys = monkeys
     | otherwise = aRound mkBusiness newMonkeys (monkey + 1)
         where
             newMonkeys = throwItems mkBusiness monkeys monkey
 
-makeRound :: Int -> Int -> [(Int, [Int], Int -> Int, Int -> Int)] -> [(Int, [Int], Int -> Int, Int -> Int)]
+makeRound :: Int -> Int -> [Monkey] -> [Monkey]
 makeRound 0 _ monkeys = monkeys
 makeRound nbround mkBusiness monkeys = makeRound (nbround - 1) mkBusiness $ aRound mkBusiness monkeys 0
 
@@ -79,5 +67,5 @@ main :: IO ()
 main = do
     content <-  readFile "input.txt"
     let monkeys = map parseMonkey $ splitOn "\n\n" content
-    print $ product $ take 2 $ reverse $ sort $ map getActivity $ makeRound 20 3 $ monkeys
-    print $ product $ take 2 $ reverse $ sort $ map getActivity $ makeRound 10000 1 $ monkeys
+    print $ product $ take 2 $ reverse $ sort $ map activity $ makeRound 20 3 $ monkeys
+    print $ product $ take 2 $ reverse $ sort $ map activity $ makeRound 10000 1 $ monkeys
