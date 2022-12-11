@@ -15,12 +15,17 @@ parseOperation ope
     | otherwise = (\old -> (op sign) (read first :: Int) (read second :: Int))
     where
         first = (splitOn " " ope) !! 0
+        sign = (splitOn " " ope) !! 1
+        second = (splitOn " " ope) !! 2
         op "*" = (*)
         op "/" = (div)
         op "+" = (+)
         op "-" = (-)
-        sign = (splitOn " " ope) !! 1
-        second = (splitOn " " ope) !! 2
+
+makeDecision :: Int -> Int -> Int -> Int -> Int
+makeDecision mkT mkF modulo worry
+    | mod worry modulo == 0 = mkT
+    | otherwise = mkF
 
 parseMonkey :: String -> Monkey
 parseMonkey content = Monkey 0 items worryLevel decision modulo
@@ -31,16 +36,11 @@ parseMonkey content = Monkey 0 items worryLevel decision modulo
         modulo = (read (last $ words $ lns !! 3) :: Int)
         decision = makeDecision (read (last $ words $ lns !! 4) :: Int) (read (last $ words $ lns !! 5) :: Int) modulo
 
-makeDecision :: Int -> Int -> Int -> Int -> Int
-makeDecision mkT mkF modulo worry
-    | mod worry modulo == 0 = mkT
-    | otherwise = mkF
-
 putItem :: [Monkey] -> Int -> Int -> [Monkey]
 putItem monkeys monkey worry = take monkey monkeys ++ [newMonkey] ++ drop (monkey + 1) monkeys
     where
         currMonkey = monkeys !! monkey
-        newMonkey = Monkey (activity currMonkey) (items currMonkey ++ [worry]) (worryLevel currMonkey) (decision currMonkey) (modulo currMonkey)
+        newMonkey = currMonkey {items = items currMonkey ++ [worry]}
 
 throwItems :: Int -> [Monkey] -> Int -> [Monkey]
 throwItems mkBusiness monkeys monkey
@@ -49,7 +49,7 @@ throwItems mkBusiness monkeys monkey
         where
             currMonkey = monkeys !! monkey
             worry = (div (worryLevel currMonkey $ head $ items currMonkey) mkBusiness)
-            newMonkey = Monkey (1 + activity currMonkey) (tail (items currMonkey)) (worryLevel currMonkey) (decision currMonkey) (modulo currMonkey)
+            newMonkey = currMonkey {activity = 1 + activity currMonkey, items = tail (items currMonkey)}
             commonMultiplier = product $ map modulo monkeys
             monkeysWithItem = putItem monkeys ((decision currMonkey) worry) (mod worry commonMultiplier)
             newMonkeys = take monkey monkeysWithItem ++ [newMonkey] ++ drop (monkey + 1) monkeysWithItem

@@ -14,7 +14,7 @@ This year I will probably try to use Haskell or Lua\
 - [x] Day 8
 - [x] Day 9
 - [x] Day 10
-- [ ] Day 11
+- [x] Day 11
 - [ ] Day 12
 - [ ] Day 13
 - [ ] Day 14
@@ -70,3 +70,7 @@ Had luck making it work at first but managed to fix it for any input and now it 
 ### Day 10 :
 Was fun, the first part was very easy and the input I use is quite fun since I avoid most the information to only get a list of int without the name of the instructions so quite happy of the input analysis I did.
 Had a bit of difficulty trying to understand how the part 2 was working but managed to do it so that's ok.
+
+### Day 11 :
+This one was a bit tricky, the input was way more difficult that usual and the thingy with the overflow was a bit hard to figure out (thx raph for the help).
+For this one managed to change my implementation to use `data` which makes the code way more readable
