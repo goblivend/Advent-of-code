@@ -26,7 +26,7 @@ parseMonkey :: String -> (Int, [Int], (Int -> Int), (Int -> Int))
 parseMonkey content = (0, items, worryLevel, decision)
     where
         lns = lines content
-        items = map (\e -> read e :: Int) $ splitOn ", "$ (splitOn ": " (lns !! 1)) !! 1
+        items = map (\e -> read e :: Int) $ splitOn ", " $ (splitOn ": " (lns !! 1)) !! 1
         worryLevel = parseOperation ((splitOn " = " (lns !! 2)) !! 1)
         decision = makeDecision (read (last $ words $ lns !! 4) :: Int) (read (last $ words $ lns !! 5) :: Int) (read (last $ words $ lns !! 3) :: Int)
 
@@ -77,18 +77,7 @@ makeRound nbround mkBusiness monkeys = makeRound (nbround - 1) mkBusiness $ aRou
 
 main :: IO ()
 main = do
-    content <-  readFile "shortinput.txt"
+    content <-  readFile "input.txt"
     let monkeys = map parseMonkey $ splitOn "\n\n" content
-    --print monkeys
-    --print $ getActi $ monkeys !! 0
     print $ product $ take 2 $ reverse $ sort $ map getActivity $ makeRound 20 3 $ monkeys
     print $ product $ take 2 $ reverse $ sort $ map getActivity $ makeRound 10000 1 $ monkeys
-
-
-
--- Monkey :
--- Items   Worry level Decision according to level
--- ([Int], (Int -> Int), (Int -> Int))
--- Worry / 3 after inspection
--- Decision :
--- makeDecision mkT mkF modulo worry =
