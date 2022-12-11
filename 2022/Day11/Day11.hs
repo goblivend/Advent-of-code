@@ -5,7 +5,7 @@ import Data.List
 import Data.List.Split
 import Data.Containers.ListUtils
 
-data Monkey = Monkey { activity :: Int, items :: [Int], worryLevel :: (Int -> Int), decision ::(Int -> Int) }
+data Monkey = Monkey { activity :: Int, items :: [Int], worryLevel :: (Int -> Int), decision ::(Int -> Int), modulo :: Int }
 
 parseOperation :: String -> (Int -> Int)
 parseOperation ope
@@ -23,12 +23,13 @@ parseOperation ope
         second = (splitOn " " ope) !! 2
 
 parseMonkey :: String -> Monkey
-parseMonkey content = Monkey 0 items worryLevel decision
+parseMonkey content = Monkey 0 items worryLevel decision modulo
     where
         lns = lines content
         items = map (\e -> read e :: Int) $ splitOn ", " $ (splitOn ": " (lns !! 1)) !! 1
         worryLevel = parseOperation ((splitOn " = " (lns !! 2)) !! 1)
-        decision = makeDecision (read (last $ words $ lns !! 4) :: Int) (read (last $ words $ lns !! 5) :: Int) (read (last $ words $ lns !! 3) :: Int)
+        modulo = (read (last $ words $ lns !! 3) :: Int)
+        decision = makeDecision (read (last $ words $ lns !! 4) :: Int) (read (last $ words $ lns !! 5) :: Int) modulo
 
 makeDecision :: Int -> Int -> Int -> Int -> Int
 makeDecision mkT mkF modulo worry
@@ -39,7 +40,7 @@ putItem :: [Monkey] -> Int -> Int -> [Monkey]
 putItem monkeys monkey worry = take monkey monkeys ++ [newMonkey] ++ drop (monkey + 1) monkeys
     where
         currMonkey = monkeys !! monkey
-        newMonkey = Monkey (activity currMonkey) (items currMonkey ++ [worry]) (worryLevel currMonkey) (decision currMonkey)
+        newMonkey = Monkey (activity currMonkey) (items currMonkey ++ [worry]) (worryLevel currMonkey) (decision currMonkey) (modulo currMonkey)
 
 throwItems :: Int -> [Monkey] -> Int -> [Monkey]
 throwItems mkBusiness monkeys monkey
@@ -47,9 +48,10 @@ throwItems mkBusiness monkeys monkey
     | otherwise = throwItems mkBusiness newMonkeys monkey
         where
             currMonkey = monkeys !! monkey
-            worry = div (worryLevel currMonkey $ head $ items currMonkey) mkBusiness
-            newMonkey = Monkey (1 + activity currMonkey) (tail (items currMonkey)) (worryLevel currMonkey) (decision currMonkey)
-            monkeysWithItem = putItem monkeys ((decision currMonkey) worry) worry
+            worry = (div (worryLevel currMonkey $ head $ items currMonkey) mkBusiness)
+            newMonkey = Monkey (1 + activity currMonkey) (tail (items currMonkey)) (worryLevel currMonkey) (decision currMonkey) (modulo currMonkey)
+            commonMultiplier = product $ map modulo monkeys
+            monkeysWithItem = putItem monkeys ((decision currMonkey) worry) (mod worry commonMultiplier)
             newMonkeys = take monkey monkeysWithItem ++ [newMonkey] ++ drop (monkey + 1) monkeysWithItem
 
 aRound :: Int -> [Monkey] -> Int -> [Monkey]
