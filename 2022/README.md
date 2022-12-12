@@ -15,7 +15,7 @@ This year I will probably try to use Haskell or Lua\
 - [x] Day 9
 - [x] Day 10
 - [x] Day 11
-- [ ] Day 12
+- [x] Day 12
 - [ ] Day 13
 - [ ] Day 14
 - [ ] Day 15
@@ -74,3 +74,8 @@ Had a bit of difficulty trying to understand how the part 2 was working but mana
 ### Day 11 :
 This one was a bit tricky, the input was way more difficult that usual and the thingy with the overflow was a bit hard to figure out (thx raph for the help).
 For this one managed to change my implementation to use `data` which makes the code way more readable
+
+### Day 12 :
+This one was pathfinding, begun with a dfs but was really a bad idea so went on a bsf instead.
+Not quite proud of how part 2 ended, big copypaste with a small modification, will try to change it to a better one
+Today I also discovered that there was a debugger in Haskell, will have to look into it, for the moment seems really bad but need to try it.
