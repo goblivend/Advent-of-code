@@ -79,3 +79,8 @@ For this one managed to change my implementation to use `data` which makes the c
 This one was pathfinding, begun with a dfs but was really a bad idea so went on a bsf instead.
 Not quite proud of how part 2 ended, big copypaste with a small modification, will try to change it to a better one
 Today I also discovered that there was a debugger in Haskell, will have to look into it, for the moment seems really bad but need to try it.
+
+### Day 13 :
+This one was not too hard.
+Had to think of a trick to have lists of possibly int or list but managed using `'[' <=> -1` and `']' <=> -2`.
+Finding the bugs were a bit tricky with those functions but some `trace` made the trick so it was ok
