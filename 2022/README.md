@@ -16,8 +16,8 @@ This year I will probably try to use Haskell or Lua\
 - [x] Day 10
 - [x] Day 11
 - [x] Day 12
-- [ ] Day 13
-- [ ] Day 14
+- [x] Day 13
+- [x] Day 14
 - [ ] Day 15
 - [ ] Day 16
 - [ ] Day 17
@@ -84,3 +84,6 @@ Today I also discovered that there was a debugger in Haskell, will have to look 
 This one was not too hard.
 Had to think of a trick to have lists of possibly int or list but managed using `'[' <=> -1` and `']' <=> -2`.
 Finding the bugs were a bit tricky with those functions but some `trace` made the trick so it was ok
+
+### Day 14 :
+Was fun, need to go edit this later
