@@ -2,13 +2,25 @@ module Main where
 
 import Data.Char
 import Data.List
-import Data.List.Split
 import Data.Containers.ListUtils
 import Debug.Trace
 
-data Land = Void | Rock | Sand deriving (Show, Eq)
-data Map = Map { lpad :: Int, slice :: [[Land]] } deriving (Show, Eq)
+data Land = Void | Rock | Sand deriving (Eq)
 
+instance Show Land where
+    show Void = " "
+    show Rock = "#"
+    show Sand = "o"
+
+showLand :: [Land] -> String
+showLand [] = []
+showLand (e:l) = (show e) ++ showLand l
+
+
+data Map = Map { lpad :: Int, slice :: [[Land]] } deriving (Eq)
+
+instance Show Map where
+    show (Map lp sl) = "Lpad = " ++ (show lp) ++ "\n" ++ (concat $ map (\l -> "\n" ++ showLand l) sl)
 
 parseLine :: String -> [(Int, Int)]
 parseLine [] = []
@@ -45,19 +57,27 @@ pour mp
     | otherwise = 0
         where newMp = pourSand mp (500, 0)
 
+printPour :: Map -> Map
+printPour mp
+    | mp /= newMp = printPour newMp
+    | otherwise = mp
+        where newMp = pourSand mp (500, 0)
 
 
 main :: IO ()
 main = do
-    content <- readFile "input.txt"
+    content <- readFile "shortinput.txt"
     let rocksPositions = map parseLine $ lines content
-    --print rocksPositions
     let maxY = (+) 2 $ maximum $ map snd $ concat rocksPositions
-    let lp = 480-maxY
-    let mp = Map lp $ replicate (maxY+1) $ replicate (200+maxY) Void
+    let maxX = (+) 5 $ maximum $ map fst $ concat rocksPositions
+    let minX = (-) (minimum $ map fst $ concat rocksPositions) 5
+    let lp = minX-maxY
+    let mp = Map lp $ replicate (maxY+1) $ replicate (maxX-lp+maxY) Void
     let newMp = foldl generateRocks mp rocksPositions
     print $ pour newMp
     --print maxY
     let filledmp = generateRocks newMp [(lp, maxY), (lp + length (slice newMp !! 0)-1, maxY)]
-    --print $ slice filledmp
+    --print $ filledmp
+    --print $ printPour filledmp
     print $ pour filledmp
+    print $ length $ (slice filledmp) !! 0
