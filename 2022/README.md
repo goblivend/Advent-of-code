@@ -86,4 +86,5 @@ Had to think of a trick to have lists of possibly int or list but managed using 
 Finding the bugs were a bit tricky with those functions but some `trace` made the trick so it was ok
 
 ### Day 14 :
-Was fun, need to go edit this later
+Was fun, even managed to create a pretty print, though the solution is a bit long will try to refactor it.
+Managed to pretty print the map and to count according to the values and not to the number of iterations

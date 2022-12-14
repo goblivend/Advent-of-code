@@ -1,8 +1,6 @@
 module Main where
 
 import Data.Char
-import Data.List
-import Data.Containers.ListUtils
 import Debug.Trace
 
 data Land = Void | Rock | Sand deriving (Eq)
@@ -43,14 +41,8 @@ pourSand (Map lpad slice) (x, y)
     | slice !! (y+1) !! (x-lpad)   == Void = pourSand (Map lpad slice) (x, y+1)
     | slice !! (y+1) !! (x-lpad-1) == Void = pourSand (Map lpad slice) (x-1, y+1)
     | slice !! (y+1) !! (x-lpad+1) == Void = pourSand (Map lpad slice) (x+1, y+1)
-    | otherwise = Map lpad $ replaceAt y (replaceAt (x-lpad) Sand (slice !! y)) slice
-        where newMap = Map lpad $ replaceAt y (replaceAt (x-lpad) Sand (slice !! y)) slice
-
-pour :: Map -> Int
-pour mp
-    | mp /= newMp = 1+ pour newMp
-    | otherwise = 0
-        where newMp = pourSand mp (500, 0)
+    | otherwise = newMp
+        where newMp = Map lpad $ replaceAt y (replaceAt (x-lpad) Sand (slice !! y)) slice
 
 printPour :: Map -> Map
 printPour mp
@@ -58,20 +50,35 @@ printPour mp
     | otherwise = mp
         where newMp = pourSand mp (500, 0)
 
-
 main :: IO ()
 main = do
-    content <- readFile "shortinput.txt"
+    content <- readFile "input.txt"
     let rocksPositions = map parseLine $ lines content
     let maxY = (+) 2 $ maximum $ map snd $ concat rocksPositions
-    let maxX = (+) 5 $ maximum $ map fst $ concat rocksPositions
-    let minX = (-) (minimum $ map fst $ concat rocksPositions) 5
-    let lp = minX-maxY
-    let mp = Map lp $ replicate (maxY+1) $ replicate (maxX-lp+maxY) Void
+    let maxX = maximum $ map fst $ concat rocksPositions
+    let minX = minimum $ map fst $ concat rocksPositions
+
+    let lp = minimum [500-maxY, minX - 1]
+    let range = maximum [maxX-lp + 1, 500+maxY-lp + 1]
+
+    let mp = Map lp $ replicate (maxY+1) $ replicate range Void
     let newMp = foldl generateRocks mp rocksPositions
-    --print $ pour newMp
-    --print maxY
+    --print (length ((slice newMp) !! 0), length . slice $ newMp)
+
+    print $ length . filter (==Sand) . concat . slice $ printPour newMp
+
     let filledmp = generateRocks newMp [(lp, maxY), (lp + length (slice newMp !! 0)-1, maxY)]
-    print $ filledmp
-    --print $ printPour filledmp
-    --print $ pour filledmp
+    print $ length . filter (==Sand) . concat . slice $ printPour filledmp
+
+    -- TO GET PRETTY PRINT
+    -- (press <enter> to get next recursion : keep pressed to get timelapse)
+    --mypour filledmp
+
+    where
+        mypour mp = do
+            let newMp = pourSand mp (500, 0)
+            if newMp == mp
+                then return () else do
+                    print mp
+                    l <- getLine
+                    mypour newMp
