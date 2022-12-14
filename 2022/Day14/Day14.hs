@@ -12,15 +12,10 @@ instance Show Land where
     show Rock = "#"
     show Sand = "o"
 
-showLand :: [Land] -> String
-showLand [] = []
-showLand (e:l) = (show e) ++ showLand l
-
-
 data Map = Map { lpad :: Int, slice :: [[Land]] } deriving (Eq)
 
 instance Show Map where
-    show (Map lp sl) = "Lpad = " ++ (show lp) ++ "\n" ++ (concat $ map (\l -> "\n" ++ showLand l) sl)
+    show (Map lp sl) = "Lpad = " ++ (show lp) ++ "\n" ++ (concat $ map (\l -> "\n" ++ concat (map show l)) sl)
 
 parseLine :: String -> [(Int, Int)]
 parseLine [] = []
@@ -74,10 +69,9 @@ main = do
     let lp = minX-maxY
     let mp = Map lp $ replicate (maxY+1) $ replicate (maxX-lp+maxY) Void
     let newMp = foldl generateRocks mp rocksPositions
-    print $ pour newMp
+    --print $ pour newMp
     --print maxY
     let filledmp = generateRocks newMp [(lp, maxY), (lp + length (slice newMp !! 0)-1, maxY)]
-    --print $ filledmp
+    print $ filledmp
     --print $ printPour filledmp
-    print $ pour filledmp
-    print $ length $ (slice filledmp) !! 0
+    --print $ pour filledmp
