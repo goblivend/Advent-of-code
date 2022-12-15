@@ -18,7 +18,7 @@ This year I will probably try to use Haskell or Lua\
 - [x] Day 12
 - [x] Day 13
 - [x] Day 14
-- [ ] Day 15
+- [x] Day 15
 - [ ] Day 16
 - [ ] Day 17
 - [ ] Day 18
@@ -88,3 +88,8 @@ Finding the bugs were a bit tricky with those functions but some `trace` made th
 ### Day 14 :
 Was fun, even managed to create a pretty print, though the solution is a bit long will try to refactor it.
 Managed to pretty print the map and to count according to the values and not to the number of iterations
+
+### Day 15 :
+This one was quite tricky, tried to do it the dumb way at first (checking at each point if there was a sensor in range) and this took ages to run.
+Raph came in clutch and I saw the idea of using ranges of sight and merging them together so that's what I did and this solution is way faster to solve.
+quite happy the way it looks, took idea from raph but still managed to do my own code
