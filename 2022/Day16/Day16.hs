@@ -27,23 +27,22 @@ getIndex (v:valves) _name
     | otherwise = 1 + getIndex valves _name
 
 allOpened :: [Valve] -> Bool
-allOpened valves = all (opened) valves
-
+allOpened valves = all (\v -> opened v || rate v == 0) valves
 
 -- The path is the valves I did not visited in a go
 getMostPressure :: Int -> [Valve] -> Int -> [String] -> String -> Int
 getMostPressure timeLeft valves acc path curr
     | timeLeft == 0 = acc
-    | timeLeft <= 0 = 0
-    | allOpened valves = trace ("Stopping at : " ++ show timeLeft ++ " With " ++ show acc) (acc*timeLeft)
-    | otherwise = {-trace (show timeLeft ++ " At " ++ curr ++ " with max " ++ show maxPressure)-} (acc + maxPressure)
+--    | timeLeft <= 0 = 0
+    | allOpened valves = {-trace ("Stopping at : " ++ show timeLeft ++ " With " ++ show acc)-} (acc*timeLeft)
+    | otherwise = {-trace (show timeLeft ++ " At " ++ curr ++ " with max " ++ show maxPressure)-} (maxPressure)
         where
             v = getValve valves curr
             idx = getIndex valves curr
             maxPressureNotOpening =  maximum . map (\n -> if elem n path then 0 else getMostPressure (timeLeft - 1) valves acc (curr:path) n) . tunnels $ v
             newAcc = if opened v then acc else acc + rate v
             maxPressureOpening = if opened v || rate v == 0 then 0 else maximum . map (getMostPressure (timeLeft - 2) (replaceAt idx (v {opened = True}) valves) newAcc []) . tunnels $ v
-            maxPressure = max maxPressureOpening $ max newAcc maxPressureNotOpening
+            maxPressure = max maxPressureOpening $ max newAcc  maxPressureNotOpening
 
 
 
