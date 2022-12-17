@@ -93,3 +93,6 @@ Managed to pretty print the map and to count according to the values and not to 
 This one was quite tricky, tried to do it the dumb way at first (checking at each point if there was a sensor in range) and this took ages to run.
 Raph came in clutch and I saw the idea of using ranges of sight and merging them together so that's what I did and this solution is way faster to solve.
 quite happy the way it looks, took idea from raph but still managed to do my own code
+
+### Day 16 :
+Didn't manage to fix my answer, even for part 1, I will definetly try to fix it since it only show a result close to the one we want but for the moment I will continue to next Day.

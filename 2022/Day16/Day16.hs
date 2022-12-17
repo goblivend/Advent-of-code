@@ -33,16 +33,17 @@ allOpened valves = all (\v -> opened v || rate v == 0) valves
 getMostPressure :: Int -> [Valve] -> Int -> [String] -> String -> Int
 getMostPressure timeLeft valves acc path curr
     | timeLeft == 0 = acc
---    | timeLeft <= 0 = 0
-    | allOpened valves = {-trace ("Stopping at : " ++ show timeLeft ++ " With " ++ show acc)-} (acc*timeLeft)
-    | otherwise = {-trace (show timeLeft ++ " At " ++ curr ++ " with max " ++ show maxPressure)-} (maxPressure)
+    | timeLeft <= 0 = 0
+    | allOpened valves = acc*timeLeft
+    | otherwise = acc + maxPressure
         where
             v = getValve valves curr
             idx = getIndex valves curr
             maxPressureNotOpening =  maximum . map (\n -> if elem n path then 0 else getMostPressure (timeLeft - 1) valves acc (curr:path) n) . tunnels $ v
             newAcc = if opened v then acc else acc + rate v
-            maxPressureOpening = if opened v || rate v == 0 then 0 else maximum . map (getMostPressure (timeLeft - 2) (replaceAt idx (v {opened = True}) valves) newAcc []) . tunnels $ v
-            maxPressure = max maxPressureOpening $ max newAcc  maxPressureNotOpening
+            -- maxPressureOpening = if opened v || rate v == 0 || timeLeft == 1 then newAcc else maximum . map (getMostPressure (timeLeft - 2) (replaceAt idx (v {opened = True}) valves) newAcc []) . tunnels $ v
+            maxPressureOpening = if opened v || rate v == 0 then 0 else getMostPressure (timeLeft - 1) (replaceAt idx (v {opened = True}) valves) newAcc [] curr
+            maxPressure = max maxPressureNotOpening $ maxPressureOpening
 
 
 
@@ -51,6 +52,5 @@ main :: IO ()
 main = do
     content <- readFile "shortinput.txt"
     let valves = map parseLine $  lines content
-    -- putStrLn $ unlines $ map show valves
 
     print $ getMostPressure 30 valves 0 [] "AA"
