@@ -96,3 +96,7 @@ quite happy the way it looks, took idea from raph but still managed to do my own
 
 ### Day 16 :
 Didn't manage to fix my answer, even for part 1, I will definetly try to fix it since it only show a result close to the one we want but for the moment I will continue to next Day.
+
+### Day 17 :
+For the moment managed to do a nice parsing and uite happy of how it turned out
+Now I need to make the rocks move like in a tetris game, and that's getting harder
