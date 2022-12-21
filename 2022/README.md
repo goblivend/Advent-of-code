@@ -19,11 +19,11 @@ This year I will probably try to use Haskell or Lua\
 - [x] Day 14
 - [x] Day 15
 - [ ] Day 16
-- [ ] Day 17
-- [ ] Day 18
+- [ ] Day 17 (only part 1)
+- [x] Day 18
 - [ ] Day 19
-- [ ] Day 20
-- [ ] Day 21
+- [x] Day 20
+- [x] Day 21
 - [ ] Day 22
 - [ ] Day 23
 - [ ] Day 24
@@ -128,3 +128,12 @@ Thanksfully, I think well enough when I'm watching movies so it helped quite a l
 ### Day 19 :
 
 First shot at this one, managed to parse and have a "theoretically working" solution except it's exponential and won't be able to run fast enough, so now I have to limit the results and filter out wrong results
+
+### Day 20 :
+
+The problem was to move elements in a list according to their value
+This fay was quite a mess but was solvable, at first I tried to move the values themselves, then I thought that it was way easier to move a list of index and then to recreate the final array, I'm quite happy of how it turned out
+
+### Day 21 :
+
+Quite happy with my solution managed to do it quite fast and the problem solving was quite straight forward
