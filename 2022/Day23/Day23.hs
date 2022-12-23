@@ -91,8 +91,12 @@ part1 board dir nb
 prettyShow :: Board -> String
 prettyShow b = unlines $ ((\e -> if e == Elf then '#' else '.') <$>) <$> b
 
+debug :: Bool -> String -> a -> a
+debug cond str call = (if cond then trace (str) else id) call
+
+
 part2 :: Board -> Int -> Int
-part2 board dir = if newB /= board then 1+part2 (trace (show dir) (newB)) (dir + 1) else 1
+part2 board dir = if newB /= board then 1+part2 (debug (dir `mod` 2 == 0) (show dir) (newB)) (dir + 1) else 1
     where
         newB = move (space board) (dir `mod` 4)
 
