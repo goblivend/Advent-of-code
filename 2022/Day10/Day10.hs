@@ -17,7 +17,7 @@ drawCrt :: Int -> Int -> [Int] -> String
 drawCrt curr acc [] = ""
 drawCrt curr acc (e:l) = pixel ++ drawCrt (curr+1) (acc+e) l
     where
-        color = if elem (mod curr 40) [acc-1..acc+1] then "#" else "."
+        color = if elem (mod curr 40) [acc-1..acc+1] then "#" else " "
         pixel = if mod curr 40 == 39 then color++"\n" else color
 
 

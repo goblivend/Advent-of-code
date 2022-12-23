@@ -25,7 +25,7 @@ This year I will probably try to use Haskell or Lua\
 - [x] Day 20
 - [x] Day 21
 - [x] Day 22
-- [ ] Day 23
+- [x] Day 23
 - [ ] Day 24
 - [ ] Day 25
 
@@ -140,4 +140,8 @@ Quite happy with my solution managed to do it quite fast and the problem solving
 
 ### Day 22 :
 
-This day was quite easy to figure out a solution, the issue was to visualize the specific values to use for example the new coordinates when using the dice and the new directions,
+This day was quite easy to figure out a solution, the issue was to visualize the specific values to use for example the new coordinates when using the dice and the new directions.
+
+### Day 23 :
+
+This day was really straight forward, I was doing part two instead of part one without even realizing, just a tiny error of 1 in part two annoyed me but that's all.
