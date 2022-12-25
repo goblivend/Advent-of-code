@@ -1,56 +1,46 @@
 module Main where
 
 import Data.Char
-import Data.List
 import Data.List.Split
-import Data.Containers.ListUtils
-import Debug.Trace
+import Data.List hiding (insert)
+import Data.Map (Map, (!), fromList, insert, empty, member, size, filter, keys, adjust)
 
-data Valve = Valve { name :: String, rate :: Int, tunnels :: [String], opened :: Bool } deriving (Eq, Ord, Show, Read)
+data Valve = Valve { rate :: Int, tunnels :: [String]}
 
-parseLine :: String -> Valve
-parseLine line = Valve _name _rate _tunnels False
+parseLine :: String -> (String, Valve)
+parseLine line = (_name, Valve _rate _tunnels)
     where
         _name = take 2 $ drop (length "Valve ") line
         _rate = read $ takeWhile isDigit $ dropWhile (not . isDigit) line
         _tunnels = splitOn ", " $ dropWhile (not . isUpper) $ (splitOn ";" line) !! 1
+        
+getShortest :: Map String Valve -> String -> [String] -> Int
+getShortest valves dst lst 
+            | any (==dst) lst = 0
+            | otherwise = 1 + getShortest valves dst (concat $ map (\c -> tunnels $ valves ! c) lst)
 
-replaceAt :: Int -> a -> [a] -> [a]
-replaceAt n x l = take n l ++ [x] ++ drop (n+1) l
+getDistance :: Map String Valve -> (String, String) -> ((String, String), Int)
+getDistance valves (src, dst) = ((src, dst), getShortest valves dst [src])
 
-getValve :: [Valve] -> String -> Valve
-getValve valves _name = head . filter (\v -> name v == _name) $ valves
 
-getIndex :: [Valve] -> String -> Int
-getIndex (v:valves) _name
-    | name v == _name = 0
-    | otherwise = 1 + getIndex valves _name
-
-allOpened :: [Valve] -> Bool
-allOpened valves = all (\v -> opened v || rate v == 0) valves
-
--- The path is the valves I did not visited in a go
-getMostPressure :: Int -> [Valve] -> Int -> [String] -> String -> Int
-getMostPressure timeLeft valves acc path curr
-    | timeLeft == 0 = acc
+getMaxRelease :: Map String Valve -> Map (String, String) Int -> Int -> String -> [String] -> Int
+getMaxRelease valves distances timeLeft curr [] = 0 
+getMaxRelease valves distances timeLeft curr closed 
     | timeLeft <= 0 = 0
-    | allOpened valves = acc*timeLeft
-    | otherwise = acc + maxPressure
-        where
-            v = getValve valves curr
-            idx = getIndex valves curr
-            maxPressureNotOpening =  maximum . map (\n -> if elem n path then 0 else getMostPressure (timeLeft - 1) valves acc (curr:path) n) . tunnels $ v
-            newAcc = if opened v then acc else acc + rate v
-            -- maxPressureOpening = if opened v || rate v == 0 || timeLeft == 1 then newAcc else maximum . map (getMostPressure (timeLeft - 2) (replaceAt idx (v {opened = True}) valves) newAcc []) . tunnels $ v
-            maxPressureOpening = if opened v || rate v == 0 then 0 else getMostPressure (timeLeft - 1) (replaceAt idx (v {opened = True}) valves) newAcc [] curr
-            maxPressure = max maxPressureNotOpening $ maxPressureOpening
-
-
+    | otherwise = maxRelease
+    where
+        newTimeLeft dst = timeLeft - 1 - distances ! (curr, dst)
+        possibleClosed = Data.List.filter (\d -> distances ! (curr, d) < timeLeft) closed
+        releases = map (\dst -> (rate $ valves ! dst) * (newTimeLeft dst) + getMaxRelease valves distances (newTimeLeft dst) dst (delete dst closed)) $ possibleClosed
+        maxRelease = if releases == [] then 0 else maximum releases
 
 
 main :: IO ()
 main = do
-    content <- readFile "shortinput.txt"
-    let valves = map parseLine $  lines content
-
-    print $ getMostPressure 30 valves 0 [] "AA"
+    content <- readFile "input.txt"
+    let valves = fromList $ map parseLine $  lines content
+    let usefulValves = (keys $ Data.Map.filter ((>0) . rate) valves)
+    let distances = fromList $ getDistance valves <$> [(src, dst) | src <- ("AA":usefulValves), dst <- usefulValves, src /= dst]
+    -- print $ keys valves
+    -- print distances
+    print $ getMaxRelease valves distances 30 "AA" usefulValves
