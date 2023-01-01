@@ -18,7 +18,7 @@ This year I will probably try to use Haskell or Lua\
 - [x] Day 13
 - [x] Day 14
 - [x] Day 15
-- [ ] Day 16
+- [ ] Day 16 (only part 1)
 - [ ] Day 17 (only part 1)
 - [x] Day 18
 - [ ] Day 19
@@ -26,8 +26,8 @@ This year I will probably try to use Haskell or Lua\
 - [x] Day 21
 - [x] Day 22
 - [x] Day 23
-- [ ] Day 24
-- [ ] Day 25
+- [x] Day 24
+- [ ] Day 25 (only part 1)
 
 ---
 
@@ -145,3 +145,14 @@ This day was quite easy to figure out a solution, the issue was to visualize the
 ### Day 23 :
 
 This day was really straight forward, I was doing part two instead of part one without even realizing, just a tiny error of 1 in part two annoyed me but that's all.
+
+### Day 24 :
+
+This day was a maze solving algo, it was quite interesting to solve, the part 2 however was barely reuse of part 1...
+
+### Day 25 :
+
+Last day, this one only had a part 1, the part 2 was just to complete all of the other days so only part one done.
+The exercise was to create a conversion between decimal and Snafu which is created using `-2` `-1` `0` `1` `2`, at first I created a brute force algo but was way too slow so I remembered how to actually convert numbers and the algo was quite easy to implement.
+
+This also sets the end of a journey, the AOC 2022 is now over and the only thing left to do might be to finish before the next one
