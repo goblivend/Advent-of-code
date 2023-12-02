@@ -5,23 +5,23 @@ import Data.Char
 firstGetIntLine :: String -> [String]
 firstGetIntLine [] = []
 firstGetIntLine (e:s)
-    | isDigit e = (e:[]) : firstGetIntLine s
+    | isDigit e = [e] : firstGetIntLine s
     | otherwise = firstGetIntLine s
 
 -- Some digits are written down
 secondGetIntLine :: String -> [String]
 secondGetIntLine [] = []
-secondGetIntLine (e:s)
-    | isDigit e = (e:[]) : secondGetIntLine s
-    | isPrefixOf "one"   (e:s) = "1" : secondGetIntLine s--(drop 2 s)
-    | isPrefixOf "two"   (e:s) = "2" : secondGetIntLine s--(drop 2 s)
-    | isPrefixOf "three" (e:s) = "3" : secondGetIntLine s--(drop 4 s)
-    | isPrefixOf "four"  (e:s) = "4" : secondGetIntLine s--(drop 3 s)
-    | isPrefixOf "five"  (e:s) = "5" : secondGetIntLine s--(drop 3 s)
-    | isPrefixOf "six"   (e:s) = "6" : secondGetIntLine s--(drop 2 s)
-    | isPrefixOf "seven" (e:s) = "7" : secondGetIntLine s--(drop 4 s)
-    | isPrefixOf "eight" (e:s) = "8" : secondGetIntLine s--(drop 4 s)
-    | isPrefixOf "nine"  (e:s) = "9" : secondGetIntLine s--(drop 3 s)
+secondGetIntLine l@(e:s)
+    | isDigit e = [e] : secondGetIntLine s
+    | isPrefixOf "one"   l = "1" : secondGetIntLine s--(drop 2 s)
+    | isPrefixOf "two"   l = "2" : secondGetIntLine s--(drop 2 s)
+    | isPrefixOf "three" l = "3" : secondGetIntLine s--(drop 4 s)
+    | isPrefixOf "four"  l = "4" : secondGetIntLine s--(drop 3 s)
+    | isPrefixOf "five"  l = "5" : secondGetIntLine s--(drop 3 s)
+    | isPrefixOf "six"   l = "6" : secondGetIntLine s--(drop 2 s)
+    | isPrefixOf "seven" l = "7" : secondGetIntLine s--(drop 4 s)
+    | isPrefixOf "eight" l = "8" : secondGetIntLine s--(drop 4 s)
+    | isPrefixOf "nine"  l = "9" : secondGetIntLine s--(drop 3 s)
     | otherwise = secondGetIntLine s
 
 
