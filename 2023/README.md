@@ -48,8 +48,20 @@ Still quite rusty on Haskell lots of going back and forward on the doc...
 
 ### Day 3:
 
-Today I managed to read the subject 🥳🥳
+Today I managed to read the subject 🥳🥳(edit: well actually no... )
 But it did not stop me to do stupid things and have a hard time over easy things
 The subject was not as clear as I'd like, it was never mentionned we would have 2 number for a gear... so when my result was not good I went and tried to fix this while in fact it was useless...
 Also, this time the fault is on haskell, `groupBy` works by `takeWhile` so you need to have a sorted input... dumb mistake for which wasted ~1h by analysing the input, looking at someone else's results with my input...
 on the bright side I temporarily managed to make my vscode lsp work, no idea how or why it's gone now but well....
+
+
+### Day 4:
+
+Today is finally the day, I read the subject, may this day be remembered.
+Also the first time I used the Haskell regex lib `regex-tdfa` spent some time trying to understand how it worked and the parsing of `|` is not nice at all XD.
+After that first part was easy enough.
+Second part was a bit more tricky,
+ - first solution was quite slow : for each cards won I went looking how many I won so the complexity was exponential...
+ - Second one is in linear time :
+     - I go in reverse order and in an accumulator I store how many copy cards I get for each base card
+     - Then instead of doing the calculations many time, I just get that result for the next ones
