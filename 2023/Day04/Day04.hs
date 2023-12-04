@@ -3,7 +3,7 @@ module Main where
 import Data.Char
 import Data.List
 import Data.List.Split
-import Text.Regex.TDFA
+import Text.Regex.TDFA ( (=~) )
 
 data Card = Card {winning :: [Int], drawn :: [Int]} deriving (Show, Eq)
 
@@ -20,11 +20,7 @@ winnings :: Card -> [Int]
 winnings (Card w d) = filter (`elem` w) d
 
 part1 :: [Card] -> Int
-part1 = sum . map (points . winning)
-    where
-        points [] = 0
-        points (e:[]) = 1
-        points (e:s) = 2 * points s
+part1 = sum . map (2 ^) . filter (/= 0) . map length . map winnings
 
 getCardsNb :: [Int] -> [Card] -> [Int]
 getCardsNb acc [] = acc
@@ -35,9 +31,9 @@ getCardsNb acc (e:s) = getCardsNb (current:acc) s
         current = 1 + (sum $ (acc !!) <$> cardsWon)
 
 part2 :: [Card] -> Int
-part2 cards = sum $ map (cardsNb !!) [0..length cards - 1]
+part2 cards = sum $ (cardsNb !!) <$> [0..length cards - 1]
     where
-        cardsNb = getCardsNb [] $ reverse $ cards
+        cardsNb = getCardsNb [] . reverse $ cards
 
 main :: IO ()
 main = do
