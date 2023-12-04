@@ -8,9 +8,8 @@ import Text.Regex.TDFA ( (=~) )
 parseInput :: String -> [Int]
 parseInput = map (getNumbers . break (== '|') . drop (length "Card   1:")) . lines
     where
-        winnings :: [Int] -> [Int] -> Int
         winnings w d = length $ filter (`elem` w) d
-        getNumbers (w, _ : n) = winnings (read <$> words w) (read <$> words n)
+        getNumbers (w, _ : n) = winnings (words w) (words n)
 
 part1 :: [Int] -> Int
 part1 = sum . map ((2 ^) . (+ (-1))) . filter (/= 0)
