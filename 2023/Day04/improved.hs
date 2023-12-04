@@ -5,17 +5,6 @@ import Data.List
 import Data.List.Split
 import Text.Regex.TDFA ( (=~) )
 
-
--- parseInput :: String -> Int
--- parseInput = head . map (makeCard) . matchCard
---     where
---         matchCard s = s =~ "(.*)[|](.*)" :: [[String]]
---         matchNumber s = s =~ "( *([0-9]+))" :: [[String]]
---         makeNumber [_, _, n] = read n :: Int
---         getNumbers = map (makeNumber) . matchNumber
---         winnings w d = length $ filter (`elem` w) d
---         makeCard [_, w, d] = winnings (drop 1 $ getNumbers w) (getNumbers d)
-
 parseInput :: String -> [Int]
 parseInput = map (getNumbers . break (== '|') . drop (length "Card   1:")) . lines
     where
