@@ -5,35 +5,22 @@ import Data.List
 import Data.List.Split
 import Text.Regex.TDFA ( (=~) )
 
-data Card = Card {winning :: [Int], drawn :: [Int]} deriving (Show, Eq)
 
-parseInput :: String -> Card
+parseInput :: String -> Int
 parseInput = head . map (makeCard) . matchCard
     where
         matchCard s = s =~ "(.*)[|](.*)" :: [[String]]
         matchNumber s = s =~ "( *([0-9]+))" :: [[String]]
-        makeNumber [_, _, n] = read n
+        makeNumber [_, _, n] = read n :: Int
         getNumbers = map (makeNumber) . matchNumber
-        makeCard [_, w, d] = Card (drop 1 $ getNumbers w) (getNumbers d)
+        winnings w d = length $ filter (`elem` w) d
+        makeCard [_, w, d] = winnings (drop 1 $ getNumbers w) (getNumbers d)
 
-winnings :: Card -> [Int]
-winnings (Card w d) = filter (`elem` w) d
+part1 :: [Int] -> Int
+part1 = sum . map ((2 ^) . (+ (-1))) . filter (/= 0)
 
-part1 :: [Card] -> Int
-part1 = sum . map (2 ^) . filter (/= 0) . map length . map winnings
-
-getCardsNb :: [Int] -> [Card] -> [Int]
-getCardsNb acc [] = acc
-getCardsNb acc (e:s) = getCardsNb (current:acc) s
-    where
-        nbMatching = length $ winnings e
-        cardsWon = init [0..nbMatching]
-        current = 1 + (sum $ (acc !!) <$> cardsWon)
-
-part2 :: [Card] -> Int
-part2 cards = sum $ (cardsNb !!) <$> [0..length cards - 1]
-    where
-        cardsNb = getCardsNb [] . reverse $ cards
+part2 :: [Int] -> Int
+part2 = sum . foldr (\w acc -> 1 + sum (take w acc) : acc) []
 
 main :: IO ()
 main = do

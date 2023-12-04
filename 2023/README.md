@@ -67,3 +67,5 @@ Second part was a bit more tricky,
      - Then instead of doing the calculations many time, I just get that result for the next ones
 
 I also went looking for what the operator `<$>` meant and did a bit of refacto to include it in today's solution
+
+Did a bit of refacto with @Sheinxy's solution and managed to create an improved version that is faster than either one
