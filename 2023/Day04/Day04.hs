@@ -32,7 +32,7 @@ getCardsNb acc (e:s) = getCardsNb (current:acc) s
     where
         nbMatching = length $ winnings e
         cardsWon = init [0..nbMatching]
-        current = 1 + (sum $ map (acc !!) cardsWon)
+        current = 1 + (sum $ (acc !!) <$> cardsWon)
 
 part2 :: [Card] -> Int
 part2 cards = sum $ map (cardsNb !!) [0..length cards - 1]
@@ -43,7 +43,7 @@ main :: IO ()
 main = do
     content <- readFile "input.txt"
     let input = lines content
-    let cards = map (parseInput) input
+    let cards = parseInput <$> input
 
     print $ part1 cards
     print $ part2 cards

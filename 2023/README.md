@@ -65,3 +65,5 @@ Second part was a bit more tricky,
  - Second one is in linear time :
      - I go in reverse order and in an accumulator I store how many copy cards I get for each base card
      - Then instead of doing the calculations many time, I just get that result for the next ones
+
+I also went looking for what the operator `<$>` meant and did a bit of refacto to include it in today's solution
