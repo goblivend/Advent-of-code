@@ -56,5 +56,5 @@ main = do
     print "Started"
     content <- readFile "input.txt"
     let almanac = parseInput content
-    print $ 175622908 == part1 almanac
-    print $ 5200543 == part2 almanac
+    print $ part1 almanac
+    print $ part2 almanac
