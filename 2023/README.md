@@ -7,7 +7,7 @@ No idea what language to do this year with, will start with haskell
 - [x] Day 3
 - [x] Day 4
 - [x] Day 5
-- [ ] Day 6
+- [x] Day 6
 - [ ] Day 7
 - [ ] Day 8
 - [ ] Day 9
@@ -83,3 +83,11 @@ I did not exactly timed myself but I must have taken 2h30 to do this one 👀 th
 Nevertheless, I managed to use better imports, Sets, Maps
 
 Also, from now on, I will try to have only 3 functions : `parseInput`, `part1` and `part2` like haskell master @Sheinxy. I feel like these functions would be similar to `public` things in languages like Java, C# and others, for which a good practice is to keep things `private` aas much as possible.
+
+### Day 6
+
+Well today's challenge should have been day1's honestly it was the most straight forward exercise
+
+I'm wondering if it would have been possible to do on paper using only maths
+
+Well Actually did the math version in haskell for it to run sub 1s and was even easier than I though
