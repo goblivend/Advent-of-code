@@ -5,8 +5,8 @@ No idea what language to do this year with, will start with haskell
 - [x] Day 1
 - [x] Day 2
 - [x] Day 3
-- [ ] Day 4
-- [ ] Day 5
+- [x] Day 4
+- [x] Day 5
 - [ ] Day 6
 - [ ] Day 7
 - [ ] Day 8
@@ -69,3 +69,17 @@ Second part was a bit more tricky,
 I also went looking for what the operator `<$>` meant and did a bit of refacto to include it in today's solution
 
 Did a bit of refacto with @Sheinxy's solution and managed to create an improved version that is faster than either one
+
+### Day 5
+
+Today, I really realised that compared to previous years challenges were way more difficult, had my first real complexity issue.
+At first I tried to create maps and access the destination number.. How to tell you that when you have more than a bilion items in a map... it is kind of slow...
+So instead I compared using the ranges
+
+But compared to the input I chose to get some of my ranges as `(min, max)` since I don't really need the `range` but only the last accessible number
+
+I did not exactly timed myself but I must have taken 2h30 to do this one 👀 the end is gonna be long if it keeps getting harder, perhaps haskell has not been the best choice..
+
+Nevertheless, I managed to use better imports, Sets, Maps
+
+Also, from now on, I will try to have only 3 functions : `parseInput`, `part1` and `part2` like haskell master @Sheinxy. I feel like these functions would be similar to `public` things in languages like Java, C# and others, for which a good practice is to keep things `private` aas much as possible.
