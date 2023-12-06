@@ -1,24 +1,10 @@
 module Main where
 
-import Data.List (sortOn, group, groupBy, sort, sortBy)
+import Data.List (sortOn, group, sortOn, sort)
 import Data.Ord
-import Data.List.Split ( chunksOf, splitOn )
-import Data.Set (Set, fromList, singleton, empty, unions)
-import qualified Data.Set as S (map)
+import Data.Map (Map, (!), fromList)
 
 data Hand = Hand{raw :: [Int], groupped :: [[Int]], bid :: Integer} deriving (Show)
-
-parseInput1 :: String -> [Hand]
-parseInput1 = map (parseHand . words) . lines
-    where
-        readChar 'A' = 14
-        readChar 'K' = 13
-        readChar 'Q' = 12
-        readChar 'J' = 11
-        readChar 'T' = 10
-        readChar c = read [c]
-        groupHand = reverse . sortOn length . group . sort . map readChar
-        parseHand [h, b] = Hand (map readChar h) (groupHand h) (read b)
 
 instance Eq Hand where
     (==) (Hand r1 _ _) (Hand r2 _ _) = r1 == r2
@@ -33,33 +19,37 @@ instance Ord Hand where
         | length g1 > 1 && length (g1 !! 1) > length (g2 !! 1) = GT
         | otherwise                                            = compare r1 r2
 
-parseInput2 :: String -> [Hand]
-parseInput2 = map (parseHand . words) . lines
+parseInput :: Map Char Int -> String -> [Hand]
+parseInput values = map (parseHand . words) . lines
     where
-        readChar 'A' = 14
-        readChar 'K' = 13
-        readChar 'Q' = 12
-        readChar 'T' = 11
-        readChar 'J' = 1
-        readChar c = read [c]
-        groupHand :: String -> [[Int]]
-        groupHand h = newGroups (reverse . sortOn length $ (if 1 `elem` (head groups) then drop 1 groups else groups))
+        groupHand = reverse . sortOn length . group . sort . map (values !)
+        parseHand [h, b] = Hand (map (values !) h) (groupHand h) (read b)
+
+solve :: [Hand] -> Integer
+solve = sum . map (uncurry (*)) . zip [1..] . map bid . sort
+
+part1 :: Map Char Int -> String -> Integer
+part1 m = solve . parseInput m
+
+part2 :: Map Char Int -> String -> Integer
+part2 m = solve . map fixHand . parseInput m
+    where
+        regroupHand groups = newGroups . reverse . sortOn length $ drop (fromEnum hasJs) groups
             where
-                groups =  group . sort $ map readChar h
-                hasJs = 1 `elem` (groups !! 0)
+                hasJs = (m ! 'J') `elem` (groups !! 0) -- Jockers have lowest values so first when sorted
                 js = if hasJs then head groups else []
-                newGroups :: [[Int]] -> [[Int]]
                 newGroups [] = [js]
                 newGroups (e:l) = (e ++ js):l
 
-        parseHand [h, b] = Hand (map readChar h) (groupHand h) (read b)
-
-part1 :: [Hand] -> Integer
-part1 = sum . map (uncurry (*)) . zip [1..] . map bid . sort
+        fixHand (Hand r h b) = Hand r (regroupHand (sort h)) b
 
 main :: IO ()
 main = do
     print "Starting"
     content <- readFile "input.txt"
-    print $ part1 $ parseInput1 content
-    print $ part1 $ parseInput2 content
+    let values1 = fromList [('A', 14), ('K', 13), ('Q', 12), ('J', 11), ('T', 10), ('9', 9), ('8', 8), ('7', 7), ('6', 6), ('5', 5), ('4', 4), ('3', 3), ('2', 2)]
+    let values2 = fromList [('A', 14), ('K', 13), ('Q', 12), ('T', 10), ('9', 9), ('8', 8), ('7', 7), ('6', 6), ('5', 5), ('4', 4), ('3', 3), ('2', 2), ('J', 1)]
+
+
+    print $ 245794640 == part1 values1 content
+    print $ 247899149 == part2 values2 content

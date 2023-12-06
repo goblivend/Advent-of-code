@@ -91,3 +91,11 @@ Well today's challenge should have been day1's honestly it was the most straight
 I'm wondering if it would have been possible to do on paper using only maths
 
 Well Actually did the math version in haskell for it to run sub 1s and was even easier than I though
+
+### Day 7
+
+Today was not too difficult but creating a sort was a bit annoying to be honnest as well as having cards sorted like "AKQJT" and not alphabetically but understandable
+
+On part 2 I spent nearly 45mins on a forgotten `sort` which lead to Jockers not beeing assigned to the right group....
+
+Except from that the challenge was nice
