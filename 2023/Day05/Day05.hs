@@ -5,7 +5,6 @@ import Data.List.Split ( chunksOf, splitOn )
 import Data.Set (Set, fromList, singleton, empty, unions)
 import qualified Data.Set as S (map)
 
-
 data Almanac = Almanac {seeds :: [Int], converters :: [[(Int, Int, Int)]]} deriving (Show)
 
 parseInput :: String -> Almanac
@@ -46,10 +45,6 @@ part2 = foldl1 min . S.map fst . locations
         seedRanges = fromList . map (\[e1, e2] -> (e1, e1 + e2 - 1)) . chunksOf 2
         locations :: Almanac -> Set (Int, Int)
         locations (Almanac seeds converters) = foldl (folder) (seedRanges seeds) converters
-
-
-
-
 
 main :: IO ()
 main = do
