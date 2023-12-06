@@ -14,9 +14,9 @@ parseInput2 :: String -> Race
 parseInput2 =  (\[x, y] -> (x, y)) . map (read . concat . filter (/= "") . words . drop (length "Distance: ")) . lines
 
 solve :: Race -> Int
-solve (t, d) = root (+) - root (-)
+solve (t, d) = (ceiling $ root (+)) - (floor $ root (-)) - 1
     where
-        root op = floor $ (/2) $ op t $ sqrt (t ^ 2 - 4 * d)
+        root op = (/2) . op t $ sqrt (t ^ 2 - 4 * d)
 
 part1 :: String -> Int
 part1 = product . map solve . parseInput1
