@@ -115,3 +115,7 @@ Finally, with some help about what assemptions I could do, I managed to have a w
 And then I realised from @Sheinxy's answer that some big part of mine (in which there was a bug but I knew it would not matter for this input) was actually a function available in the language...
 
 So I managed to clean up most of it (the first version is still available as first commit of the day)
+
+### Day 9
+
+Today was really easy and straight forward, doing it in with recursivity haskell really paid off.
