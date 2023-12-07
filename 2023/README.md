@@ -8,8 +8,8 @@ No idea what language to do this year with, will start with haskell
 - [x] Day 4
 - [x] Day 5
 - [x] Day 6
-- [ ] Day 7
-- [ ] Day 8
+- [x] Day 7
+- [x] Day 8
 - [ ] Day 9
 - [ ] Day 10
 - [ ] Day 11
@@ -99,3 +99,19 @@ Today was not too difficult but creating a sort was a bit annoying to be honnest
 On part 2 I spent nearly 45mins on a forgotten `sort` which lead to Jockers not beeing assigned to the right group....
 
 Except from that the challenge was nice
+
+### Day 8
+
+Today was quite hard and not really in the interesting way...
+
+For the first part bruteforce was ok and fast enough.
+
+For the second part, bruteforce was impossible, and actually the only way to solve it was to make assemptions about the input and that was not a nice part...
+
+Like I can give you inputs that match the requirements in the subject and that would be unsolvable with most solutions created for today...
+
+Finally, with some help about what assemptions I could do, I managed to have a working solution
+
+And then I realised from @Sheinxy's answer that some big part of mine (in which there was a bug but I knew it would not matter for this input) was actually a function available in the language...
+
+So I managed to clean up most of it (the first version is still available as first commit of the day)
