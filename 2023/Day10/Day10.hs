@@ -18,6 +18,10 @@ instance Show Pipe where
     show (Pipe [( 0, -1), ( 1, 0)]) = "L"
     show (Pipe [(-1,  0), ( 0, 1)]) = "7"
     show (Pipe [( 1,  0), ( 0, 1)]) = "F"
+    show (Pipe c)                   = show c
+
+inputToString :: Input -> String
+inputToString = unlines . map (concatMap show)
 
 parseInput :: String -> Input
 parseInput = map (map readPipe) . lines
@@ -52,7 +56,7 @@ replaceStart inp = map (map fixMe) inp
             where
                 matching dxy
                     | outOfRange (width, height) (add sxy dxy) = []
-                    | otherwise = filter (any (== dxy) . connections . getPipe . add sxy) nonGround
+                    | otherwise = filter (any (== (-fst dxy, -snd dxy)) . connections . getPipe . add sxy) nonGround
                         where
                             nonGround = filter ((/= Ground) . getPipe . add sxy) [dxy]
                             getPipe (x, y) = inp !! y !! x
@@ -72,6 +76,16 @@ pipePath inp = pathFind sxy empty
 
 part1 :: Input -> Int
 part1 = (`div` 2) . size . pipePath
+
+cleanupInput :: Input -> Input
+cleanupInput inp = map (map (\(x, y) -> if (x,y) `member` path then inp2 !! y !! x else Ground)) [[(x, y) | x<-[0..width-1]] | y<-[0..height-1]]
+
+    where
+        path = pipePath inp
+        (width, height) = (length $ inp !! 0, length inp)
+        inp2 = replaceStart inp
+
+
 
 part2 :: Input -> Int
 part2 inp = length $ filter hasWallAbove grounds
@@ -109,6 +123,7 @@ part2 inp = length $ filter hasWallAbove grounds
         hasWallAbove = (/= 0) . (`mod` 2) . nbWallsHori . filter (/= ns) . map topipe . walls (0, -1)
 
 
+
 main :: IO ()
 main = do
     content <- readFile "input.txt"
@@ -116,3 +131,6 @@ main = do
 
     print $ part1 inp
     print $ part2 inp
+
+
+    -- putStr . inputToString  $ cleanupInput inp
