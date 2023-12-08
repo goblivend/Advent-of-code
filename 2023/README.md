@@ -12,7 +12,7 @@ No idea what language to do this year with, will start with haskell
 - [x] Day 8
 - [x] Day 9
 - [x] Day 10
-- [ ] Day 11
+- [x] Day 11
 - [ ] Day 12
 - [ ] Day 13
 - [ ] Day 14
@@ -124,3 +124,9 @@ Today was really easy and straight forward, doing it in with recursivity haskell
 
 This day was quite difficult and long to do but managed to find a way
 At first was quite long since I was using `elem` in lists but now, using `member` in sets it's a way better time
+
+### Day 11
+
+The day was quite nice
+
+Just for part two had stupid mistake and did for 1_000_001 instead of 1_000_000
