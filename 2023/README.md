@@ -10,8 +10,8 @@ No idea what language to do this year with, will start with haskell
 - [x] Day 6
 - [x] Day 7
 - [x] Day 8
-- [ ] Day 9
-- [ ] Day 10
+- [x] Day 9
+- [x] Day 10
 - [ ] Day 11
 - [ ] Day 12
 - [ ] Day 13
@@ -119,3 +119,8 @@ So I managed to clean up most of it (the first version is still available as fir
 ### Day 9
 
 Today was really easy and straight forward, doing it in with recursivity haskell really paid off.
+
+### Day 10
+
+This day was quite difficult and long to do but managed to find a way
+At first was quite long since I was using `elem` in lists but now, using `member` in sets it's a way better time
