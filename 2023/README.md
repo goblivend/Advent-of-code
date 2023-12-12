@@ -13,7 +13,7 @@ No idea what language to do this year with, will start with haskell
 - [x] Day 9
 - [x] Day 10
 - [x] Day 11
-- [ ] Day 12
+- [x] Day 12
 - [ ] Day 13
 - [ ] Day 14
 - [ ] Day 15
@@ -130,3 +130,13 @@ At first was quite long since I was using `elem` in lists but now, using `member
 The day was quite nice
 
 Just for part two had stupid mistake and did for 1_000_001 instead of 1_000_000
+
+### Day 12
+
+This day was quite difficult.
+
+First I tried to brute force (knowing it would not work for part2 but would get me there). As expected, part1 worked then part2 didn't
+
+Then @Sheinxy came along and talked about Memoisation.
+
+Not succeeding in the "smart" way, I went and check on his solution and managed to implement it in my code
