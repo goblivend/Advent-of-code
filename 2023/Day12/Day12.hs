@@ -1,5 +1,6 @@
 module Main where
 
+import Control.Parallel.Strategies
 import Data.List (sortOn, group, sortOn, sort, isPrefixOf, intercalate)
 import Data.List.Split ( splitOn )
 import Data.Maybe
@@ -55,7 +56,7 @@ nbArrangements (s, groups) = (snd $ nbA empty "" s [0])
         _nbA m seen (c:s) acc = nbA m (c:seen) s (conca acc c)
 
 part1 :: Input -> Int
-part1 = sum . map nbArrangements
+part1 = sum . parMap rseq nbArrangements
 
 part2 :: Input -> Int
 part2 = part1 . map (\(s, g) -> (intercalate "?" . take 5 $ repeat s, concat . take 5 $ repeat g))
