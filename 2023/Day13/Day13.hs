@@ -9,18 +9,18 @@ import Debug.Trace(trace)
 import Data.Map (Map, empty, insert)
 import qualified Data.Map as M (lookup)
 
-type Input = [[[Bool]]]
+type Input = [[[Char]]]
 
 parseInput :: String -> Input
-parseInput = map (map (map (\c -> case c of {'#' -> True; '.' -> False})) . lines) . splitOn "\n\n"
+parseInput = map (lines) . splitOn "\n\n"
 
-nbLinesHori2 :: Int -> [[Bool]] -> Int
+nbLinesHori2 :: Int -> [[Char]] -> Int
 nbLinesHori2 nbDiff mp = sum $ filter isSymmetric [1..length mp -1]
     where
-        diffs i = filter (== False) . concat . map ((map (uncurry (==)) . uncurry zip)) $ zip (drop i mp) (reverse $ take i mp)
-        isSymmetric i = nbDiff == length (diffs i)
+        diffs i = filter not . concat . map (map (uncurry (==)) . uncurry zip) $ zip (drop i mp) (reverse $ take i mp)
+        isSymmetric = (== nbDiff) . length . diffs
 
-solve :: ([[Bool]] -> Int) -> [[Bool]] -> Int
+solve :: ([[Char]] -> Int) -> [[Char]] -> Int
 solve f inp = (100 * f inp) + (f $ transpose inp)
 
 part1 :: Input -> Int
