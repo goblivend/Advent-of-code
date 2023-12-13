@@ -14,7 +14,7 @@ No idea what language to do this year with, will start with haskell
 - [x] Day 10
 - [x] Day 11
 - [x] Day 12
-- [ ] Day 13
+- [x] Day 13
 - [ ] Day 14
 - [ ] Day 15
 - [ ] Day 16
@@ -140,3 +140,11 @@ First I tried to brute force (knowing it would not work for part2 but would get 
 Then @Sheinxy came along and talked about Memoisation.
 
 Not succeeding in the "smart" way, I went and check on his solution and managed to implement it in my code
+
+### Day 13
+
+Nice to be back on nice easy problems
+
+Found the perfect function `transpose` that allows me to call the same function for both vertical and horizontal lines which is pretty neat
+
+And managed to get a nice code
