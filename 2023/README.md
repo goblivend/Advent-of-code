@@ -15,7 +15,7 @@ No idea what language to do this year with, will start with haskell
 - [x] Day 11
 - [x] Day 12
 - [x] Day 13
-- [ ] Day 14
+- [x] Day 14
 - [ ] Day 15
 - [ ] Day 16
 - [ ] Day 17
@@ -148,3 +148,13 @@ Nice to be back on nice easy problems
 Found the perfect function `transpose` that allows me to call the same function for both vertical and horizontal lines which is pretty neat
 
 And managed to get a nice code
+
+### Day 14
+
+This day was actually not that difficult, even though I had a hard time with part2
+
+Actually at first didn't know why I didn't have the good result nor where was the mistake, so went looking for my result using someone else's code to figure out what was wrong
+
+... I didn't copy the right number and was looking for the wrong result for ~45 mins.....
+
+Once I realised that my solution miraculously worked... XDD
