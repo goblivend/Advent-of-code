@@ -16,7 +16,7 @@ No idea what language to do this year with, will start with haskell
 - [x] Day 12
 - [x] Day 13
 - [x] Day 14
-- [ ] Day 15
+- [x] Day 15
 - [ ] Day 16
 - [ ] Day 17
 - [ ] Day 18
@@ -158,3 +158,9 @@ Actually at first didn't know why I didn't have the good result nor where was th
 ... I didn't copy the right number and was looking for the wrong result for ~45 mins.....
 
 Once I realised that my solution miraculously worked... XDD
+
+### Day 15
+
+This day was pretty easy and quite nice.
+
+Though I cannot say it was really interesting, it was mostly "follow this algorithm" and not a lot of thinking involved
