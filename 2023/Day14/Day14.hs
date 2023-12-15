@@ -10,6 +10,8 @@ import Data.Map (Map)
 import Data.Tuple.Extra
 import qualified Data.Set as S (insert, empty)
 import qualified Data.Map as M (insert, empty, lookup, size)
+import Data.Ord
+import Data.Function
 
 
 data Direction = North | South | East | West deriving (Eq, Show)
@@ -52,22 +54,10 @@ limit East  (x, _) (w, _) = x >= w
 limit West  (x, _) _      = x <= 1
 
 sortDir :: Direction -> (Int, Int) -> (Int, Int) -> Ordering
-sortDir North (x1, y1) (x2, y2)
-    | y1 < y2   = LT
-    | y1 > y2   = GT
-    | otherwise = EQ
-sortDir South (x1, y1) (x2, y2)
-    | y1 < y2   = GT
-    | y1 > y2   = LT
-    | otherwise = EQ
-sortDir West (x1, y1) (x2, y2)
-    | x1 < x2   = LT
-    | x1 > x2   = GT
-    | otherwise = EQ
-sortDir East (x1, y1) (x2, y2)
-    | x1 < x2   = GT
-    | x1 > x2   = LT
-    | otherwise = EQ
+sortDir North = compare `on` snd
+sortDir South = flip (sortDir North)
+sortDir East = compare
+sortDir West = flip (sortDir East)
 
 solve :: Input -> Int
 solve (Input (w,h) cubes rocks) = sum . map ((-) (h+1)) $ map snd rocks
