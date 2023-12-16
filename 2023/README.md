@@ -164,3 +164,7 @@ Once I realised that my solution miraculously worked... XDD
 This day was pretty easy and quite nice.
 
 Though I cannot say it was really interesting, it was mostly "follow this algorithm" and not a lot of thinking involved
+
+### Day 16
+
+This was first day done at ~6am more exactly 6:15am counting the waky waky and the code setup and 3000 so not that bad
