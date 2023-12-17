@@ -168,3 +168,9 @@ Though I cannot say it was really interesting, it was mostly "follow this algori
 ### Day 16
 
 This was first day done at ~6am more exactly 6:15am counting the waky waky and the code setup and 3000 so not that bad
+
+### Day 17
+
+This day was quite difficult but after ~8h of coding managed to do it
+
+At first seemed like an annoying type of difficult but actually was quite nice :D
