@@ -17,9 +17,9 @@ No idea what language to do this year with, will start with haskell
 - [x] Day 13
 - [x] Day 14
 - [x] Day 15
-- [ ] Day 16
-- [ ] Day 17
-- [ ] Day 18
+- [x] Day 16
+- [x] Day 17
+- [x] Day 18
 - [ ] Day 19
 - [ ] Day 20
 - [ ] Day 21
@@ -174,3 +174,9 @@ This was first day done at ~6am more exactly 6:15am counting the waky waky and t
 This day was quite difficult but after ~8h of coding managed to do it
 
 At first seemed like an annoying type of difficult but actually was quite nice :D
+
+### Day 18
+
+At first managed to make a nice solution using the grid itself like in the examples
+
+But because of part2 had to pass through maths formulas...
