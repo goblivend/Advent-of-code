@@ -22,7 +22,7 @@ parseInput s = Input (length (grid !! 0), length grid) grid
 bfs :: (Int, Int) -> Input -> [Set (Complex Int, Direction, Int)] -> Set (Complex Int, Direction, Int) -> Int
 bfs (mini, maxi) (Input (w, h) _) (l:arr) seen
     | ((w-1) :+ (h-1)) `member` (S.map (\(p, _, _) -> p) $ S.filter (\(_, _, n) -> n >= mini) l) = 0
-bfs (mini, maxi)inp@(Input (w, h) grid) (l:arr) seen  = 1 + (bfs (mini, maxi) inp cleanedArr newSeen)
+bfs (mini, maxi) inp@(Input (w, h) grid) (l:arr) seen  = 1 + (bfs (mini, maxi) inp cleanedArr newSeen)
     where
         cleanedArr = map ((`S.difference` newSeen)) $ (foldl insertNext arr l)
         newSeen = seen `S.union` l
@@ -39,10 +39,10 @@ bfs (mini, maxi)inp@(Input (w, h) grid) (l:arr) seen  = 1 + (bfs (mini, maxi) in
         insertNext arr e@(xy, dir, n)
             | e `S.member` seen = arr
             | isInValid xy = (arr)
+            | n < mini &&     (isInValid (add xy (dxy ! dir))) = arr
             | n < mini && not (isInValid (add xy (dxy ! dir))) =                 insertAt arr (add xy (dxy ! dir), dir, n+1)
-            | n < mini && (isInValid (add xy (dxy ! dir)))     = arr
             | n < maxi && not (isInValid (add xy (dxy ! dir))) = foldl insertAt (insertAt arr (add xy (dxy ! dir), dir, n+1)) $ others xy dir
-            | isInValid (add xy (dxy ! dir)) || n >= maxi      = foldl insertAt arr                                           $ others xy dir
+            | n >= maxi ||     isInValid (add xy (dxy ! dir))  = foldl insertAt arr                                           $ others xy dir
             | otherwise                                        = arr
 
 part1 :: Input -> Int
