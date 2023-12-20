@@ -26,14 +26,8 @@ parseInput :: String -> Input
 parseInput s = Input workflws prts
     where
         readCond :: String -> (Char, Int -> Bool)
-        readCond ('x':'<':nb) = ('x', (< (read nb)))
-        readCond ('x':'>':nb) = ('x', (> (read nb)))
-        readCond ('m':'<':nb) = ('a', (< (read nb)))
-        readCond ('m':'>':nb) = ('a', (> (read nb)))
-        readCond ('a':'<':nb) = ('m', (< (read nb)))
-        readCond ('a':'>':nb) = ('m', (> (read nb)))
-        readCond ('s':'<':nb) = ('s', (< (read nb)))
-        readCond ('s':'>':nb) = ('s', (> (read nb)))
+        readCond (c:'<':nb) = (c, (< (read nb)))
+        readCond (c:'>':nb) = (c, (> (read nb)))
 
         readFlow :: String -> Workflow
         readFlow s
