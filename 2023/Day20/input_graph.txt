@@ -1,0 +1,58 @@
+qm -> mj;qm ->  xn
+mj -> hz;mj -> bt;mj ->  lr;mj ->  sq;mj -> qh;mj -> vq
+qc -> qs;qc -> vg
+ng -> vr
+qh -> sq
+bt -> rs
+hh -> qs;hh ->  bx
+gk -> cs;gk ->  bb
+js -> mj
+pc -> mj; pc ->  mr
+mb -> rd; mb ->  xs
+tp -> qs; tp ->  ks
+xq -> tp; xq ->  qs
+bx -> sz
+mn -> cs; mn ->  md
+cv -> rd
+rh -> rd; rh ->  sv
+md -> cs
+pz -> mj; pz ->  vq
+bz -> rd; bz ->  hk
+jz -> vk
+sz -> jz
+lr -> pz; lr ->  mj
+xs -> cv; xs ->  rd
+kl -> rd; kl ->  mb
+hz -> pc
+hk -> rz; hk ->  rd
+vk -> qc
+bh -> zm
+vq -> qm
+ks -> qs; ks ->  nd
+qs -> dl; qs ->  jz; qs ->  bx; qs ->  vk; qs ->  vg; qs ->  hh; qs ->  sz
+dl -> rs
+lf -> rh; lf ->  rd
+fr -> rs
+xn -> mj; xn ->  qh
+hf -> qs; hf ->  xq
+sv -> rd; sv ->  ng
+rs -> rx
+rd -> ng; rd ->  fr; rd ->  rz; rd ->  lf; rd ->  vr
+cj -> ss; cj ->  cs
+broadcaster -> hh; broadcaster ->  lr; broadcaster ->  bp; broadcaster ->  lf
+zs -> cs; zs ->  mn
+vr -> bz
+nd -> qs
+jb -> cj; jb ->  cs
+rv -> rs
+bp -> cs; bp ->  lx
+ss -> zs
+lx -> gk
+cs -> lx; cs ->  ss; cs ->  rv; cs ->  bh; cs ->  bp
+bb -> bh; bb ->  cs
+mf -> mj; mf ->  hz
+zm -> cs; zm ->  jb
+mr -> mj; mr ->  js
+rz -> kl
+vg -> hf
+sq -> mf
