@@ -20,9 +20,9 @@ No idea what language to do this year with, will start with haskell
 - [x] Day 16
 - [x] Day 17
 - [x] Day 18
-- [ ] Day 19
-- [ ] Day 20
-- [ ] Day 21
+- [x] Day 19
+- [x] Day 20
+- [x] Day 21
 - [ ] Day 22
 - [ ] Day 23
 - [ ] Day 24
@@ -180,3 +180,23 @@ At first seemed like an annoying type of difficult but actually was quite nice :
 At first managed to make a nice solution using the grid itself like in the examples
 
 But because of part2 had to pass through maths formulas...
+
+### Day 19
+
+Completely forgot to fill this readme that day...
+
+### Day 20
+
+this day was quite annoying, managed to get the first part running but then for the second part.... trouble started
+
+I spent the whole day we basically a working solution, tried to rewrite it like Sheinxy's but still nothing good, I change (after several hours of debugging) the way the algorithm works and like magic it gives the good result but the changes shouldn't have done anything to the result.....
+
+### Day 21
+
+First part was nice and interesting :D
+
+Second part was not so great, once again it was input specific optimisation, on things that didn't even appear on the examples.....
+
+Anyway managed to get a solution from Adam's formulas, and managed to speed up my first part thx to Sheinxy's
+
+And found a bonus approximation algorithm that is almost correct

@@ -47,10 +47,11 @@ walk1step :: Input -> (Set (Int, Int), Set (Int, Int), [Int]) -> (Set (Int, Int)
 walk1step (inp@(Input wh grid _)) (curr, old, sizes) = (new, curr, (sizes !! 1 + S.size curr):sizes)
     where
         new = S.unions $ S.map availableHere curr
-        availableHere xy = S.filter ((==Garden) . (grid !) . inGrid wh)
-                . S.filter (`S.notMember` old)
-                . S.map (+xy)
-                $ S.fromAscList [(-1, 0), (0, -1), (0, 1), (1, 0)]
+        availableHere xy = S.fromList
+                . filter ((==Garden) . (grid !) . inGrid wh)
+                . filter (`S.notMember` old)
+                . map (+xy)
+                $ [(-1, 0), (0, -1), (0, 1), (1, 0)]
 
 walk :: Input -> [Int]
 walk inp = drop 1 . map (head . thd3) $ iterate (walk1step inp) (S.singleton $ start inp, S.empty, [0, 0])
@@ -74,11 +75,34 @@ extrapolate inp n = a*(x-1)*x+p1*x+a0
 part2 :: Input -> Int
 part2 = (`extrapolate` 26501365)
 
+
+-- Invalid Estimate version : works to get roughly the results quite fast but not the exact ones
+flood :: Input -> Int -> Int
+flood inp n = S.size                                              .
+        S.filter ((== Garden) . (grid inp !) . inGrid (area inp)) .
+        S.map (+ (start inp))                                     .
+        S.fromList                                                $
+        concat [[(x, y), (x, -y), (-x, y), (-x, -y)] | y<-[0..n], x<-[0..n-y], (x+y) `mod` 2 == n `mod` 2]
+
+
+extrapolate2 :: Input -> Int -> Int
+extrapolate2 inp n = a*(x-1)*x+p1*x+a0
+    where
+        w = Mat.ncols . grid $ inp
+        a0 = flood inp (div w 2)
+        a1 = flood inp (w + div w 2)
+        a2 = flood inp (2*w + div w 2)
+        p1 = (a1-a0)
+        p2 = (a2-a1)
+        a = (p2-p1) `div` 2
+        x = n `div` w
+
+
 main :: IO ()
 main = do
-
     content <- readFile "input.txt"
     let inp = parseInput content
     -- print inp
     print $ part1 inp
     print $ part2 inp
+    print $ flood inp 64
