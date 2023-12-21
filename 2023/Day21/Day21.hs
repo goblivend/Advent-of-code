@@ -9,6 +9,7 @@ import Data.List.Split
 import Data.Set (Set, member, fromList, toList)
 import Data.Map (Map)
 import Data.Matrix (Matrix, (!))
+import Data.NumInstances.Tuple
 import qualified Data.Set as S
 import qualified Data.Map as M
 import qualified Data.Matrix as Mat
@@ -39,30 +40,23 @@ parseInput str = Input (w, h) grid (x+1, y+1)
         h = Mat.nrows grid
         w = Mat.ncols grid
 
-add :: (Int, Int) -> (Int, Int) -> (Int, Int)
-add (x, y) (x' ,y') = (x+ x', y+y')
-
-goNorth :: (Int, Int) -> (Int, Int)
-goNorth = add ( 0, -1)
-goSouth = add ( 0,  1)
-goEast  = add ( 1,  0)
-goWest  = add (-1,  0)
-
 inGrid :: (Int, Int) -> (Int, Int) -> (Int, Int)
 inGrid (w, h) (x, y) = (((x-1) `mod` w) +1, ((y-1) `mod` h)  +1)
 
-walk1step :: Input -> [(Int, Int)] -> Set (Int, Int)
-walk1step _ [] = S.empty
-walk1step (inp@(Input wh grid _)) (xy:l) = availableHere `S.union` (walk1step inp l)
+walk1step :: Input -> (Set (Int, Int), Set (Int, Int), [Int]) -> (Set (Int, Int), Set (Int, Int), [Int])
+walk1step (inp@(Input wh grid _)) (curr, old, sizes) = (new, curr, (sizes !! 1 + S.size curr):sizes)
     where
-        availableHere = S.fromList . filter ((==Garden) . (grid !) . inGrid wh) $ map ($ xy) [goWest, goNorth, goSouth, goEast]
+        new = S.unions $ S.map availableHere curr
+        availableHere xy = S.filter ((==Garden) . (grid !) . inGrid wh)
+                . S.filter (`S.notMember` old)
+                . S.map (+xy)
+                $ S.fromAscList [(-1, 0), (0, -1), (0, 1), (1, 0)]
 
 walk :: Input -> [Int]
-walk inp = map S.size $ iterate (walk1step inp . S.toList) (S.singleton $ start inp)
+walk inp = drop 1 . map (head . thd3) $ iterate (walk1step inp) (S.singleton $ start inp, S.empty, [0, 0])
 
 part1 :: Input -> Int
 part1 =  (!! 64) . walk
-
 
 extrapolate :: Input -> Int -> Int
 extrapolate inp n = a*(x-1)*x+p1*x+a0
