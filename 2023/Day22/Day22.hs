@@ -64,26 +64,30 @@ part1 inp = (S.size . S.fromList $ restsOnMany ++ supportsNone)
         rested = L.sortBy cmp $ fall inp []
 
 
-chain :: Input -> [Brick] -> Int
-chain inp [] = 0
-chain inp b = (length fallIfNonPresent + more)
-    where
-        more = chain inp fallIfNonPresent
-        fallIfNonPresent = filter (all (`elem` b) . restsOn inp) . sortUniq . concat $ map (supports inp) b
+chain :: Input -> Set Brick -> Int -> Set Brick
+chain inp b i
+    | (fallIfNonPresent `S.difference` b) == S.empty = b
+    | otherwise = {-trace (show ((length inp, S.size b, S.size fallIfNonPresent), fallIfNonPresent))-} more
+        where
+            more = chain (inp) (b `S.union`fallIfNonPresent) (i+1)
+            fallIfNonPresent = S.fromList $ filter (all (`elem` b) . restsOn inp) . sortUniq . concat $ map (supports inp) $ S.toList b
 
 
 part2 :: Input -> Int
-part2 inp = sum {-. map snd . map (\e -> trace (show ((one $ fst e, two $ fst e)) ++ ": " ++ show (snd e)++ ",") e ) . zip rested-} $ map ( chain rested . (:[])) rested
+part2 inp = sum  {- .map snd . map (\e -> trace (show ((one $ fst e, two $ fst e)) ++ ": " ++ show (snd e)++ ",") e ) . zip rested -} $ map (\b ->(+ (-1)) . S.size $ chain rested (S.singleton b) 0) rested
     where
         rested = fall inp []
 
 main :: IO ()
 main = do
-    content <- readFile "myinput.txt"
+    content <- readFile "minput.txt"
     let inp = parseInput content
-    -- print $ map (\b -> (one b, two b)) $ fall inp []
+    --
     -- print $ part1 inp
     -- putStr $ if -50 < part2 inp then "" else ""
     print $ part2 inp
     -- putStr "\n\n\n\n\n"
     -- print $ chain ninp  [Brick {one = (0,0,2), two = (2,0,2)},Brick {one = (0,2,2), two = (2,2,2)}] 0
+    let rested = fall inp []
+    -- print $ map (\b -> (one b, two b)) $ rested
+    print $  chain rested (S.singleton (Brick (3, 2, 1) (3, 4, 1))) 0
