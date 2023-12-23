@@ -200,3 +200,13 @@ Second part was not so great, once again it was input specific optimisation, on 
 Anyway managed to get a solution from Adam's formulas, and managed to speed up my first part thx to Sheinxy's
 
 And found a bonus approximation algorithm that is almost correct
+
+### Day 22
+
+Forgot...
+
+### Day 23
+
+Well, today's challenge was quite easy to understand and to code dummy solutions
+
+It was quite interesting to go from DFS => BFS => DFS (with constant output concerning the output found) => DFS (with max found when higher found) => BFS (with max found when higher found) => Graph because let's face it that was way too slow...
