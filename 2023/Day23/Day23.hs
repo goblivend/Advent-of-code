@@ -10,10 +10,8 @@ import Data.List.Unique
 import Data.Set (Set, member, fromList, toList)
 -- import Data.Map (Map, (!))
 import Data.NumInstances.Tuple
-import Data.Matrix (Matrix, (!))
 import qualified Data.Set as S
 import qualified Data.Map as M
-import qualified Data.Matrix as Mat
 import qualified Data.List as L
 
 data Block = Wall | Path | Slope {dir::(Int, Int)} deriving (Eq)
@@ -59,24 +57,25 @@ pathFind inp seen curr Path
 part1 :: Input -> Int
 part1 inp = S.size $ pathFind inp S.empty (start inp) (at inp (start inp))
 
-
-pathFind2 :: Input -> Set (Int, Int) -> (Int, Int) -> Set (Int, Int)
-pathFind2 inp seen curr
-    | at inp curr == Wall = S.empty
-    | curr == start inp = pathFind2 inp (S.insert curr seen) (curr + (0, 1))
-    | curr == end inp = seen
-    | curr `S.member` seen = S.empty
-    | otherwise =  (last . L.sortBy (\s1 s2 -> compare (S.size s1) (S.size s2)) . map ((pathFind2 inp (S.insert curr seen)) . (+curr)) $ [(1, 0), (-1, 0), (0, -1), (0, 1)])
+pathFind2 :: Input -> Int -> Set (Int, Int) -> (Int, Int) -> [Int]
+pathFind2 inp n seen curr
+    | curr == end inp = [n]
+    | null others     = []
+    | otherwise       = concat others
+        where
+            others :: [[Int]]
+            others = map ((pathFind2 inp (n+1) (S.insert curr seen))) .
+                    filter ((/= Wall) . (at inp))                     .
+                    filter (`S.notMember` seen)                       $
+                    map (+curr) [(1, 0), (-1, 0), (0, -1), (0, 1)]
 
 part2 :: Input -> Int
-part2 inp =S.size $ pathFind2 inp S.empty (start inp)
+part2 inp = foldl (\m n -> if m == 6470 then m else (if n > m then (trace (show n) n) else m)) 0 $ pathFind2 inp 1 (S.singleton (start inp)) (start inp + (0, 1))
 
 main :: IO ()
 main = do
     content <- readFile "input.txt"
     let inp = parseInput content
     -- print inp
-    -- putStr $ toStr $ grid inp
-    -- print $ (grid inp) !! 3 !! 1
     print $ part1 inp
     print $ part2 inp
