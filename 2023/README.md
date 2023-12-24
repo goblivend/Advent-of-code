@@ -23,9 +23,9 @@ No idea what language to do this year with, will start with haskell
 - [x] Day 19
 - [x] Day 20
 - [x] Day 21
-- [ ] Day 22
-- [ ] Day 23
-- [ ] Day 24
+- [x] Day 22
+- [x] Day 23
+- [x] Day 24
 - [ ] Day 25
 
 ---
@@ -210,3 +210,19 @@ Forgot...
 Well, today's challenge was quite easy to understand and to code dummy solutions
 
 It was quite interesting to go from DFS => BFS => DFS (with constant output concerning the output found) => DFS (with max found when higher found) => BFS (with max found when higher found) => Graph because let's face it that was way too slow...
+
+### Day 24
+
+Today was quite interesting.
+I managed to do part1 on my own
+
+Then came part2, I theoretically had a working solution trying for each position and each velocity if they were correct
+This one was way too complex and could never have worked
+So I tried to do it another way : find every possible combination of position and velocity for x then for each of them the matching y position and velocity in order to find the first z valid position
+Then I realised that we were dealing with positions around 1e14... which was wayy to big to try each of them
+
+So, not finding any thing else and not wanting to use z3 SAT solvers, I went to look for another way to solve it
+
+found an interesting one taking advantage on particles having the same speed on some axis, which would mean that the distance between the two rocks had to be a multiple of the relative speed between the rock and the particles on that axis => hence making enough constraints to get only one possible velocity for each axis
+
+Then it was just a matter of getting the starting position with the velocities and 2 particles
