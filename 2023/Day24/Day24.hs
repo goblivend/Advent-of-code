@@ -118,7 +118,7 @@ combineOne s (p1, v1) (p2, v2)
             dp = round $ p2-p1
             -- if on an axis, both particles have the same speed
             -- the distance between the two particle must be a multiple of the relative speed
-            vs = S.fromList [v | v<-[-1000..1000], v /= round v1, dp `mod` (v-round v1) == 0]
+            vs = S.fromList [v | v<-[-5000..5000], v /= round v1, dp `mod` (v-round v1) == 0]
 
 combine :: (Set Int, Set Int, Set Int) -> (((Double, Double, Double), (Double, Double, Double)), ((Double, Double, Double), (Double, Double, Double))) -> (Set Int, Set Int, Set Int)
 combine (setX, setY, setZ) ((p1, v1), (p2, v2)) = (combineOne setX (fst3 p1, fst3 v1) (fst3 p2, fst3 v2),
@@ -140,7 +140,7 @@ part2 inp = solveFor v $ head particleCombinations
                 cA = py1 - (mA*px1)
                 cB = py2 - (mB*px2)
                 x = round $ (cB-cA)/(mA-mB)
-                y = round mA* x + round cA
+                y = round $ mA * fromIntegral x + cA
                 t = round $ (fromIntegral x - px1)/(vx1 - vdx)
                 z = round pz1 + (round vz1 - vz)*t
 
