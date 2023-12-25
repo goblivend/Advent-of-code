@@ -26,7 +26,7 @@ No idea what language to do this year with, will start with haskell
 - [x] Day 22
 - [x] Day 23
 - [x] Day 24
-- [ ] Day 25
+- [x] Day 25
 
 ---
 
@@ -226,3 +226,12 @@ So, not finding any thing else and not wanting to use z3 SAT solvers, I went to 
 found an interesting one taking advantage on particles having the same speed on some axis, which would mean that the distance between the two rocks had to be a multiple of the relative speed between the rock and the particles on that axis => hence making enough constraints to get only one possible velocity for each axis
 
 Then it was just a matter of getting the starting position with the velocities and 2 particles
+
+### Day 25
+
+The last Day !!
+
+Well was kind of annoying, found several ways of solving the problem but they were way too slow for such an input so in the end,
+I just created the dot representation of the graph, used neato to visualise it, find the 3 links and calculate the result....
+
+I will try to optimise and figure out a way to solve it completely but I might not succeed
