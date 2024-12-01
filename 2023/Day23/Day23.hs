@@ -6,6 +6,7 @@ import Debug.Trace(trace)
 import Data.Tuple
 import Data.Tuple.Extra;
 import Data.List.Split
+import Control.Parallel.Strategies
 import Data.List.Unique
 import Data.Set (Set, member, fromList, toList)
 import Data.Map (Map, (!))
@@ -84,8 +85,8 @@ toWeightedGraph (Input st en grid) = M.fromList . map (second (M.toList)) . M.to
 pathFindGraph :: (Int, Int) -> Map (Int, Int) [((Int, Int), Int)] -> Set (Int, Int) -> ((Int, Int), Int) -> [Int]
 pathFindGraph end graph seen (curr, acc)
     | end == curr = [acc]
-    | otherwise   = concat . map ((pathFindGraph end graph (S.insert curr seen))) .
-                    map (second (+acc)) . filter ((`S.notMember` seen) . fst) $ graph ! curr
+    | otherwise   = concat . map ((pathFindGraph end graph (S.insert curr seen)) . second (+acc)) .
+                     filter ((`S.notMember` seen) . fst) $ graph ! curr
 
 part2 :: Input -> Int
 part2 inp = maximum $ pathFindGraph (end inp) (toWeightedGraph inp) S.empty (start inp, 0)
