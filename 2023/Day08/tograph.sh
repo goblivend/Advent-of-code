@@ -10,4 +10,4 @@ digraph my_graph {
     $END
     $EDGES
 }
-" #| neato -Tpng > graph.png
+" | neato -Tpng > graph.png
