@@ -5,7 +5,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] Day 1
 - [x] Day 2
 - [x] Day 3
-- [ ] Day 4
+- [x] Day 4
 - [ ] Day 5
 - [ ] Day 6
 - [ ] Day 7
@@ -44,3 +44,9 @@ Still rusty even found the part2 a bit difficult (might have been trying to do s
 
 Today seemed complicated at first with the parsing but actually instead of using Read instances as I planned at the beginning, using Regex was easier.
 The part 2 didn't suprise me too much, I just thought there would have been more operations instead of just `do` `don't` and `mul`...
+
+### Day 4:
+
+Interesting puzzle, quite happy of my solution and the possible ways to debug it.
+
+I cleaned it afterward since debugging is no more needed but was an interesting day
