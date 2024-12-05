@@ -6,7 +6,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] Day 2
 - [x] Day 3
 - [x] Day 4
-- [ ] Day 5
+- [x] Day 5
 - [ ] Day 6
 - [ ] Day 7
 - [ ] Day 8
@@ -50,3 +50,32 @@ The part 2 didn't suprise me too much, I just thought there would have been more
 Interesting puzzle, quite happy of my solution and the possible ways to debug it.
 
 I cleaned it afterward since debugging is no more needed but was an interesting day
+
+### Day 5:
+
+First part nice
+
+Second part subject does not seem complete enough
+```
+1|2
+5|4
+2|3
+3|4
+
+2,3,5,4,1
+```
+With this example a correct order could be
+`1,2,3,5,4` or `1,2,5,3,4` or `1,5,2,3,4` or `5,1,2,3,4`
+there is no way to decide. If it's the same thing in the inputs -> some valid solutions won't work
+
+and worse there even are some circular dependencies in my input :
+```
+16|11
+11|19
+19|16
+```
+Not nice at all, if it's a page ordering => impossible to print some of the updates
+
+(I understand that might be the goal of the exercise but then this lore can't work....)
+
+So instead of creating a perfect list and choosing the elements inside, I need to create a valid list each time => way higher time complexity
