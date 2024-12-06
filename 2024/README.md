@@ -91,3 +91,5 @@ For the part 2 I managed to speed up my solution :
 - Changing the memory list to a Set memory => 3mins
 - Filtering the positions to only places where the guard passes in the their usual path => 30sec
 - Adding -O2 => ~10sec
+- Switching to Matrices instead of raw `[String]` => ~5.5s
+- Multithreading => ~6s (runs slightly slower but at least I have a reference to use multithreading)
