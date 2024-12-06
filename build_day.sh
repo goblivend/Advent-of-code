@@ -10,7 +10,7 @@ is_sourced() {
 }
 
 if ! `is_sourced`; then
-    echo "use as '. $0'"
+    echo "use as '. $0 [hs]'"
     echo exit 1
 fi
 
@@ -46,11 +46,11 @@ type Output = Int
 parseInput :: String -> Input
 parseInput = lines
 
--- part1 :: Input -> Output
--- part1 input =
+part1 :: Input -> Output
+part1 input = -1
 
--- part2 :: Input -> Output
--- part2 input =
+part2 :: Input -> Output
+part2 input = -1
 
 main :: IO ()
 main = do
@@ -60,23 +60,39 @@ main = do
 
   print input
 
-  -- print $ part1 input
-  -- print $ part2 input
+  print $ part1 input
+  print $ part2 input
 EOF
 
 cat <<EOF > $FOLDER/Makefile
-
+CONTAINER_NAME=haskell-aoc
 SRC=./Day$DAY.hs
 TARGET=Day$DAY
 all: \$(TARGET)
 
 \$(TARGET): \$(SRC)
-	ghc \$(SRC)
+	ghc -O3 \$(SRC)
+
+profile: \$(SRC)
+
 
 clean:
 	\$(RM) ./Day$DAY ./Day$DAY.o ./Day$DAY.hi
 
-.PHONY: all \$(TARGET) clean
+setup: \$(SRC)
+	docker cp \$(SRC) \$(CONTAINER_NAME):/home/haskell/Main.hs
+	docker cp input.txt \$(CONTAINER_NAME):/home/haskell/input.txt
+	docker cp shortinput.txt \$(CONTAINER_NAME):/home/haskell/shortinput.txt
+
+profiling: setup
+	docker exec -it \$(CONTAINER_NAME) cabal build --enable-profiling
+	docker exec -it \$(CONTAINER_NAME) ./profile input.txt
+
+run: setup
+	docker exec -it \$(CONTAINER_NAME) cabal build
+	docker exec -it \$(CONTAINER_NAME) ./run input.txt
+
+.PHONY: all \$(TARGET) clean setup profiling run
 EOF
 
 ;;
@@ -84,6 +100,10 @@ EOF
     "")
         echo "No language specified"
         ;;
+    *)
+        echo "Unknown language specified"
+        ;;
+
 esac
 
 cd $FOLDER

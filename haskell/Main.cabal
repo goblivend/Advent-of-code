@@ -1,0 +1,23 @@
+cabal-version:      2.4
+name:               Main
+version:            0.1.0.0
+license:            NONE
+build-type:         Simple
+common warnings
+    ghc-options: -Wall -O2
+
+executable Main
+    import:           warnings
+
+    main-is:          Main.hs
+
+    build-depends:    base ^>=4.18.2.1,
+                      containers >=0.6.7,
+                      matrix >=0.3.6.3,
+                      parallel >=3.2.2.0
+
+    -- Directories containing source files.
+    hs-source-dirs:   .
+
+    -- Base language which the package is written in.
+    default-language: GHC2021

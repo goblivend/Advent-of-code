@@ -1,6 +1,8 @@
 *
 !/**/
 !*.*
+!Makefile
+!Dockerfile
 
 *.hi
 *.o
