@@ -7,7 +7,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] Day 3
 - [x] Day 4
 - [x] Day 5
-- [ ] Day 6
+- [x] Day 6
 - [ ] Day 7
 - [ ] Day 8
 - [ ] Day 9
@@ -79,3 +79,15 @@ Not nice at all, if it's a page ordering => impossible to print some of the upda
 (I understand that might be the goal of the exercise but then this lore can't work....)
 
 So instead of creating a perfect list and choosing the elements inside, I need to create a valid list each time => way higher time complexity
+
+### Day 6:
+
+Quite happy about today managed to find a solution quite fast and minimize the amount of parsing
+
+The only thing is that my code is quite ugly at the moment
+
+For the part 2 I managed to speed up my solution :
+- At first I tried adding a wall on every free spot using lists as memory => estimated 180mins
+- Changing the memory list to a Set memory => 3mins
+- Filtering the positions to only places where the guard passes in the their usual path => 30sec
+- Adding -O2 => ~10sec
