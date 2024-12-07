@@ -8,7 +8,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] Day 4
 - [x] Day 5
 - [x] Day 6
-- [ ] Day 7
+- [x] Day 7
 - [ ] Day 8
 - [ ] Day 9
 - [ ] Day 10
@@ -93,3 +93,14 @@ For the part 2 I managed to speed up my solution :
 - Adding -O2 => ~10sec
 - Switching to Matrices instead of raw `[String]` => ~5.5s
 - Multithreading => ~6s (runs slightly slower but at least I have a reference to use multithreading)
+
+### Day 7:
+
+Today was really easy
+In order to optimize, I had to add profile costs centers check what operations took the most time
+
+At first the bottle neck was the operation `concatNb`, I did it like `read (show a) (show b)` but I don't really need to read
+
+So the solution was just to shift `a` to the left by multiplying it by `((^) 10) . length $ show b`. This does for example with `42` and `24` : `42* 10^2` => `4200` and then only `(+)` => `4224`
+
+At the moment the bottle neck is the operation `(*)` so no really my fault.
