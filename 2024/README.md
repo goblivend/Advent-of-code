@@ -104,3 +104,11 @@ At first the bottle neck was the operation `concatNb`, I did it like `read (show
 So the solution was just to shift `a` to the left by multiplying it by `((^) 10) . length $ show b`. This does for example with `42` and `24` : `42* 10^2` => `4200` and then only `(+)` => `4224`
 
 At the moment the bottle neck is the operation `(*)` so no really my fault.
+
+### Day 8:
+
+Todays was also fun.
+
+Since solution already is at 0.03s, there is no need to optimize.
+
+Instead I had fun creating a function to preview the actual grid at each step, you just have to uncomment the lines in main to see it.
