@@ -112,3 +112,10 @@ Todays was also fun.
 Since solution already is at 0.03s, there is no need to optimize.
 
 Instead I had fun creating a function to preview the actual grid at each step, you just have to uncomment the lines in main to see it.
+
+### Day 9:
+
+Today was nice, was not as easy but was fun to think about and find optimised solutions
+
+My solution is not that fast today ~1m30s might try to optimize it further but at the moment need to work on other things
+(ghc profiler decided not to profile my costs centers)
