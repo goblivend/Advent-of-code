@@ -9,8 +9,8 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] Day 5
 - [x] Day 6
 - [x] Day 7
-- [ ] Day 8
-- [ ] Day 9
+- [x] Day 8
+- [x] Day 9
 - [ ] Day 10
 - [ ] Day 11
 - [ ] Day 12
@@ -115,7 +115,13 @@ Instead I had fun creating a function to preview the actual grid at each step, y
 
 ### Day 9:
 
-Today was nice, was not as easy but was fun to think about and find optimised solutions
+Today was nice, was not as easy but was fun to think about and find optimized solutions
 
 My solution is not that fast today ~1m30s might try to optimize it further but at the moment need to work on other things
 (ghc profiler decided not to profile my costs centers)
+
+So I indeed took time to do some optimizations, now I run in 2s.
+
+The main reason for this time improvement is because I now play using a tuple (id, size) and not just the id, hence less items to loop through
+
+Tried more optimizations such as saving the first valid free spot but this was only slowing things down
