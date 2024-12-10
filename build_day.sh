@@ -34,6 +34,8 @@ import Data.List.Split
 import Data.List.Unique
 import Data.Matrix (Matrix, (!))
 import Data.Matrix qualified as Mat
+import Data.Set (Set)
+import Data.Set qualified as S
 import Data.Tuple.Extra
 import Debug.Trace
 import System.Environment
