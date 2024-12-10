@@ -125,3 +125,9 @@ So I indeed took time to do some optimizations, now I run in 2s.
 The main reason for this time improvement is because I now play using a tuple (id, size) and not just the id, hence less items to loop through
 
 Tried more optimizations such as saving the first valid free spot but this was only slowing things down
+
+### Day 10:
+
+Today was so short that I didn't even take time to enjoy it...
+
+It was like asking 2+2...
