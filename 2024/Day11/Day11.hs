@@ -1,31 +1,24 @@
 module Main where
 
 import Control.Parallel.Strategies
-import Data.List.Split
 import Debug.Trace
 import System.Environment
-
--- TODO: Cleanup imports after day done
 
 type Input = [Int]
 
 type Output = Int
 
 parseInput :: String -> Input
-parseInput = map read . splitOn " " . head . lines
+parseInput = map read . words . head . lines
 
 digitCount :: Int -> Int
-digitCount 0 = 1
-digitCount n = countThem n
-  where
-    countThem i
-      | i < 10 = 1
-      | otherwise = 1 + countThem (div i 10)
+digitCount i
+  | i < 10 = 1
+  | otherwise = 1 + digitCount (div i 10)
 
 splitNumber :: Int -> Int -> [Int]
 splitNumber n lengthn = [firstHalf, secondHalf]
   where
-    -- lengthn = digitCount n
     powered10 = {-# SCC powered10 #-} (10 ^ (div lengthn 2))
     firstHalf = {-# SCC firstHalf #-} div n powered10
     secondHalf = {-# SCC secondHalf #-} n - (firstHalf * powered10)
@@ -48,7 +41,7 @@ part1 :: Input -> Output
 part1 = solve 25
 
 part2 :: Input -> Output
-part2 = solve 35
+part2 = solve 40
 
 main :: IO ()
 main = do
@@ -59,4 +52,4 @@ main = do
   print input
 
   print $ part1 input
-  print $ part2 input
+  print $ (== 11965325) $ part2 input

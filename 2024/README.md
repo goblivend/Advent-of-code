@@ -145,3 +145,5 @@ Tried to multithread it (in the `iterateStones` change `map` to `parMap rseq`) b
 - r0 : 11.7
 - rdeepseq: 9.6
 - rpar : 12.7
+
+Might try looking for loops and similar things
