@@ -131,3 +131,17 @@ Tried more optimizations such as saving the first valid free spot but this was o
 Today was so short that I didn't even take time to enjoy it...
 
 It was like asking 2+2...
+
+### Day 11:
+
+First part was interesting, managed to realize that `++` is the worst operator ever and that you should always use `concat` instead
+
+For the second part, I managed to optimize and go up to `38` quite far from the required `75`
+
+Tried to multithread it (in the `iterateStones` change `map` to `parMap rseq`) but it only slowed things down...
+(for target 35 had 4s in normal map and 12 using rseq...)
+
+- rseq : 12
+- r0 : 11.7
+- rdeepseq: 9.6
+- rpar : 12.7
