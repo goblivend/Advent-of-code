@@ -147,3 +147,13 @@ Tried to multithread it (in the `iterateStones` change `map` to `parMap rseq`) b
 - rpar : 12.7
 
 Might try looking for loops and similar things
+
+I finally got it, the solution I found was to use memoization
+
+At first I had 2 maps :
+- First map for the result of the algorithm given an element (not much gain)
+- Second one for the number of stones after n blinks with the stone
+
+Since the first map didn't help, I tried to clean up and realized it was really useless so I removed it completely
+
+Had fun doing it in python as well, strangely python is faster than haskell
