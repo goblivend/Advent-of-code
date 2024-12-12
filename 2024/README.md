@@ -11,9 +11,9 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] Day 7
 - [x] Day 8
 - [x] Day 9
-- [ ] Day 10
-- [ ] Day 11
-- [ ] Day 12
+- [x] Day 10
+- [x] Day 11
+- [x] Day 12
 - [ ] Day 13
 - [ ] Day 14
 - [ ] Day 15
@@ -157,3 +157,13 @@ At first I had 2 maps :
 Since the first map didn't help, I tried to clean up and realized it was really useless so I removed it completely
 
 Had fun doing it in python as well, strangely python is faster than haskell
+
+### Day 12:
+
+That was a nice puzzle.
+
+Might have been a bit easy but was interesting and difficult enough to have to think about it.
+
+The only downside is what my solution looks like...
+
+Cleaned that up a bit but still not great
