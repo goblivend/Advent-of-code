@@ -1,4 +1,5 @@
 import sys
+from functools import cache
 
 def algo(stone) :
     if stone == 0 :
@@ -9,17 +10,12 @@ def algo(stone) :
     else :
         return [2024*stone]
 
-solvei_cache = {}
+@cache
 def solvei(stone, n) :
-    if (stone, n) in solvei_cache :
-        return solvei_cache[(stone, n)]
     res1 = algo(stone)
     if n == 1 :
-        solvei_cache[(stone, n)] = len(res1)
         return len(res1)
-
-    solvei_cache[(stone, n)] = sum(map (lambda x : solvei(x, n-1), res1))
-    return solvei_cache[(stone, n)]
+    return sum(map (lambda x : solvei(x, n-1), res1))
 
 def solve(arr, n) :
     return sum(map(lambda x : solvei(x, n), arr))
