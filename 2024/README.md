@@ -14,7 +14,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] Day 10
 - [x] Day 11
 - [x] Day 12
-- [ ] Day 13
+- [x] Day 13
 - [ ] Day 14
 - [ ] Day 15
 - [ ] Day 16
@@ -167,3 +167,19 @@ Might have been a bit easy but was interesting and difficult enough to have to t
 The only downside is what my solution looks like...
 
 Cleaned that up a bit but still not great
+
+### Day 13:
+
+Not a huge fan of today
+
+At least not in haskell
+
+First I tried the greedy method of finding the nb of button presses by simulating every combinations.
+Gave me answer for part1 but impossible for part2
+
+Then I thought about solving `Diophantine equations` but seemed too much of a mess to find result, adjust them since I had to do them twice and find a potential balance
+
+So the last solution was to use matrices, but then the Double precision was still not good.
+I thought that to determine if a number was an `Int` I could compare by `1e-10` seemed low and steady.
+But actually my solution works in haskell only for epsilon between [1e-2, 1e-3] so that does not leave much room for errors.
+The worst thing is that since it's so small it was a guessing game to have the same result as another solution found on reddit, since at first I thought I had a mistake in my calculations but found nothing of the sort.....
