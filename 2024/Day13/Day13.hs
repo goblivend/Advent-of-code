@@ -13,15 +13,17 @@ import Data.Tuple.Extra
 import Debug.Trace
 import System.Environment
 import Text.Regex.TDFA ((=~))
+
 -- TODO: Cleanup imports after day done
 
 type Input = [((Double, Double), (Double, Double), (Double, Double))]
+
 type Output = Int
 
 parseInput :: String -> Input
 parseInput input = res
   where
-    res = map  (\[sb1, sb2, sprize] -> (getPos sb1, getPos sb2, getPos sprize)) . map lines $ splitOn "\n\n" input
+    res = map (\[sb1, sb2, sprize] -> (getPos sb1, getPos sb2, getPos sprize)) . map lines $ splitOn "\n\n" input
 
     t :: String -> [[String]]
     t s = s =~ ".* X.(.*), Y.(.*)" :: [[String]]
@@ -30,9 +32,8 @@ parseInput input = res
       where
         [[_, x, y]] = t s
 
-
 part1 :: Input -> Output
-part1 = sum . map (\(nx, ny) -> 3*nx+ny) . map fst . filter snd . map (uncurry3 solveArcade)
+part1 = sum . map (\(nx, ny) -> 3 * nx + ny) . map fst . filter snd . map (uncurry3 solveArcade)
   where
     -- Old version checking for valid combinations => Waayyyy too sloww for part2
     -- solveArcade pos seen b1 b2 prize
@@ -52,8 +53,8 @@ part1 = sum . map (\(nx, ny) -> 3*nx+ny) . map fst . filter snd . map (uncurry3 
 
     isAlmostInt :: Double -> Bool
     isAlmostInt x = abs (x - fromInteger (round x)) < eps
-      where eps = 1e-4 --- REALLY sketchy : doubles are not precise enough to have a good eps (1e-10 or something close) so had to guess it and get 0.01 since 0.1 is too big and 0.0001 is too small
-
+      where
+        eps = 1e-2 --- REALLY sketchy : doubles are not precise enough to have a good eps (1e-10 or something close) so had to guess it and get 1e-2 since 1e-1 is too big and 1e-4 is too small
     solveArcade (xb1, yb1) (xb2, yb2) (xp, yp)
       | isLeft inva = trace (show (fromLeft "" inva)) ((-1, -1), False)
       | isAlmostInt nb1 && isAlmostInt nb2 = ((round nb1, round nb2), True)
@@ -69,13 +70,12 @@ part1 = sum . map (\(nx, ny) -> 3*nx+ny) . map fst . filter snd . map (uncurry3 
         res = Mat.multStd (fromRight (Mat.zero 1 1) inva) b
         (nb1, nb2) = (res ! (1, 1), res ! (2, 1))
 
-
 part2 :: Input -> Output
 part2 = part1 . map (\(b1, b2, p) -> (b1, b2, both ((+) 10000000000000) p))
 
 main :: IO ()
 main = do
-  args  <- getArgs
+  args <- getArgs
   content <- readFile (last args)
   let input = parseInput content
 
