@@ -183,3 +183,10 @@ So the last solution was to use matrices, but then the Double precision was stil
 I thought that to determine if a number was an `Int` I could compare by `1e-10` seemed low and steady.
 But actually my solution works in haskell only for epsilon between [1e-2, 1e-3] so that does not leave much room for errors.
 The worst thing is that since it's so small it was a guessing game to have the same result as another solution found on reddit, since at first I thought I had a mistake in my calculations but found nothing of the sort.....
+
+### Day 14:
+
+Today was quite simple.
+
+I am not a huge fan of part2 today, telling us "Hey there will be a christmas tree" without telling us anything else ???
+Like and example tree would have been nice or the size of the tree or anything about it...
