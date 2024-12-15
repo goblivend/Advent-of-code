@@ -190,3 +190,9 @@ Today was quite simple.
 
 I am not a huge fan of part2 today, telling us "Hey there will be a christmas tree" without telling us anything else ???
 Like and example tree would have been nice or the size of the tree or anything about it...
+
+### Day 15:
+
+Today was interesting, it was not either too easy nor coming from nowhere
+
+Even though my solution is very ugly, today I don't think I will clean it up.
