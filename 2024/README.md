@@ -196,3 +196,11 @@ Like and example tree would have been nice or the size of the tree or anything a
 Today was interesting, it was not either too easy nor coming from nowhere
 
 Even though my solution is very ugly, today I don't think I will clean it up.
+
+### Day 16:
+
+Nice and interesting puzzle today
+
+Basically a simple path finding but with a few twists that make it fun
+
+Will try to optimize solution
