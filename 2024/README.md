@@ -204,3 +204,37 @@ Nice and interesting puzzle today
 Basically a simple path finding but with a few twists that make it fun
 
 Will try to optimize solution
+
+Edit: Haven't found any easy optimization
+
+I know a way to optimize : Have another Map containing this time the set of valid spots => if already been on a position no need to do it again even from another good path.
+
+For example
+```
+#######
+#....E#
+#.#.###
+#S..###
+#######
+```
+
+The first path explored will be this one
+```
+#######
+#..OOE#
+#.#O###
+#SOO###
+#######
+```
+
+But then at the moment when I reach the last intersection I need to go back up to the end
+
+```
+#######
+#OOXXE#
+#O#.###
+#S..###
+#######
+```
+
+The optimization would allow me to skip this last part represented with `X`
