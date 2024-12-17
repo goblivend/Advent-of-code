@@ -15,10 +15,10 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] Day 11
 - [x] Day 12
 - [x] Day 13
-- [ ] Day 14
-- [ ] Day 15
-- [ ] Day 16
-- [ ] Day 17
+- [x] Day 14
+- [x] Day 15
+- [x] Day 16
+- [?] Day 17
 - [ ] Day 18
 - [ ] Day 19
 - [ ] Day 20
@@ -238,3 +238,20 @@ But then at the moment when I reach the last intersection I need to go back up t
 ```
 
 The optimization would allow me to skip this last part represented with `X`
+
+### Day17
+
+The first part was a simple computer simulation.
+
+For the second one I didn't really succeed on my own...
+
+Sadly in order to find the result I had to look at tips on how to solve it.
+
+Basically each instruction corresponds to a byte in the register A
+
+The register A is basically reduced like `out A%8, A = A/8`, so to build the register A you just have to go backward :
+- For the last instruction, check all results for `regA in [0..7]`
+- For the one before, check all the results for `regA in [prev*8..prev*8+7]`
+- Continue recursively until you get all the numbers
+
+Even though I didn't solve this one on my own I learnt how to analyze the output in order to find results
