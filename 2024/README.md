@@ -265,3 +265,146 @@ Solution is a bit slow so will try to optimize it.
 Mainly the second part, I already only look for a path if the current position is in the previous path.
 
 To get the said path I tried with the smallest and the first, it works better with the smallest (less chance to fall on the path => less paths to find)
+
+#### First version :
+At first I used a DFS to find the smallest path for both part1 and part2.
+
+```hs
+smallestPathFind :: Set (Int, Int) -> Map (Int, Int) Int -> (Int, Int) -> (Int, Int) -> Int -> (Int, Set (Int, Int), Map (Int, Int) Int)
+smallestPathFind memory seen pos target nbMoves
+  | isOut target pos = (-1, S.empty, seen)
+  | pos `M.member` seen && seen M.! pos <= nbMoves = (-1, S.empty, seen)
+  | pos `S.member` memory = (-1, S.empty, currSeen)
+  | pos == target = (nbMoves, S.singleton target, currSeen)
+  | length bestSol /= 0 = (bestMoves, S.insert pos bestPath, seenRight)
+  | otherwise = (-1, S.empty, seenRight)
+  where
+    currSeen = M.insert pos nbMoves seen
+    (movesUp, pathUp, seenUp) = smallestPathFind memory currSeen (move pos UP) target (nbMoves + 1)
+    (movesLeft, pathLeft, seenLeft) = smallestPathFind memory seenUp (move pos LEFT) target (nbMoves + 1)
+    (movesDown, pathDown, seenDown) = smallestPathFind memory seenLeft (move pos DOWN) target (nbMoves + 1)
+    (movesRight, pathRight, seenRight) = smallestPathFind memory seenDown (move pos RIGHT) target (nbMoves + 1)
+
+    bestSol = sortOn fst . filter ((/= -1) . fst) $ [(movesUp, pathUp), (movesLeft, pathLeft), (movesDown, pathDown), (movesRight, pathRight)]
+    (bestMoves, bestPath) = head bestSol
+```
+
+```hs
+{- Simple part2 version using previous found path as condition to find a new path -}
+sub n mem [] lastPath = (-1, -1)
+sub n mem (e : l) lastPath
+  | e `S.notMember` lastPath = sub (n + 1) newMem l lastPath
+  | currRes == -1 = swap e
+  | otherwise = sub (n + 1) newMem l currPath
+  where
+    newMem = S.insert e mem
+    (currRes, currPath, _) = smallestPathFind newMem M.empty (0, 0) (range, range) 0
+```
+
+Time : ~25s
+
+#### Second Version :
+
+Then I thought that for the second part any path could do the trick
+So instead of the smallest path, I changed the algorithm to return the first path found.
+This method didn't work and was actually slower than the previous version.
+The time saved by taking the first solution isn't worth the additional number of path to find when a position is in this new bigger path.
+
+```hs
+anyPathFind :: Set (Int, Int) -> Map (Int, Int) Int -> (Int, Int) -> (Int, Int) -> Int -> (Int, Set (Int, Int), Map (Int, Int) Int)
+anyPathFind memory seen pos target nbMoves
+  | isOut target pos = (-1, S.empty, seen)
+  | pos `M.member` seen && seen M.! pos <= nbMoves = (-1, S.empty, seen)
+  | pos `S.member` memory = (-1, S.empty, currSeen)
+  | pos == target = (nbMoves, S.singleton target, currSeen)
+  | movesUp /= -1 = (movesUp, S.insert pos pathUp, seenUp)
+  | movesLeft /= -1 = (movesLeft, S.insert pos pathLeft, seenLeft)
+  | movesDown /= -1 = (movesDown, S.insert pos pathDown, seenDown)
+  | movesRight /= -1 = (movesRight, S.insert pos pathRight, seenRight)
+  | otherwise = (-1, S.empty, seenRight)
+  where
+    currSeen = M.insert pos nbMoves seen
+    (movesUp, pathUp, seenUp) = anyPathFind memory currSeen (move pos UP) target (nbMoves + 1)
+    (movesLeft, pathLeft, seenLeft) = anyPathFind memory seenUp (move pos LEFT) target (nbMoves + 1)
+    (movesDown, pathDown, seenDown) = anyPathFind memory seenLeft (move pos DOWN) target (nbMoves + 1)
+    (movesRight, pathRight, seenRight) = anyPathFind memory seenDown (move pos RIGHT) target (nbMoves + 1)
+```
+
+Time : ~40s
+
+#### Third Version :
+
+Then Raphaël Montes (Sheinxy) made me think about BFS that are actually way faster in this case.
+So here is my implementation.
+
+```hs
+bfs :: Set (Int, Int) -> (Int, Int) -> Set (Int, Int) -> Set (Int, Int) -> Int -> Int
+bfs memory target seen curr acc
+  | S.null curr = -1
+  | target `S.member` curr = acc
+  | otherwise = bfs memory target (S.union seen curr) newCurr (acc + 1)
+  where
+    notSeen = curr S.\\ seen
+    notInWall = notSeen S.\\ memory
+    notOut = S.filter (not . isOut target) notInWall
+    newCurr = S.fromList . concat . map (\p -> map (move p) [UP, LEFT, RIGHT, DOWN]) $ S.toList notOut
+```
+
+```hs
+{- Another Simple sub using BFS but not keeping memory of previous paths-}
+sub n mem [] = (-1, -1)
+sub n mem (e : l)
+  | currRes == -1 = swap e
+  | otherwise = sub (n + 1) newMem l
+  where
+    newMem = S.insert e mem
+    currRes = bfs newMem (range, range) S.empty (S.singleton (0, 0)) 0
+```
+
+Time : ~13s
+
+#### Fourth Version:
+
+By using my two previous best versions I tried to do part2 using a bfs that returns the path.
+So instead of calculating the path each time, I only do it when the position would block the previous path found.
+
+
+```hs
+bfs :: Set (Int, Int) -> (Int, Int) -> Set (Int, Int) -> Set (Int, Int) -> Map (Int, Int) (Set (Int, Int)) -> Set (Int, Int)
+bfs memory target seen curr paths
+  | S.null curr = S.empty
+  | target `S.member` curr = paths M.! target
+  | otherwise = bfs memory target (S.union seen curr) newCurr newPaths
+  where
+    notSeen = curr S.\\ seen
+    notInWall = notSeen S.\\ memory
+    notOut = S.filter (not . isOut target) notInWall
+
+    f2 p (curr', paths') p' = (S.insert p' curr', M.insert p' (S.insert p' (paths M.! p)) paths')
+    f1 cp p = foldl (f2 p) cp $ map (move p) [UP, LEFT, RIGHT, DOWN]
+    (newCurr, newPaths) = S.foldl f1 (S.empty, M.empty) notOut
+```
+
+```hs
+part2 :: Int -> Int -> Input -> (Int, Int)
+part2 range firstBatch input = sub memory (drop firstBatch input) (findPath memory)
+  where
+    memory = S.fromList $ take firstBatch input
+    findPath m = bfs2 m (range, range) S.empty (S.singleton (0, 0)) (M.singleton (0, 0) S.empty)
+    sub mem [] lastPath = (-1, -1)
+    sub mem (e : l) lastPath
+      | e `S.notMember` lastPath = sub newMem l lastPath
+      | S.null currPath = swap e
+      | otherwise = sub newMem l currPath
+      where
+        newMem = S.insert e mem
+        currPath = findPath newMem
+```
+
+Time : 0.3s
+
+#### Last Version:
+
+After this interesting idea, Raphaël Montes had another one : `dichotomic search` which is my last version
+
+Time : ~0.08s
