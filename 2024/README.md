@@ -19,7 +19,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] Day 15
 - [x] Day 16
 - [?] Day 17
-- [ ] Day 18
+- [x] Day 18
 - [ ] Day 19
 - [ ] Day 20
 - [ ] Day 21
@@ -255,3 +255,13 @@ The register A is basically reduced like `out A%8, A = A/8`, so to build the reg
 - Continue recursively until you get all the numbers
 
 Even though I didn't solve this one on my own I learnt how to analyze the output in order to find results
+
+### Day 18:
+
+Nice and easy day today
+
+Solution is a bit slow so will try to optimize it.
+
+Mainly the second part, I already only look for a path if the current position is in the previous path.
+
+To get the said path I tried with the smallest and the first, it works better with the smallest (less chance to fall on the path => less paths to find)
