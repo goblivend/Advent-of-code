@@ -408,3 +408,11 @@ Time : 0.3s
 After this interesting idea, Raphaël Montes had another one : `dichotomic search` which is my last version
 
 Time : ~0.08s
+
+### Day19:
+
+Today was nice and easy.
+
+First I tried the brute force DFS approach then when I realized it was way too long, I decided to switch to a BFS approach using sets.
+
+This solution worked for part1 but then with Sets, part2 was not possible so I thought of another way using a lookup table for already found solutions.
