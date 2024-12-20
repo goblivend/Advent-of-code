@@ -20,8 +20,8 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] Day 16
 - [?] Day 17
 - [x] Day 18
-- [ ] Day 19
-- [ ] Day 20
+- [x] Day 19
+- [x] Day 20
 - [ ] Day 21
 - [ ] Day 22
 - [ ] Day 23
@@ -416,3 +416,10 @@ Today was nice and easy.
 First I tried the brute force DFS approach then when I realized it was way too long, I decided to switch to a BFS approach using sets.
 
 This solution worked for part1 but then with Sets, part2 was not possible so I thought of another way using a lookup table for already found solutions.
+
+### Day20:
+
+Day was interesting, solution is quite slow
+
+part1: 30mins
+part2: 10mins
