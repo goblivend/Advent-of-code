@@ -423,3 +423,15 @@ Day was interesting, solution is quite slow
 
 part1: 30mins
 part2: 10mins
+
+### Day21:
+
+This day was hard.
+
+Like really hard.
+
+Took me all day to do it (part2 finished at 7:20pm).
+
+I didn't really like the lore, like if the robots are not made for pushing buttons, how can they even know to crash when they're not in front of one...
+
+Even more, at what speed is the main character pushing the buttons to be able to push ~3e14 of them...
