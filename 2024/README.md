@@ -435,3 +435,98 @@ Took me all day to do it (part2 finished at 7:20pm).
 I didn't really like the lore, like if the robots are not made for pushing buttons, how can they even know to crash when they're not in front of one...
 
 Even more, at what speed is the main character pushing the buttons to be able to push ~3e14 of them...
+
+### Day22:
+
+This one was simpler.
+
+I had to wake early so I was on my computer at the start.
+
+Got stuck on stupid things for a bit of part1 and around ~30mins in part2
+
+#### Optimizations:
+
+Without the optimizations my solution ran in about 4mins
+
+The main bottle neck is at the moment where I get the previous differences and match the price with its prefix.
+
+```hs
+withDiffPrefix = map (\n -> map (\i -> (fst (n !! (i + 4)), map snd $ take 4 $ drop i n)) [0 .. 1996]) $ pricesDiff
+```
+
+Here it is easy to understand that each time, getting a random element, dropping X elements and taking the four next ones is quite long.
+
+So an optimization that seemed ok was to cycle through the list without having to cycle through every elements all the time.
+
+```hs
+withDiffPrefix = map (\n -> reverse . fst3 $ foldr (\_ r -> third3 (drop 1) . second3 (drop 1) $ first3 ((fst $ head $ thd3 r, map snd $ take 4 $ snd3 r) :) r) ([], n, drop 4 n) $ [0 .. 1996]) $ pricesDiff
+```
+
+Another version taking the same time using this time `tails` instead
+
+```hs
+withDiffPrefix = map (\n -> take 1997 $ map (\l -> (fst (l !! (4)), map snd $ take 4 $ l)) $ tails n) $ pricesDiff
+```
+
+Now the time is taken in the sort algorithm
+
+```hs
+sortedByDiffPref = sortOn snd . concat $ map (uniqBy snd) $ withDiffPrefix
+```
+
+I thought that it could be possible to optimize by sorting each list and then merging them together but this try was not successful
+
+```hs
+mergeSortOn :: (Eq a, Ord b) => (a -> b) -> [[a]] -> [a]
+mergeSortOn f m = merge f . filter (/= []) $ map (sortOn f) m
+  where
+    merge f [] = []
+    merge f l
+      | mid /= [] = merge f newL
+      | otherwise = merge f $ concat [first, after]
+      where
+        mini = fst . minimumBy (compare `on` (f . head . snd)) $ zip [0 ..] l
+        (first, (e : mid) : after) = splitAt mini l
+        newL = concat [first, [mid], after]
+```
+
+On the other hand it was possible to optimize the `uniqBy` function I created :
+
+```hs
+uniqBy :: (Ord b) => (a -> b) -> [a] -> [a]
+uniqBy f l = sub f l S.empty
+  where
+    sub :: (Ord b) => (a -> b) -> [a] -> Set b -> [a]
+    sub f [] _ = []
+    sub f (e : l) seen
+      | (f e) `S.member` seen = sub f l seen
+      | otherwise = e : sub f l (S.insert (f e) seen)
+```
+
+This version kept me at 36s
+
+Using a `Set` meant that the input didn't have to be sorted but that actually backfired and is was not useful
+
+The other way, to first sort then discard any duplicate was more successful
+
+```hs
+uniqBy :: (Ord b) => (a -> b) -> [a] -> [a]
+uniqBy f [] = []
+uniqBy f (e : l) = e : sub f (f e) l
+  where
+    sub :: (Ord b) => (a -> b) -> b -> [a] -> [a]
+    sub f _ [] = []
+    sub f lastE (e : l)
+      | currVal == lastE = sub f lastE l
+      | otherwise = e : sub f currVal l
+      where
+        currVal = f e
+```
+
+Getting now down to 13s
+
+The main bottlenecks are now:
+- `sortedByDiffPref` with 65% of the total time
+- `withDiffPrefix` with 23% of the total time
+
+I might try to optimize this day further later on
