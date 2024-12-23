@@ -1,22 +1,13 @@
 module Main where
 
-import Data.Bits
 import Data.Function
 import Data.List
-import Data.List.Split
-import Data.List.Unique
 import Data.Map (Map)
 import Data.Map qualified as M
-import Data.Matrix (Matrix, (!))
-import Data.Matrix qualified as Mat
 import Data.Set (Set)
 import Data.Set qualified as S
 import Data.Tuple.Extra
-import Debug.Trace
 import System.Environment
-import Text.Regex.TDFA ((=~))
-
--- TODO: Cleanup imports after day done
 
 type Input = Map String (Set String)
 

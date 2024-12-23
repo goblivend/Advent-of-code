@@ -545,18 +545,28 @@ I might try that later just to see for part2 though.
 
 Base version
 ```hs
-isLan s = all (\e -> S.isSubsetOf s $ (S.insert e) $ input M.! e) s
-lansOf k = S.filter isLan . S.powerSet . S.insert k $ (input M.! k)
-lans = S.unions . map lansOf $ M.keys input
+part2 :: Input -> String
+part2 input = join "," . sort $ S.toList biggest
+  where
+    isLan s = all (\e -> S.isSubsetOf s $ (S.insert e) $ input M.! e) s
+    lansOf k = S.filter isLan . S.powerSet . S.insert k $ (input M.! k)
+    lans = S.unions . map lansOf $ M.keys input
+    biggest = maximumBy (compare `on` S.size) lans
+
 ```
 Time: 18s
 
 To try I tried to change the `S.insert` to the opposite `S.delete`
 
 ```hs
-isLan s = {-# SCC isLan #-} all (\e -> S.isSubsetOf (S.delete e s) $ input M.! e) s
-lansOf k = {-# SCC lansOf #-} S.filter isLan . S.powerSet . S.insert k $ (input M.! k)
-lans = {-# SCC lans #-} S.unions . map lansOf $ M.keys input
+part2 :: Input -> String
+part2 input = join "," . sort $ S.toList biggest
+  where
+    isLan s = all (\e -> S.isSubsetOf (S.delete e s) $ input M.! e) s
+    lansOf k = S.filter isLan . S.powerSet . S.insert k $ (input M.! k)
+    lans = S.unions . map lansOf $ M.keys input
+    biggest = maximumBy (compare `on` S.size) lans
+
 ```
 
 Time: 16s
@@ -564,11 +574,36 @@ Time: 16s
 Then I tried to remove the number of calls to `isLan`
 
 ```hs
-isLan s = {-# SCC isLan #-} all (\e -> S.isSubsetOf (S.delete e s) $ input M.! e) s
-lansOf k = {-# SCC lansOf #-} S.powerSet . S.insert k $ (input M.! k)
-lans = {-# SCC lans #-} S.filter isLan . S.unions . map lansOf $ M.keys input
+part2 :: Input -> String
+part2 input = join "," . sort $ S.toList biggest
+  where
+    isLan s = all (\e -> S.isSubsetOf (S.delete e s) $ input M.! e) s
+    lansOf k = S.powerSet . S.insert k $ (input M.! k)
+    lans = S.filter isLan . S.unions . map lansOf $ M.keys input
+    biggest = maximumBy (compare `on` S.size) lans
+
 ```
 
 Time: 12.6s
+
+Another idea to decrease the number of calls to `isLan` was to first sort by `S.size` then take the first valid lan.
+
+```hs
+part2 :: Input -> String
+part2 input = join "," . sort $ S.toList biggest
+  where
+    isLan s = all (\e -> S.isSubsetOf (S.delete e s) $ input M.! e) s
+    lansOf k = S.powerSet . S.insert k $ (input M.! k)
+    lans = S.unions . map lansOf $ M.keys input
+    biggest = head . filter isLan . reverse . sortBy (compare `on` S.size) $ S.toList lans
+```
+
+The issue with this one is that the sorting takes more time than the calls to `isLan` so instead of 12s it actually takes longer.
+
+Time: 19s
+
+Anyway the time is not as much in isLan anymore:
+- `isLan`: 37%
+- `lans`: 54%
 
 Could try and look further but I don't really have time now.
