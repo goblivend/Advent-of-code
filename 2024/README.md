@@ -530,3 +530,45 @@ The main bottlenecks are now:
 - `withDiffPrefix` with 23% of the total time
 
 I might try to optimize this day further later on
+
+
+### Day23:
+
+Today was interesting.
+
+Didn't have much time and was not super difficult nor completely given.
+
+I was afraid using graph visualizers could solve instantly but I don't think it can.
+I might try that later just to see for part2 though.
+
+#### Optimizations:
+
+Base version
+```hs
+isLan s = all (\e -> S.isSubsetOf s $ (S.insert e) $ input M.! e) s
+lansOf k = S.filter isLan . S.powerSet . S.insert k $ (input M.! k)
+lans = S.unions . map lansOf $ M.keys input
+```
+Time: 18s
+
+To try I tried to change the `S.insert` to the opposite `S.delete`
+
+```hs
+isLan s = {-# SCC isLan #-} all (\e -> S.isSubsetOf (S.delete e s) $ input M.! e) s
+lansOf k = {-# SCC lansOf #-} S.filter isLan . S.powerSet . S.insert k $ (input M.! k)
+lans = {-# SCC lans #-} S.unions . map lansOf $ M.keys input
+```
+
+Time: 16s
+
+Then I tried to remove the number of calls to `isLan`
+
+```hs
+isLan s = {-# SCC isLan #-} all (\e -> S.isSubsetOf (S.delete e s) $ input M.! e) s
+lansOf k = {-# SCC lansOf #-} S.powerSet . S.insert k $ (input M.! k)
+lans = {-# SCC lans #-} S.filter isLan . S.unions . map lansOf $ M.keys input
+```
+
+Time: 12.6s
+
+Could try and look further but I don't really have time now.
