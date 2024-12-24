@@ -607,3 +607,9 @@ Anyway the time is not as much in isLan anymore:
 - `lans`: 54%
 
 Could try and look further but I don't really have time now.
+
+### Day24:
+
+This day was... hmmm interesting...
+
+Didn't manage to automatize the second part, only did it by hand.
