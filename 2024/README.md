@@ -613,3 +613,10 @@ Could try and look further but I don't really have time now.
 This day was... hmmm interesting...
 
 Didn't manage to automatize the second part, only did it by hand.
+
+
+### Day25:
+
+This day was really easy.
+
+Will try later to wrap up this year (few optimizations and Day24 part2)
