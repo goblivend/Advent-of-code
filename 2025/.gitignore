@@ -1,0 +1,9 @@
+*
+!/**/
+!*.*
+!Makefile
+!Dockerfile
+
+*.hi
+*.o
+*.swp
