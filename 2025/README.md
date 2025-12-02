@@ -3,7 +3,7 @@
 This year will do it in Haskell, but might try few days in Rust as well
 
 - [x] Day 1
-- [ ] Day 2
+- [x] Day 2
 - [ ] Day 3
 - [ ] Day 4
 - [ ] Day 5
@@ -109,3 +109,96 @@ part2 = sum . map (uncurry nbs0 . fix0) . uncurry zip .: (&&& id) . scanl turnDi
 ```
 
 Quite happy of the simplification I managed to do, next step would be to try and create those the first time and not using a temporary version
+
+
+### Day 2:
+
+Today first solution was quite intuitive, then for the second one I tried different ideas to try and have a clean solution such as using Regex but didn't manage to find a clean solution.
+
+So I did it by hand:
+
+```hs
+isSplitable :: String -> Bool
+isSplitable s = not . null . filter isSame $ filter ((== 0) . (l `mod`)) [2 .. l]
+  where
+    l = length s
+    isSame n = and $ allEqual <$> [(s !!) <$> [y * delta + x | y <- [0 .. n - 1]] | x <- [0 .. delta - 1]]
+      where
+        allEqual :: [Char] -> Bool
+        allEqual (x : lst) = all (== x) lst
+
+        delta = div l n
+
+sumInvalid :: (String -> Bool) -> [(Int, Int)] -> Int
+sumInvalid isInvalid = sum . filter (isInvalid . show) . concat . map (uncurry enumFromTo)
+
+part1 :: Input -> Output
+part1 = sumInvalid isDouble
+  where
+     isDouble s = uncurry (==) $ splitAt (length s `div` 2) s
+
+
+part2 :: Input -> Output
+part2 = sumInvalid isSplitable
+```
+
+for every number, I try to find factors of the number of digits then I check each letter (using lazy evaluation, so until it fails):
+
+For the string
+
+`abcabcabd`
+`123456789`
+
+I will try with 2 and see that 2 is not a factor of 9
+
+so I'll try with 3 which is a factor
+
+Next I'll compare all the first letters of the 3 splits : `a` `a` and `a` then to the `b`... up to the last `c` which is in fact a `d`
+
+In the end I found a way too clean up `isSame`
+
+```hs
+isSame n = all null . splitOn (take delta s) $ drop delta s
+```
+
+which ended up the generic version of the 2 specific one, even if it is slightly slower
+
+```hs
+isdouble s = uncurry (==) $ splitAt (length s `div` 2) s
+```
+
+and the complete generic checker :
+
+```hs
+isInvalidForN :: Int -> String -> Bool
+isInvalidForN n s
+  | l `mod` n /= 0 = False
+  | otherwise = all null . splitOn (take delta s) $ drop delta s
+  where
+    l = length s
+    delta = div l n
+```
+
+
+For the final code
+
+```hs
+isInvalidForN :: Int -> String -> Bool
+isInvalidForN n s
+  | l `mod` n /= 0 = False
+  | otherwise = all null . splitOn (take delta s) $ drop delta s
+  where
+    l = length s
+    delta = div l n
+
+sumInvalid :: (String -> Bool) -> [(Int, Int)] -> Int
+sumInvalid isInvalid = sum . filter (isInvalid . show) . concat . map (uncurry enumFromTo)
+
+part1 :: Input -> Output
+part1 = sumInvalid (isInvalidForN 2)
+
+part2 :: Input -> Output
+part2 = sumInvalid isInvalidForAll
+  where
+    isInvalidForAll s = not . null . filter (`isInvalidForN` s) $ [2 .. length s]
+```
