@@ -1,19 +1,6 @@
 module Main where
 
-import Data.Bits
-import Data.List
-import Data.List.Split
-import Data.List.Unique
-import Data.Matrix (Matrix, (!))
-import Data.Matrix qualified as Mat
-import Data.Set (Set)
-import Data.Set qualified as S
-import Data.Tuple.Extra
-import Debug.Trace
 import System.Environment
-import Text.Regex.TDFA ((=~))
-
--- TODO: Cleanup imports after day done
 
 type Input = [[Int]]
 
@@ -53,5 +40,5 @@ main = do
 
   print input
 
-  print $ 17087 == part1 input
-  print $ 169019504359949 == part2 input
+  print $ part1 input
+  print $ part2 input
