@@ -94,6 +94,10 @@ run: setup
 	docker exec -it \$(CONTAINER_NAME) cabal build
 	docker exec -it \$(CONTAINER_NAME) ./run input.txt
 
+run-short: setup
+	docker exec -it \$(CONTAINER_NAME) cabal build
+	docker exec -it \$(CONTAINER_NAME) ./run shortinput.txt
+
 .PHONY: all \$(TARGET) clean setup profiling run
 EOF
 
