@@ -216,7 +216,7 @@ That's one good way to feel stupid while coding...
 That was the only trick to figure out today's puzzle:
 
 - If you just have enough numbers to fill the 12 spots, just fill it
-- If you have more take the first highest one in the spares (lets say we have 10 number and need 3, the highest one of the first 3 will be taken)
+- If you have more take the first highest one in the spares (lets say we have 10 number and need 3, the highest one of the first 8 will be taken)
 
 So an example could be:
 
