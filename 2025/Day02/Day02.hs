@@ -14,7 +14,7 @@ parseInput = map (read . ("(" ++) . (++ ")") . replace "-" ",") . splitOn ","
 isInvalidForN :: Int -> String -> Bool
 isInvalidForN n s
   | l `mod` n /= 0 = False
-  | otherwise = all null . splitOn (take delta s) $ drop delta s
+  | otherwise = all null . splitOn (take delta s) $ drop delta s -- Could have changed to `uncurry splitOn $ splitAt delta s` but it makes the solution 10% slower
   where
     l = length s
     delta = div l n

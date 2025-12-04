@@ -5,8 +5,6 @@ import Data.Matrix qualified as Mat
 import System.Environment
 import Text.Regex.TDFA ((=~))
 
--- TODO: Cleanup imports after day done
-
 type Input = Matrix Bool
 
 type Output = Int

@@ -1,7 +1,6 @@
 module Main where
 
 import Data.Tuple.Extra
-import Debug.Trace
 import System.Environment
 
 type Input = [Int]

@@ -1,4 +1,4 @@
-# Day04:
+# [2025](../README.md)/Day04:
 
 ## Parsing
 
@@ -57,6 +57,43 @@ part2 :: Input -> Output
 part2 input
   | nbEnd == nbStart = 0 -- Stop condition if rolls are not removed anymore
   | otherwise = nbStart - nbEnd + part2 matEnd -- Returning the current number rolls removed and the ones in the next step
+  where
+    nbStart = nbRolls input
+    nbEnd = nbRolls matEnd
+    matEnd = removeRols input
+```
+
+
+## Complete Code
+
+```hs
+type Input = Matrix Bool
+
+parseInput :: String -> Input
+parseInput = Mat.fromLists . map (map (== '@')) . lines
+
+removeRols :: Matrix Bool -> Matrix Bool
+removeRols input = foldl removeRol input . filter ((<= 4) . nbNeighbors) $ filter (input !) [(x, y) | x <- [1 .. w], y <- [1 .. h]]
+  where
+    (w, h) = (Mat.ncols input, Mat.nrows input)
+    removeRol = flip (Mat.setElem False)
+    nbNeighbors = length . filter (input !) . listNeighbors
+    listNeighbors (x, y) = filter checkBound [(x + dx, y + dy) | dx <- [-1 .. 1], dy <- [-1 .. 1]]
+    checkBound (x, y) = x >= 1 && y >= 1 && x <= w && y <= h
+
+nbRolls :: Matrix Bool -> Int
+nbRolls = length . filter id . Mat.toList
+
+part1 :: Input -> Output
+part1 input = nbStart - nbEnd
+  where
+    nbStart = nbRolls input
+    nbEnd = nbRolls $ removeRols input
+
+part2 :: Input -> Output
+part2 input
+  | nbEnd == nbStart = 0
+  | otherwise = nbStart - nbEnd + part2 matEnd
   where
     nbStart = nbRolls input
     nbEnd = nbRolls matEnd
