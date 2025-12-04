@@ -1,4 +1,4 @@
-# [2025](../README.md)/Day01
+# 2025/Day01
 
 ## Prerequisites
 

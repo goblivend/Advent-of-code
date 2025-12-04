@@ -1,4 +1,4 @@
-# [2025](../README.md)/Day03:
+# 2025/Day03:
 
 ## Algorithm
 

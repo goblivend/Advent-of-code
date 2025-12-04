@@ -1,4 +1,4 @@
-# Advent of code 2022
+# 2022
 
 No idea what language to do this year with, will start with haskell
 

@@ -1,10 +1,10 @@
-# [Advent of code](../README.md) 2025
+# 2025
 
 This year will do it in Haskell, but might try few days in Rust as well
 
-- [x] [Day 1](./Day04/README.md)
-- [x] [Day 2](./Day04/README.md)
-- [x] [Day 3](./Day04/README.md)
+- [x] [Day 1](./Day01/README.md)
+- [x] [Day 2](./Day02/README.md)
+- [x] [Day 3](./Day03/README.md)
 - [x] [Day 4](./Day04/README.md)
 - [ ] Day 5
 - [ ] Day 6

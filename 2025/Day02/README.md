@@ -1,4 +1,4 @@
-# [2025](../README.md)/Day02
+# 2025/Day02
 
 ## Parsing
 

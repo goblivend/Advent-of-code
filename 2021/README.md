@@ -1,4 +1,4 @@
-# Advent-of-code-2021
+# 2021
 first Advent of code for me, probably be in several languages for fun
 Trying them first in python to improve a bit an understand the problem, the if I've got time, trying to do them in bash to improve as well
 

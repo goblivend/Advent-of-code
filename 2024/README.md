@@ -1,4 +1,4 @@
-# Advent of code 2024
+# 2024
 
 This year will do it in Haskell, but might try few days in Rust as well
 
