@@ -5,7 +5,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] Day 1
 - [x] Day 2
 - [x] Day 3
-- [ ] Day 4
+- [x] [Day 4](./Day04/README.md)
 - [ ] Day 5
 - [ ] Day 6
 - [ ] Day 7
@@ -265,3 +265,10 @@ part1 = sum . map (findBestsOf 2) -- Sum the results for each line with 2 batter
 part2 :: Input -> Output
 part2 = sum . map (findBestsOf 12) -- Sum the results for each line with 12 batteries
 ```
+
+
+### Day 4:
+
+Today was quite nice and after part 1 I just adapted a little bit part1 to actually remove the rolls and that was most of the work
+
+[Code explanation](./Day04/README.md)
