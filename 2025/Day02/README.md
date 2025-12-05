@@ -1,4 +1,6 @@
-# 2025/Day02
+---
+title: 2025/Day02
+---
 
 ## Parsing
 

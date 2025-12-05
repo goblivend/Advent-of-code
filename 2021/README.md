@@ -1,4 +1,7 @@
-# 2021
+---
+title: 2021
+---
+
 first Advent of code for me, probably be in several languages for fun
 Trying them first in python to improve a bit an understand the problem, the if I've got time, trying to do them in bash to improve as well
 
@@ -23,7 +26,7 @@ Trying them first in python to improve a bit an understand the problem, the if I
 - [x] Day 18
 - [ ] Day 19
 - [x] Day 20
-- [ ] Day 21
+- [ ] Day 21 (only part 1)
 - [ ] Day 22
 - [ ] Day 23
 - [ ] Day 24

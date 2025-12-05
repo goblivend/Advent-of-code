@@ -1,4 +1,6 @@
-# 2022
+---
+title: 2022
+---
 
 This year I will probably try to use Haskell or Lua\
 (as well as Bash, Python, Java, JS, C#, C if needed)

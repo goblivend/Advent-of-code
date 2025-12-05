@@ -1,4 +1,4 @@
-# Advent-of-code
+# Advent of Code
 
 Advent of code, in several languages for fun
 

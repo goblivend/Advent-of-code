@@ -1,4 +1,6 @@
-# 2025/Day03:
+---
+title: 2025/Day03
+---
 
 ## Algorithm
 

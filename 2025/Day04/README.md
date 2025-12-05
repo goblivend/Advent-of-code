@@ -1,4 +1,6 @@
-# 2025/Day04:
+---
+title: 2025/Day04
+---
 
 ## Parsing
 
@@ -64,7 +66,7 @@ part2 input
 ```
 
 
-## Complete Code
+## Complete Code:
 
 ```hs
 type Input = Matrix Bool

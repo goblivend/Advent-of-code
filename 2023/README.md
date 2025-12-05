@@ -1,4 +1,6 @@
-# 2022
+---
+title: 2023
+---
 
 No idea what language to do this year with, will start with haskell
 

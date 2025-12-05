@@ -1,4 +1,6 @@
-# 2025/Day01
+---
+title: 2025/Day01
+---
 
 ## Prerequisites
 
