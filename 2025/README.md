@@ -1,4 +1,6 @@
-# 2025
+---
+title: 2025
+---
 
 This year will do it in Haskell, but might try few days in Rust as well
 
@@ -6,7 +8,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] [Day 2](./Day02/README.md)
 - [x] [Day 3](./Day03/README.md)
 - [x] [Day 4](./Day04/README.md)
-- [ ] Day 5
+- [x] [Day 5](./Day05/README.md) (0.014s)
 - [ ] Day 6
 - [ ] Day 7
 - [ ] Day 8
@@ -51,3 +53,9 @@ I had to remember a few things about number and once I did I felt stupid not to 
 Today was quite nice and after part 1 I just adapted a little bit part 1 to actually remove the rolls and that was most of the work for this part.
 
 [Code explanation](./Day04/README.md)
+
+### Day 5:
+
+Today was the first day with an impossible solution, the first version of the second exercise crashed so I had to think a bit and make a cleaner version before solving the problem.
+
+[Code explanation](./Day05/README.md)
