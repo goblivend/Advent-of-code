@@ -9,7 +9,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] [Day 3](./Day03/README.md)
 - [x] [Day 4](./Day04/README.md)
 - [x] [Day 5](./Day05/README.md) (0.014s)
-- [ ] Day 6
+- [x] [Day 6](./Day06/README.md) (0.024s)
 - [ ] Day 7
 - [ ] Day 8
 - [ ] Day 9
@@ -59,3 +59,11 @@ Today was quite nice and after part 1 I just adapted a little bit part 1 to actu
 Today was the first day with an impossible solution, the first version of the second exercise crashed so I had to think a bit and make a cleaner version before solving the problem.
 
 [Code explanation](./Day05/README.md)
+
+### Day 6:
+
+Today, the puzzles were very simple, the actual thinking was the parsing.
+
+At first I just decided to split on the spaces which worked for part1 but then I ended up removing important information for part2, so I had to adapt the parsing.
+
+[Code explanation](./Day06/README.md)
