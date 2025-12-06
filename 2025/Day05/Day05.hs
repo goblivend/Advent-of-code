@@ -1,20 +1,10 @@
 module Main where
 
-import Data.Bits
-import Data.List
+import Data.List (sortOn)
 import Data.List.Extra (replace)
-import Data.List.Split
-import Data.List.Unique
-import Data.Matrix (Matrix, (!))
-import Data.Matrix qualified as Mat
-import Data.Set (Set)
-import Data.Set qualified as S
-import Data.Tuple.Extra
-import Debug.Trace
-import System.Environment
-import Text.Regex.TDFA ((=~))
-
--- TODO: Cleanup imports after day done
+import Data.List.Split (splitOn)
+import Data.Tuple.Extra (both, (***))
+import System.Environment (getArgs)
 
 type Input = ([(Int, Int)], [Int])
 
@@ -45,5 +35,5 @@ main = do
 
   print input
 
-  print $ 638 == part1 input
-  print $ 352946349407338 == part2 input
+  print $ part1 input
+  print $ part2 input
