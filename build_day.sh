@@ -101,6 +101,37 @@ run-short: setup
 .PHONY: all \$(TARGET) clean setup profiling run
 EOF
 
+cat <<EOF > $FOLDER/README.md
+---
+title: $YEAR/Day$DAY
+---
+
+## Parsing:
+
+```hs
+
+```
+
+## Part 1:
+
+```hs
+
+```
+
+## Part 2:
+
+```hs
+
+```
+
+## Complete Code:
+
+```hs
+
+```
+EOF
+
+
 ;;
 
     "")
