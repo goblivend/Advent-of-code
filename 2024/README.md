@@ -4,31 +4,31 @@ title: 2024
 
 This year will do it in Haskell, but might try few days in Rust as well
 
-- [x] Day 1
-- [x] Day 2
-- [x] Day 3
-- [x] Day 4
-- [x] Day 5
-- [x] Day 6
-- [x] Day 7
-- [x] Day 8
-- [x] Day 9
-- [x] Day 10
-- [x] Day 11
-- [x] Day 12
-- [x] Day 13
-- [x] Day 14
-- [x] Day 15
-- [x] Day 16
-- [?] Day 17
-- [x] Day 18
-- [x] Day 19
-- [x] Day 20
-- [x] Day 21
-- [x] Day 22
-- [x] Day 23
-- [x] Day 24
-- [x] Day 25
+- [x] Day 1 (0.039s)
+- [x] Day 2 (0.021s)
+- [x] Day 3 (0.026s)
+- [x] Day 4 (0.025s)
+- [x] Day 5 (0.284s)
+- [x] Day 6 (6.399s)
+- [x] Day 7 (0.168s)
+- [x] Day 8 (0.045s)
+- [x] Day 9 (2.224s)
+- [x] Day 10 (0.019s)
+- [x] Day 11 (1.120s)
+- [x] Day 12 (0.125s)
+- [x] Day 13 (0.040s)
+- [x] Day 14 (7.267s)
+- [x] Day 15 (50.70s)
+- [x] Day 16 (49.60s)
+- [x] Day 17 (15.90s)
+- [x] Day 18 (0.074s)
+- [x] Day 19 (0.288s)
+- [x] Day 20 (28m48s)
+- [x] Day 21 (0.022s)
+- [x] Day 22 (17.47s)
+- [x] Day 23 (17.59s)
+- [x] Day 24 (0.319s)
+- [x] Day 25 (0.034s)
 
 ---
 
