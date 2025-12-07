@@ -105,4 +105,5 @@ main = do
     -- print inp
     print $ part1 inp
     print $ part2 inp
-    print $ flood inp 64
+
+-- print $ flood inp 64

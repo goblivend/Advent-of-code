@@ -80,14 +80,7 @@ part2 inp = sum  {- .map snd . map (\e -> trace (show ((one $ fst e, two $ fst e
 
 main :: IO ()
 main = do
-    content <- readFile "minput.txt"
+  content <- readFile "input.txt"
     let inp = parseInput content
-    --
-    -- print $ part1 inp
-    -- putStr $ if -50 < part2 inp then "" else ""
+  print $ part1 inp
     print $ part2 inp
-    -- putStr "\n\n\n\n\n"
-    -- print $ chain ninp  [Brick {one = (0,0,2), two = (2,0,2)},Brick {one = (0,2,2), two = (2,2,2)}] 0
-    let rested = fall inp []
-    -- print $ map (\b -> (one b, two b)) $ rested
-    print $  chain rested (S.singleton (Brick (3, 2, 1) (3, 4, 1))) 0

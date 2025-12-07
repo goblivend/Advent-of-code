@@ -179,5 +179,5 @@ main = do
     content <- readFile "input.txt"
     let inp = parseInput content
     -- print inp
-    -- print $ part1 inp
+  print $ part1 inp
     print $ part2 inp

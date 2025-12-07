@@ -42,4 +42,4 @@ main = do
     print $ sum $ getList (firstGetIntLine) input
     print $ sum $ getList (secondGetIntLine) input
     -- I don't think the expected result is the right one, here I would say it's only 8 but in this case we need the 2 too
-    print $ secondGetIntLine "eightwo"
+-- print $ secondGetIntLine "eightwo"
