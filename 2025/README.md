@@ -10,7 +10,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] [Day 4](./Day04/README.md)
 - [x] [Day 5](./Day05/README.md) (0.014s)
 - [x] [Day 6](./Day06/README.md) (0.024s)
-- [ ] Day 7
+- [x] [Day 7](./Day07/README.md) (0.021s)
 - [ ] Day 8
 - [ ] Day 9
 - [ ] Day 10
@@ -67,3 +67,9 @@ Today, the puzzles were very simple, the actual thinking was the parsing.
 At first I just decided to split on the spaces which worked for part1 but then I ended up removing important information for part2, so I had to adapt the parsing.
 
 [Code explanation](./Day06/README.md)
+
+### Day 7:
+
+Today needed the some sort of memoization, instead, I decided to limit the number of calls to the strict minimum
+
+[Code explanation](./Day07/README.md)
