@@ -4,31 +4,31 @@ title: 2023
 
 No idea what language to do this year with, will start with haskell
 
-- [x] Day 1
-- [x] Day 2
-- [x] Day 3
-- [x] Day 4
-- [x] Day 5
-- [x] Day 6
-- [x] Day 7
-- [x] Day 8
-- [x] Day 9
-- [x] Day 10
-- [x] Day 11
-- [x] Day 12
-- [x] Day 13
-- [x] Day 14
-- [x] Day 15
-- [x] Day 16
-- [x] Day 17
-- [x] Day 18
-- [x] Day 19
-- [x] Day 20
-- [x] Day 21
-- [x] Day 22
-- [x] Day 23
-- [x] Day 24
-- [x] Day 25
+- [x] Day 1 (0.020s)
+- [x] Day 2 (0.018s)
+- [x] Day 3 (0.075s)
+- [x] Day 4 (0.081s)
+- [x] Day 5 (0.029s)
+- [x] Day 6 (0.016s)
+- [x] Day 7 (0.037s)
+- [x] Day 8 (0.056s)
+- [x] Day 9 (0.030s)
+- [x] Day 10 (0.204s)
+- [x] Day 11 (0.034s)
+- [x] Day 12 (3.854s)
+- [x] Day 13 (0.030s)
+- [x] Day 14 (5.809s)
+- [x] Day 15 (0.036s)
+- [x] Day 16 (4.205s)
+- [x] Day 17 (16.04s)
+- [x] Day 18 (0.024s)
+- [x] Day 19 (0.095s)
+- [x] Day 20 (0.100s)
+- [x] Day 21 (0.323s)
+- [x] Day 22 (58.59s)
+- [x] Day 23 (6.736s)
+- [x] Day 24 (0.140s)
+- [x] Day 25 (0.033s) (+neato)
 
 ---
 
