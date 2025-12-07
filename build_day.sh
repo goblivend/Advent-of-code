@@ -108,27 +108,27 @@ title: $YEAR/Day$DAY
 
 ## Parsing:
 
-```hs
+\`\`\`hs
 
-```
+\`\`\`
 
 ## Part 1:
 
-```hs
+\`\`\`hs
 
-```
+\`\`\`
 
 ## Part 2:
 
-```hs
-
-```
+\`\`\`hs
+\`\`\`
 
 ## Complete Code:
 
-```hs
+\`\`\`hs
 
-```
+\`\`\`
+
 EOF
 
 
