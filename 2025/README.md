@@ -11,7 +11,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] [Day 5](./Day05/README.md) (0.014s)
 - [x] [Day 6](./Day06/README.md) (0.024s)
 - [x] [Day 7](./Day07/README.md) (0.021s)
-- [ ] Day 8
+- [x] [Day 8](./Day08/README.md) (0.214)
 - [ ] Day 9
 - [ ] Day 10
 - [ ] Day 11
@@ -73,3 +73,11 @@ At first I just decided to split on the spaces which worked for part1 but then I
 Today needed the some sort of memoization, instead, I decided to limit the number of calls to the strict minimum
 
 [Code explanation](./Day07/README.md)
+
+### Day 8:
+
+Today had the first solution running for 8s and optimized it quite a lot.
+
+Maybe I'll try to have another call named `commonCalc` or similar to move the code that is not parsing but needed to both parts outside from the parsing function...
+
+[Code explanation](./Day08/README.md)
