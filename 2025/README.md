@@ -12,7 +12,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] [Day 6](./Day06/README.md) (0.024s)
 - [x] [Day 7](./Day07/README.md) (0.021s)
 - [x] [Day 8](./Day08/README.md) (0.214)
-- [ ] Day 9
+- [x] [Day 9](./Day09/README.md) (0.353)
 - [ ] Day 10
 - [ ] Day 11
 - [ ] Day 12
@@ -81,3 +81,11 @@ Today had the first solution running for 8s and optimized it quite a lot.
 Maybe I'll try to have another call named `commonCalc` or similar to move the code that is not parsing but needed to both parts outside from the parsing function...
 
 [Code explanation](./Day08/README.md)
+
+### Day 9:
+
+Today was the day that required the longest code at the moment.
+
+Had to vibe code a visualizer in python in order to find tricks about the input
+
+[Code explanation](./Day09/README.md)
