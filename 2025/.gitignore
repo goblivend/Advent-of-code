@@ -7,3 +7,5 @@
 *.hi
 *.o
 *.swp
+*.prof
+__pycache__/

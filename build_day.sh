@@ -89,6 +89,7 @@ setup: \$(SRC)
 profiling: setup
 	docker exec -it \$(CONTAINER_NAME) cabal build --enable-profiling
 	docker exec -it \$(CONTAINER_NAME) ./profile input.txt
+    docker cp \$(CONTAINER_NAME):/home/haskell/Main.prof ./Day$DAY.prof
 
 run: setup
 	docker exec -it \$(CONTAINER_NAME) cabal build

@@ -31,6 +31,35 @@ docker run -it --rm --name haskell-aoc haskell-aoc
 ```
 Keep it running in the background in order to launch your solutions on it
 
+#### Text based :
+
+```sh
+make profiling
+```
+
+which will run the profiling on the docker and create the result file as `DayXX.prof`
+
+#### Visual Explorer
+
+You can also use the flame graph viewer [SpeedScope](https://www.speedscope.app/)
+
+In which case you will need to run this.
+
+```sh
+$ ghc -prof -fprof-auto -rtsopts Main.hs # replace with source file
+$ ./Main +RTS -pj -RTS input.txt
+```
+
+You can run it locally, but if you have any issue, it should work on the Docker.
+
+then you just need to do
+
+```sh
+docker cp haskell-aoc:/home/haskell/Main.prof .
+```
+
+
+
 ## 2021
 
 Started coding in Shell, was too difficult, so finished in Python..
