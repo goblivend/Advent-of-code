@@ -13,7 +13,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] [Day 7](./Day07/README.md) (0.021s)
 - [x] [Day 8](./Day08/README.md) (0.214)
 - [x] [Day 9](./Day09/README.md) (0.353)
-- [ ] Day 10
+- [x] [Day 10](./Day10/README.md) (74m39s)
 - [ ] Day 11
 - [ ] Day 12
 
@@ -89,3 +89,10 @@ Today was the day that required the longest code at the moment.
 Had to vibe code a visualizer in python in order to find tricks about the input
 
 [Code explanation](./Day09/README.md)
+
+
+### Day 10:
+
+Today was really hard, spent all day on the part2, and even then only got a runtime of **75 minutes**
+
+[Code explanation](./Day10/README.md)
