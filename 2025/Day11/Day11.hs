@@ -1,21 +1,10 @@
 module Main where
 
-import Data.Bits
 import Data.List
-import Data.List.Split
-import Data.List.Unique
 import Data.Map (Map)
 import Data.Map qualified as M
-import Data.Matrix (Matrix, (!))
-import Data.Matrix qualified as Mat
-import Data.Set (Set)
-import Data.Set qualified as S
 import Data.Tuple.Extra
-import Debug.Trace
 import System.Environment
-import Text.Regex.TDFA ((=~))
-
--- TODO: Cleanup imports after day done
 
 type Input = Map String [String]
 
@@ -47,14 +36,7 @@ passingThrough mustSee input from to = sum . map (product . map (uncurry (nbPath
     ways = map ((++ [to]) . (from :)) $ permutations mustSee
 
 part2 :: Input -> Output
-part2 input = passingThrough ["fft", "dac"] input "svr" "out" -- (svrDac * dacFft * fftOut) + (svrFft * fftDac * dacOut)
-  where
-    svrFft = nbPaths input "svr" "fft"
-    svrDac = nbPaths input "svr" "dac"
-    dacFft = nbPaths input "dac" "fft"
-    fftDac = nbPaths input "fft" "dac"
-    fftOut = nbPaths input "fft" "out"
-    dacOut = nbPaths input "dac" "out"
+part2 input = passingThrough ["fft", "dac"] input "svr" "out"
 
 main :: IO ()
 main = do
@@ -64,5 +46,5 @@ main = do
 
   -- print input
 
-  print $ 701 == part1 input
-  print $ 390108778818526 == part2 input
+  print $ part1 input
+  print $ part2 input

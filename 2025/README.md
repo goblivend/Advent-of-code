@@ -11,10 +11,10 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] [Day 5](./Day05/README.md) (0.014s)
 - [x] [Day 6](./Day06/README.md) (0.024s)
 - [x] [Day 7](./Day07/README.md) (0.021s)
-- [x] [Day 8](./Day08/README.md) (0.214)
-- [x] [Day 9](./Day09/README.md) (0.353)
+- [x] [Day 8](./Day08/README.md) (0.214s)
+- [x] [Day 9](./Day09/README.md) (0.353s)
 - [x] [Day 10](./Day10/README.md) (74m39s)
-- [ ] Day 11
+- [x] [Day 11](./Day11/README.md) (0.109s)
 - [ ] Day 12
 
 ---
@@ -96,3 +96,9 @@ Had to vibe code a visualizer in python in order to find tricks about the input
 Today was really hard, spent all day on the part2, and even then only got a runtime of **75 minutes**
 
 [Code explanation](./Day10/README.md)
+
+### Day 11:
+
+Today was a nice and appreciated rest compared to yesterday.
+
+[Code explanation](./Day11/README.md)
