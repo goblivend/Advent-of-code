@@ -24,27 +24,30 @@ type Output = Int
 parseInput :: String -> Input
 parseInput = M.fromList . map (second (words . drop 1) . splitAt 3) . lines
 
-findAllPaths :: Map String [String] -> Set String -> Map String Int -> String -> String -> Map String Int
-findAllPaths devs seen calculated dest curr
+findAllPaths :: Map String [String] -> Map String Int -> String -> String -> Map String Int
+findAllPaths devs calculated dest curr
   | M.member curr calculated = calculated
-  | S.member curr seen = M.singleton curr 0
   | dest == curr = M.singleton dest 1
   | M.notMember curr devs = M.singleton curr 0
-  | otherwise = M.insert curr (sum $ map ((M.!) uniontMp) nextKeys) uniontMp -- trace (show ("seen", S.size seen, curr, seen))
+  | otherwise = M.insert curr (sum $ map ((M.!) uniontMp) nextKeys) uniontMp
   where
     nextKeys = devs M.! curr
-    newSeen = S.insert curr seen
     uniontMp :: Map String Int
-    uniontMp = foldl (\m k -> M.union m $ findAllPaths devs (S.union newSeen (M.keysSet m)) m dest k) calculated nextKeys
+    uniontMp = foldl (\m k -> M.union m $ findAllPaths devs m dest k) calculated nextKeys
 
 nbPaths :: Map String [String] -> String -> String -> Int
-nbPaths input from to = (\e -> trace (show ("from", from, "to", to, "got", e)) e) $ (M.! from) $ findAllPaths input S.empty M.empty to from
+nbPaths input from to = (M.! from) $ findAllPaths input M.empty to from
 
 part1 :: Input -> Output
 part1 input = nbPaths input "you" "out"
 
+passingThrough :: [String] -> Input -> String -> String -> Int
+passingThrough mustSee input from to = sum . map (product . map (uncurry (nbPaths input)) . (uncurry zip) . second (drop 1) . dupe) $ ways
+  where
+    ways = map ((++ [to]) . (from :)) $ permutations mustSee
+
 part2 :: Input -> Output
-part2 input = nbPaths input "svr" "out" -- (svrDac * dacFft * fftOut) + (svrFft * fftDac * dacOut)
+part2 input = passingThrough ["fft", "dac"] input "svr" "out" -- (svrDac * dacFft * fftOut) + (svrFft * fftDac * dacOut)
   where
     svrFft = nbPaths input "svr" "fft"
     svrDac = nbPaths input "svr" "dac"
@@ -61,5 +64,5 @@ main = do
 
   -- print input
 
-  print $ part1 input
-  print $ part2 input
+  print $ 701 == part1 input
+  print $ 390108778818526 == part2 input
