@@ -15,7 +15,7 @@ This year will do it in Haskell, but might try few days in Rust as well
 - [x] [Day 9](./Day09/README.md) (0.353s)
 - [x] [Day 10](./Day10/README.md) (74m39s)
 - [x] [Day 11](./Day11/README.md) (0.109s)
-- [ ] Day 12
+- [x] [Day 12](./Day12/README.md) (0.028s)
 
 ---
 
@@ -102,3 +102,11 @@ Today was really hard, spent all day on the part2, and even then only got a runt
 Today was a nice and appreciated rest compared to yesterday.
 
 [Code explanation](./Day11/README.md)
+
+### Day 12:
+
+Well.. as a general feedback, let's say the input was easier than expected...
+
+Even some code doing the wrong calculation can have the right results.
+
+[Code explanation](./Day12/README.md)
