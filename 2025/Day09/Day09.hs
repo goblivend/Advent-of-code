@@ -43,8 +43,9 @@ part2 redTiles = uncurry size . head . filter (uncurry limitNbSides . limitsOf) 
   where
     greenLines = map limitsOf $ zip redTiles (tail redTiles ++ [head redTiles])
 
-    greenCols = M.fromAscList . map (\((xy, xy') : l) -> (fst xy, (xy, xy') : l)) . groupBy (curry (uncurry (==) . both fst)) . sortOn (fst . fst) $ filter (uncurry (==) . both fst) greenLines
-    greenRows = M.fromAscList . map (\((xy, xy') : l) -> (snd xy, (xy, xy') : l)) . groupBy (curry (uncurry (==) . both snd)) . sortOn (snd . fst) $ filter (uncurry (==) . both snd) greenLines
+    greenCols = M.fromAscList . map (\((xy, xy') : l) -> (fst xy, (xy, xy') : l)) . groupBy (curry (uncurry (==) . both (fst . fst))) . sortOn (fst . fst) $ filter (uncurry (==) . both fst) greenLines
+    greenRows = M.fromAscList . map (\((xy, xy') : l) -> (snd xy, (xy, xy') : l)) . groupBy (curry (uncurry (==) . both (snd . snd))) . sortOn (snd . fst) $ filter (uncurry (==) . both snd) greenLines
+
 
     limitNbSides :: (Int, Int) -> (Int, Int) -> Bool
     limitNbSides (x, y) (x', y') = not $ any (uncurry (hitSides (x, y) (x', y'))) [(((x + x') `div` 2, y + 1), (0, 1)), ((x + 1, (y + y') `div` 2), (1, 0))]
