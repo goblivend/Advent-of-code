@@ -1,7 +1,9 @@
-module Main where
+module Day01.Main (day01) where
 
+import AOC.Cli (defaultUsage, getDefaultFlags)
+import AOC.Runtime (printRuntime)
+import Control.Monad (when)
 import Data.Tuple.Extra
-import System.Environment
 
 type Input = [Int]
 
@@ -43,11 +45,14 @@ part2 = sum . map (uncurry nbs0 . fix0) . uncurry zip .: (&&& id) . scanl turnDi
     fix0 (0, n) | n < 0 = (100, n)
     fix0 p = p
 
-main :: IO ()
-main = do
-  args <- getArgs
-  content <- readFile (last args)
-  let input = parseInput content
+day01 :: [String] -> IO ()
+day01 args = do
+  let (help, input, p1, p2) = getDefaultFlags 2025 01 args
 
-  print $ part1 50 input
-  print $ part2 50 input
+  if help
+    then defaultUsage 2025 01
+    else do
+      content <- readFile input
+      let inp = parseInput content
+      when p1 $ printRuntime ((++) "2025/Day01 Part1: " . show) (return (part1 50 inp))
+      when p2 $ printRuntime ((++) "2025/Day01 Part2: " . show) (return (part2 50 inp))

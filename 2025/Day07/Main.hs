@@ -1,22 +1,14 @@
-module Main where
+module Day07.Main (day07) where
 
-import Data.Bits
-import Data.List
-import Data.List.Split
-import Data.List.Unique
-import Data.Map (Map)
-import Data.Map qualified as M
-import Data.Matrix (Matrix, (!))
-import Data.Matrix qualified as Mat
-import Data.Maybe
+import AOC.Cli (defaultUsage, getDefaultFlags)
+import AOC.Runtime (printRuntime)
+import Control.Monad (when)
+import Data.List (elemIndex, singleton)
+import Data.Map qualified as M (fromAscList, elems, (!))
+import Data.Maybe (fromJust)
 import Data.Set (Set)
-import Data.Set qualified as S
-import Data.Tuple.Extra
-import Debug.Trace
-import System.Environment
-import Text.Regex.TDFA ((=~))
-
--- TODO: Cleanup imports after day done
+import Data.Set qualified as S (size, unions, fromAscList, filter, map, singleton)
+import Data.Tuple.Extra ((&&&), second, )
 
 type Input = ([[Bool]], Int)
 
@@ -39,7 +31,7 @@ part1 :: Input -> Output
 part1 = uncurry help . second S.singleton
   where
     help :: [[Bool]] -> Set Int -> Int
-    help [] xs = 0
+    help [] _ = 0
     help (line : m) xs = countHits + (help m newXs)
       where
         countHits = S.size $ S.filter (line !!) xs
@@ -56,13 +48,14 @@ part2 = head . uncurry help . second (singleton)
         newXs = concat $ M.elems newXsmp
         nextRes = M.fromAscList $ zip newXs (help m newXs)
 
-main :: IO ()
-main = do
-  args <- getArgs
-  content <- readFile (last args)
-  let input = parseInput content
+day07 :: [String] -> IO ()
+day07 args = do
+  let (help, input, p1, p2) = getDefaultFlags 2025 07 args
 
-  -- print input
-
-  print $ part1 input
-  print $ part2 input
+  if help
+    then defaultUsage 2025 07
+    else do
+      content <- readFile input
+      let inp = parseInput content
+      when p1 $ printRuntime ((++) "2025/Day07 Part1: " . show) (return (part1 inp))
+      when p2 $ printRuntime ((++) "2025/Day07 Part2: " . show) (return (part2 inp))

@@ -1,0 +1,71 @@
+cabal-version:      2.4
+name:               AdventOfCode
+version:            0.1.0.0
+license:            MIT
+build-type:         Simple
+
+common warnings
+    ghc-options: -Wall -O2
+
+common days_new
+    other-modules: Day01.Main,
+               Day02.Main,
+               Day03.Main,
+               Day04.Main,
+               Day05.Main,
+               Day06.Main,
+               Day07.Main,
+               Day08.Main,
+               Day09.Main,
+               Day10.Main,
+               Day11.Main,
+               Day12.Main
+
+library AOC
+    import:           warnings
+    exposed-modules: AOC,
+                     AOC.Cli,
+                     AOC.Runtime,
+                     AOC.Image,
+                     AOC.Utils
+    build-depends: base,
+                    JuicyPixels,
+
+
+    -- Directories containing source files.
+    hs-source-dirs:   haskell/commons
+
+    -- Base language which the package is written in.
+    default-language: GHC2021
+
+library AOC2025
+    import:           warnings, days_new
+    exposed-modules: AOC2025
+
+    hs-source-dirs:   2025
+    build-depends: base,
+                    extra,
+                    split,
+                    matrix,
+                    regex-tdfa,
+                    containers,
+                    Unique,
+                    JuicyPixels,
+                    parallel,
+                   AOC
+
+    default-language: GHC2021
+
+executable AdventOfCode
+    import:           warnings
+    hs-source-dirs:   .
+
+    main-is:          Main.hs
+
+    build-depends:    time,
+                      containers,
+                      base,
+                      AOC,
+                      AOC2025
+
+    default-language: GHC2021

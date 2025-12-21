@@ -1,24 +1,16 @@
-module Main where
+module Day10.Main (day10) where
 
-import Control.Parallel.Strategies
-import Data.Bits
-import Data.List
-import Data.List.Extra (maximumOn)
-import Data.List.Split (splitOn)
-import Data.List.Unique
+import AOC.Cli (defaultUsage, getDefaultFlags)
+import AOC.Runtime (printRuntime)
+import Control.Monad (when)
+import Control.Parallel.Strategies (rseq, parMap)
+import Data.List (sort, sortOn, subsequences, group)
+import Data.List.Extra (maximumOn, minimumOn)
 import Data.Map (Map)
-import Data.Map qualified as M
-import Data.Matrix (Matrix, (!))
-import Data.Matrix qualified as Mat
-import Data.Maybe
-import Data.Set (Set)
-import Data.Set qualified as S
-import Data.Tuple.Extra
-import Debug.Trace
-import System.Environment
-import Text.Regex.TDFA ((=~))
+import Data.Map qualified as M ((!), fromAscList, delete, size, adjust, keys, filter, null)
+import Data.Maybe (isJust, fromJust, listToMaybe)
+import Data.Tuple.Extra (second, first)
 
--- TODO: Cleanup imports after day done
 
 -- lights buttons jolt
 type Input = [([Bool], [[Int]], [Int])]
@@ -103,13 +95,14 @@ part2 = sum . parMap rseq (fromJust . uncurry f . first mapIt . second mapIt . (
         allEasyDoableForJt jt = {-# SCC allEasyDoableForJtCalculation #-} (>= tJolts M.! jt) . sum . map (minimum . map ((M.!) tJolts) . (M.!) buttons) $ validButtonsMp M.! jt
         allEasyDoable = {-# SCC allEasyDoableCalculation #-} all allEasyDoableForJt no0Jolts
 
-main :: IO ()
-main = do
-  args <- getArgs
-  content <- readFile (last args)
-  let input = parseInput content
+day10 :: [String] -> IO ()
+day10 args = do
+  let (help, input, p1, p2) = getDefaultFlags 2025 10 args
 
-  -- print input
-
-  print $ part1 input
-  print $ part2 input
+  if help
+    then defaultUsage 2025 10
+    else do
+      content <- readFile input
+      let inp = parseInput content
+      when p1 $ printRuntime ((++) "2025/Day10 Part1: " . show) (return (part1 inp))
+      when p2 $ printRuntime ((++) "2025/Day10 Part2: " . show) (return (part2 inp))

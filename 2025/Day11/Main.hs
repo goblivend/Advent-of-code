@@ -1,10 +1,12 @@
-module Main where
+module Day11.Main (day11) where
 
-import Data.List
+import AOC.Cli (defaultUsage, getDefaultFlags)
+import AOC.Runtime (printRuntime)
+import Control.Monad (when)
+import Data.List (permutations)
 import Data.Map (Map)
-import Data.Map qualified as M
-import Data.Tuple.Extra
-import System.Environment
+import Data.Map qualified as M (empty, fromList, insert, member, notMember, singleton, union, (!))
+import Data.Tuple.Extra (dupe, second)
 
 type Input = Map String [String]
 
@@ -38,13 +40,14 @@ passingThrough mustSee input from to = sum . map (product . map (uncurry (nbPath
 part2 :: Input -> Output
 part2 input = passingThrough ["fft", "dac"] input "svr" "out"
 
-main :: IO ()
-main = do
-  args <- getArgs
-  content <- readFile (last args)
-  let input = parseInput content
+day11 :: [String] -> IO ()
+day11 args = do
+  let (help, input, p1, p2) = getDefaultFlags 2025 11 args
 
-  -- print input
-
-  print $ part1 input
-  print $ part2 input
+  if help
+    then defaultUsage 2025 11
+    else do
+      content <- readFile input
+      let inp = parseInput content
+      when p1 $ printRuntime ((++) "2025/Day11 Part1: " . show) (return (part1 inp))
+      when p2 $ printRuntime ((++) "2025/Day11 Part2: " . show) (return (part2 inp))

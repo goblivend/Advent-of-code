@@ -1,19 +1,18 @@
-module Main where
+module Day09.Main (day09) where
 
-import Codec.Picture
+import AOC.Cli (defaultInput, getP1P2Flags, orDefault, usage)
+import AOC.Image (upScale)
+import AOC.Runtime (printRuntime, printRuntimeNoRes)
+import AOC.Utils (pairs)
+import Codec.Picture -- (Image, PixelRGB8, generateImage, writePng)
 import Control.Monad (when)
-import Data.List
-import Data.List.Extra
+import Data.List (groupBy, sortOn)
+import Data.List.Extra (maximumOn)
 import Data.Map (Map)
-import Data.Map qualified as M
-import Data.Maybe
-import Data.Set (Set)
-import Data.Set qualified as S
-import Data.Tuple.Extra
-import System.CPUTime
-import System.Console.GetOpt
-import System.Environment
-import Text.Printf
+import Data.Map qualified as M (fromAscList, member, (!))
+import Data.Set qualified as S (fromList, member)
+import Data.Tuple.Extra (both, dupe, second, (&&&))
+import System.Console.GetOpt (ArgDescr (..), ArgOrder (..), OptDescr (..), getOpt)
 
 type Input = [(Int, Int)]
 
@@ -21,9 +20,6 @@ type Output = Int
 
 parseInput :: String -> Input
 parseInput = map (read . (++ ")") . ("(" ++)) . lines
-
-pairs :: [a] -> [(a, a)]
-pairs l = [(x, y) | (x : l) <- tails l, y <- l]
 
 size :: (Num a) => (a, a) -> (a, a) -> a
 size (x, y) (x', y') = (abs (x - x') + 1) * (abs (y - y') + 1)
@@ -47,13 +43,14 @@ limitsOf ((x, y), (x', y')) -- Not really nice looking version but much faster
 groupLinesOn :: ((Int, Int) -> Int) -> [((Int, Int), (Int, Int))] -> Map Int [((Int, Int), (Int, Int))]
 groupLinesOn f = M.fromAscList . map (\((xy, xy') : l) -> (f xy, (xy, xy') : l)) . groupBy (curry (uncurry (==) . both (f . snd))) . sortOn (f . fst) . filter (uncurry (==) . both f)
 
+getLines :: [(Int, Int)] -> (Map Int [((Int, Int), (Int, Int))], Map Int [((Int, Int), (Int, Int))])
 getLines tiles = (&&&) (groupLinesOn fst) (groupLinesOn snd) . map limitsOf $ zip tiles (tail tiles ++ [head tiles])
 
 inCol :: (Ord a) => ((a, a), (a, a)) -> (a, a) -> Bool
-inCol ((x, y), (x', y')) (x'', y'') = x'' == x && y < y'' && y'' < y'
+inCol ((x, y), (_, y')) (x'', y'') = x'' == x && y < y'' && y'' < y'
 
 inRow :: (Ord a) => ((a, a), (a, a)) -> (a, a) -> Bool
-inRow ((x, y), (x', y')) (x'', y'') = y'' == y && x < x'' && x'' < x'
+inRow ((x, y), (x', _)) (x'', y'') = y'' == y && x < x'' && x'' < x'
 
 inIt :: (a -> b -> Bool) -> (b -> Int) -> Map Int [a] -> b -> Bool
 inIt f f' m xy = M.member (f' xy) m && any (flip f xy) (m M.! (f' xy))
@@ -80,16 +77,22 @@ part2' redTiles = head . filter (uncurry limitNbSides . limitsOf) $ filter noneD
 part2 :: Input -> Output
 part2 = uncurry size . part2'
 
+blankPixel :: PixelRGB8
 blankPixel = PixelRGB8 0 0 0
 
+redPixel :: PixelRGB8
 redPixel = PixelRGB8 255 0 0
 
+greenPixel :: PixelRGB8
 greenPixel = PixelRGB8 0 255 0
 
+p1Pixel :: PixelRGB8
 p1Pixel = PixelRGB8 0 255 255
 
+p2Pixel :: PixelRGB8
 p2Pixel = PixelRGB8 255 0 255
 
+inLine :: Map Int [((Int, Int), (Int, Int))] -> Map Int [((Int, Int), (Int, Int))] -> (Int, Int) -> Bool
 inLine greenCols greenRows xy = inIt inRow snd greenRows xy || inIt inCol fst greenCols xy
 
 inSqrBrdr :: ((Int, Int), (Int, Int)) -> (Int, Int) -> Bool
@@ -124,10 +127,6 @@ visualize dsf pad redTiles = generateImage go w h -- dsf == DownScaleFactor
 
     (greenCols, greenRows) = getLines newTiles
 
-upScale n img = generateImage getPixel' (imageWidth img * n) (imageHeight img * n)
-  where
-    getPixel' x y = pixelAt img (div x n) (div y n)
-
 data Flag = Input String | Help | Part1 | Part2 | Visualize | Output String | Upscale Int | Dsf Int | Padding Int
   deriving (Eq, Show)
 
@@ -144,55 +143,12 @@ options =
     Option ['u'] ["upscale"] (ReqArg (Upscale . read) "N") "Upscale to apply on the final image"
   ]
 
-orDefault :: a -> [a] -> a
-orDefault x l = fromMaybe x $ listToMaybe l
-
-measureRuntime :: (IO a) -> IO (Double, a)
-measureRuntime action = do
-  start <- getCPUTime
-  let !startTime = start -- Forcing evaluation
-  result <- action
-  let !res = result -- Forcing evaluation
-  end <- getCPUTime
-  let !endTime = end -- Forcing evaluation
-  let diff = fromIntegral (endTime - startTime) / (10 ^ 12) :: Double
-  return (diff, res)
-
-measureRuntimeNoRes :: (IO ()) -> IO Double
-measureRuntimeNoRes action = do
-  start <- getCPUTime
-  let !startTime = start -- Forcing evaluation
-  action
-  end <- getCPUTime
-  let !endTime = end -- Forcing evaluation
-  let diff = fromIntegral (endTime - startTime) / (10 ^ 12) :: Double
-  return diff
-
-formatTime :: Double -> String
-formatTime seconds
-  | seconds >= 60.0 = printf "%dmin%.0fs" minutes remainingSeconds
-  | otherwise = printf "%.3fs" seconds
-  where
-    minutes = floor (seconds / 60.0) :: Int
-    remainingSeconds = seconds - fromIntegral minutes * 60.0
-
-printRuntime :: (a -> String) -> IO a -> IO ()
-printRuntime strBuilder action = do
-  (time, res) <- measureRuntime action
-  let resStr = strBuilder res
-  putStrLn $ resStr ++ " in " ++ formatTime time
-
-printRuntimeNoRes :: String -> IO () -> IO ()
-printRuntimeNoRes str action = putStrLn . ((++) (str ++ " in ")) . formatTime =<< measureRuntimeNoRes action
-
-main :: IO ()
-main = do
-  args <- getArgs
+day09 :: [String] -> IO ()
+day09 args = do
   let (flags, _, _) = getOpt (ReturnInOrder Input) options args
   let help = Help `elem` flags
-      input = orDefault "input.txt" [f | Input f <- flags]
-      p1 = Part1 `elem` flags
-      p2 = Part2 `elem` flags
+      input = orDefault (defaultInput 2025 09) [f | Input f <- flags]
+      (p1, p2) = getP1P2Flags Part1 Part2 flags
       visu = Visualize `elem` flags
       output = orDefault "output.png" [f | Output f <- flags]
       up = orDefault 1 [n | Upscale n <- flags]
@@ -200,11 +156,11 @@ main = do
       pad = orDefault 0 [n | Padding n <- flags]
 
   if help
-    then putStrLn $ usageInfo "Usage: 2025-day09 [OPTIONS]" options
+    then usage 2025 09 options
     else do
       content <- readFile input
       let inp = parseInput content
 
-      when p1 $ printRuntime ((++) "Part1: " . show) (return (part1 inp))
-      when p2 $ printRuntime ((++) "Part2: " . show) (return (part2 inp))
-      when visu $ printRuntimeNoRes ("Wrote visualization to " ++ output) (writePng output $ upScale up $ visualize dsf pad inp)
+      when p1 $ printRuntime ((++) "2025/Day09 Part1: " . show) (return (part1 inp))
+      when p2 $ printRuntime ((++) "2025/Day09 Part2: " . show) (return (part2 inp))
+      when visu $ printRuntimeNoRes ("2025/Day09 Wrote visualization to " ++ output) (writePng output $ upScale up $ visualize dsf pad inp)

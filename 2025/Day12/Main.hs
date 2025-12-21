@@ -1,21 +1,12 @@
-module Main where
+module Day12.Main (day12) where
 
-import Data.Bits
-import Data.List
-import Data.List.Split
-import Data.List.Unique
+import AOC.Cli (defaultUsageFinalDay, getDefaultFlagsFinalDay)
+import AOC.Runtime (printRuntime)
+import Control.Monad (when)
+import Data.List.Split (splitOn)
 import Data.Map (Map)
-import Data.Map qualified as M
-import Data.Matrix (Matrix, (!))
-import Data.Matrix qualified as Mat
-import Data.Set (Set)
-import Data.Set qualified as S
-import Data.Tuple.Extra
-import Debug.Trace
-import System.Environment
-import Text.Regex.TDFA ((=~))
-
--- TODO: Cleanup imports after day done
+import Data.Map qualified as M (fromAscList, elems)
+import Data.Tuple.Extra (second, both, dupe, first)
 
 type Input = (Map Int [[Bool]], [((Int, Int), [Int])])
 
@@ -27,10 +18,6 @@ parseInput = second (map (parseSpot . words) . last) . first (M.fromAscList . ma
     parsePresent (id : shape) = (read $ init id, map (map (== '#')) shape)
     parseSpot (dims : l) = (both read . second (tail . init) . break (== 'x') $ dims, map read l)
 
-flipPresent = map reverse
-
-rotatePresent = reverse . transpose
-
 sizePresent :: [[Bool]] -> Int
 sizePresent = length . filter id . concat
 
@@ -39,12 +26,13 @@ part1 (presents, spots) = length . filter canFit $ spots
   where
     canFit ((w, h), press) = (<= w * h) . sum . map (uncurry (*)) . zip press . map sizePresent $ M.elems presents
 
-main :: IO ()
-main = do
-  args <- getArgs
-  content <- readFile (last args)
-  let input = parseInput content
+day12 :: [String] -> IO ()
+day12 args = do
+  let (help, input, p1) = getDefaultFlagsFinalDay 2025 12 args
 
-  print input
-
-  print $ 433 == part1 input
+  if help
+    then defaultUsageFinalDay 2025 12
+    else do
+      content <- readFile input
+      let inp = parseInput content
+      when p1 $ printRuntime ((++) "2025/Day12 Part1: " . show) (return (part1 inp))

@@ -1,8 +1,10 @@
-module Main where
+module Day02.Main (day02) where
 
+import AOC.Cli (defaultUsage, getDefaultFlags)
+import AOC.Runtime (printRuntime)
+import Control.Monad (when)
 import Data.List.Extra (replace)
 import Data.List.Split (splitOn)
-import System.Environment
 
 type Input = [(Int, Int)]
 
@@ -35,13 +37,14 @@ part2 = sumInvalid isInvalidForAll
   where
     isInvalidForAll s = not . null . filter (`isInvalidForN` s) $ [2 .. length s]
 
-main :: IO ()
-main = do
-  args <- getArgs
-  content <- readFile (last args)
-  let input = parseInput content
+day02 :: [String] -> IO ()
+day02 args = do
+  let (help, input, p1, p2) = getDefaultFlags 2025 02 args
 
-  print input
-
-  print $ part1 input
-  print $ part2 input
+  if help
+    then defaultUsage 2025 02
+    else do
+      content <- readFile input
+      let inp = parseInput content
+      when p1 $ printRuntime ((++) "2025/Day02 Part1: " . show) (return (part1 inp))
+      when p2 $ printRuntime ((++) "2025/Day02 Part2: " . show) (return (part2 inp))
