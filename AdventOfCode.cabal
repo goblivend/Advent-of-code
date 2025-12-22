@@ -33,7 +33,7 @@ library AOC
 
 
     -- Directories containing source files.
-    hs-source-dirs:   haskell/commons
+    hs-source-dirs:   haskell
 
     -- Base language which the package is written in.
     default-language: GHC2021
